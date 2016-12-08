@@ -2,8 +2,6 @@ package com.unitybars.r2d2.controller;
 
 import com.unitybars.r2d2.entity.Service;
 import com.unitybars.r2d2.service.ServiceService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,5 +29,4 @@ public class ServiceController {
     public Service getServiceById(@PathVariable("id") int id){
         return serviceService.getServiceById(id);
     }
-
 }
