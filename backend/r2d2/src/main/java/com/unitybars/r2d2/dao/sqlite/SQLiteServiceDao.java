@@ -40,7 +40,12 @@ public class SQLiteServiceDao implements ServiceDao {
 
     @Override
     public Service getServiceById(int id) {
-        return null;    // TODO implement
+        String sql = "SELECT SERVICE.*, SERVICE_STATUS.status as service_status, SERVICE_TYPE.name as service_type FROM SERVICE\n" +
+                "    JOIN SERVICE_TYPE  on SERVICE.service_type_id=SERVICE_TYPE.id\n" +
+                "    JOIN SERVICE_STATUS  on SERVICE.service_status_id=SERVICE_STATUS.id\n" +
+                "    WHERE SERVICE.id = ?";
+        return (Service) jdbcTemplate.queryForObject(sql, new ServiceRowMapper(), id);
+
     }
 
     public class ServiceRowMapper implements RowMapper {
