@@ -32,18 +32,18 @@ public class SQLiteServiceDao implements ServiceDao {
 
     @Override
     public List<Service> getAllServices() {
-        String sql = "SELECT SERVICE.*, SERVICE_STATUS.status as service_status, SERVICE_TYPE.name as service_type FROM SERVICE" +
-                " JOIN SERVICE_TYPE  on SERVICE.service_type_id=SERVICE_TYPE.id" +
-                " JOIN SERVICE_STATUS  on SERVICE.service_status_id=SERVICE_STATUS.id;";
+        String sql = "SELECT SERVICE.*, SERVICE_STATUS.status as service_status, SERVICE_TYPE.name as service_type FROM SERVICE\n" +
+                "JOIN SERVICE_TYPE  on SERVICE.service_type_id=SERVICE_TYPE.id\n" +
+                "JOIN SERVICE_STATUS  on SERVICE.service_status_id=SERVICE_STATUS.id;";
         return (List<Service>) jdbcTemplate.query(sql, new ServiceRowMapper());
     }
 
     @Override
     public Service getServiceById(int id) {
         String sql = "SELECT SERVICE.*, SERVICE_STATUS.status as service_status, SERVICE_TYPE.name as service_type FROM SERVICE\n" +
-                "    JOIN SERVICE_TYPE  on SERVICE.service_type_id=SERVICE_TYPE.id\n" +
-                "    JOIN SERVICE_STATUS  on SERVICE.service_status_id=SERVICE_STATUS.id\n" +
-                "    WHERE SERVICE.id = ?";
+                "JOIN SERVICE_TYPE  on SERVICE.service_type_id=SERVICE_TYPE.id\n" +
+                "JOIN SERVICE_STATUS  on SERVICE.service_status_id=SERVICE_STATUS.id\n" +
+                "WHERE SERVICE.id = ?;";
         return (Service) jdbcTemplate.queryForObject(sql, new ServiceRowMapper(), id);
 
     }
