@@ -2,6 +2,8 @@ package com.unitybars.r2d2.dao.sqlite;
 
 import com.unitybars.r2d2.dao.ServiceDao;
 import com.unitybars.r2d2.entity.Service;
+import com.unitybars.r2d2.entity.ServiceStatus;
+import com.unitybars.r2d2.entity.ServiceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -24,15 +26,16 @@ public class SQLiteServiceDao implements ServiceDao {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    @Qualifier("sqliteDataSource")
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
     public List<Service> getAllServices() {
-        String sql = "select * from SERVICE";
-        return (List<Service>)jdbcTemplate.query(sql, new ServiceRowMapper());
+        String sql = "SELECT SERVICE.*, SERVICE_STATUS.status as service_status, SERVICE_TYPE.name as service_type FROM SERVICE" +
+                " JOIN SERVICE_TYPE  on SERVICE.service_type_id=SERVICE_TYPE.id" +
+                " JOIN SERVICE_STATUS  on SERVICE.service_status_id=SERVICE_STATUS.id;";
+        return (List<Service>) jdbcTemplate.query(sql, new ServiceRowMapper());
     }
 
     @Override
@@ -41,14 +44,13 @@ public class SQLiteServiceDao implements ServiceDao {
     }
 
     public class ServiceRowMapper implements RowMapper {
-
         @Override
         public Object mapRow(ResultSet resultSet, int i) throws SQLException {
             return new Service(
                     resultSet.getInt("id"),
                     resultSet.getString("name"),
-                    null,
-                    null
+                    ServiceType.getServiceType(resultSet.getString("service_type")),
+                    ServiceStatus.getServiceType(resultSet.getString("service_status"))
             );
         }
     }
