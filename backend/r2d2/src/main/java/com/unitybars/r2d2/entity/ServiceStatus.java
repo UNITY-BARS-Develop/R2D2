@@ -5,5 +5,15 @@ package com.unitybars.r2d2.entity;
  * Date: 08-Dec-16.
  */
 public enum ServiceStatus {
-   ACTIVE, PAUSED, DELETED
+    ACTIVE, PAUSED, DELETED;
+
+    public static ServiceStatus getServiceType(String serviceStatus) {
+        for (ServiceStatus e : values()) {
+            if (e.toString().equalsIgnoreCase(serviceStatus)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
 }

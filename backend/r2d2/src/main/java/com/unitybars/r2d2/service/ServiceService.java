@@ -15,7 +15,7 @@ import java.util.List;
 public class ServiceService {
 
     @Autowired
-    @Qualifier("fakeData")
+    @Qualifier("databaseData")
     private ServiceDao serviceDao;
 
     public List<Service> getAllServices() {
