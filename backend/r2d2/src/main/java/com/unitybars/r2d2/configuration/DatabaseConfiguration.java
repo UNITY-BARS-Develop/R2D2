@@ -1,9 +1,7 @@
 package com.unitybars.r2d2.configuration;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -29,14 +27,4 @@ public class DatabaseConfiguration {
         return dataSource;
     }
 
-    @Bean
-    @Primary
-    public DataSource sqliteTestDataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getProperty("sqlitedb.datasource.driver"));
-        dataSource.setUrl(environment.getProperty("sqlitedb.datasource.test_url"));
-        dataSource.setUsername(environment.getProperty("sqlitedb.datasource.username"));
-        dataSource.setPassword(environment.getProperty("sqlitedb.datasource.password"));
-        return dataSource;
-    }
 }

@@ -26,7 +26,7 @@ public class ServiceController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Service getServiceById(@PathVariable("id") int id){
+    public Service getServiceById(@PathVariable("id") int id) {
         return serviceService.getServiceById(id);
     }
 }
