@@ -14,6 +14,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 public class DatabaseConfiguration {
+
     @Resource
     private Environment environment;
 

@@ -67,5 +67,4 @@ public class ServiceServiceTest extends AbstractTest {
         when(serviceDao.getServiceById(0)).thenReturn(null);
         assertEquals(0, service.getServiceById(0).getId());
     }
-
 }
