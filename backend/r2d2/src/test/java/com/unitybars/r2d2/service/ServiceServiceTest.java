@@ -61,10 +61,4 @@ public class ServiceServiceTest extends AbstractTest {
         when(serviceDao.getServiceById(1)).thenReturn(serviceItem);
         assertEquals(1, service.getServiceById(1).getId());
     }
-
-    @Test(expected = NullPointerException.class)
-    public void testGetServiceNotFound() {
-        when(serviceDao.getServiceById(0)).thenReturn(null);
-        assertEquals(0, service.getServiceById(0).getId());
-    }
 }
