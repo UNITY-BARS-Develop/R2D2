@@ -30,19 +30,18 @@ DROP TABLE IF EXISTS TASK_TYPE;
 
 DROP TABLE IF EXISTS TASK_TYPE_FIELD;
 
-
 CREATE TABLE SERVICE_STATUS (
-    id     INTEGER PRIMARY KEY AUTOINCREMENT
-                   UNIQUE
-                   NOT NULL,
-    status TEXT    NOT NULL
+    id          STRING PRIMARY KEY
+                       UNIQUE
+                       NOT NULL,
+    description TEXT   NOT NULL
 );
 
 CREATE TABLE SERVICE_TYPE (
-    id   INTEGER PRIMARY KEY AUTOINCREMENT
-                 UNIQUE
-                 NOT NULL,
-    name TEXT    NOT NULL
+    id          STRING PRIMARY KEY
+                       UNIQUE
+                       NOT NULL,
+    description TEXT   NOT NULL
 );
 
 CREATE TABLE SERVICE (
@@ -121,10 +120,10 @@ CREATE TABLE TASK (
 );
 
 CREATE TABLE CHECK_STATUS (
-    id   INTEGER PRIMARY KEY AUTOINCREMENT
-                 UNIQUE
-                 NOT NULL,
-    name STRING  NOT NULL
+    id          STRING PRIMARY KEY
+                       UNIQUE
+                       NOT NULL,
+    description TEXT   NOT NULL
 );
 
 CREATE TABLE CHECK_LOG (
