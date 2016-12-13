@@ -15,8 +15,11 @@ import java.util.List;
 public class ServiceService {
 
     @Autowired
-    @Qualifier("databaseData")
     private ServiceDao serviceDao;
+
+    void setServiceDao(ServiceDao serviceDao) {
+        this.serviceDao = serviceDao;
+    }
 
     public List<Service> getAllServices() {
         return serviceDao.getAllServices();

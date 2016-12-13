@@ -20,7 +20,7 @@ import java.util.List;
  * Date: 08-Dec-16.
  */
 @Repository
-@Qualifier("databaseData")
+@Qualifier("sqliteData")
 public class SQLiteServiceDao implements ServiceDao {
 
     private JdbcTemplate jdbcTemplate;
