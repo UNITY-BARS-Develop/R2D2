@@ -34,14 +34,14 @@ CREATE TABLE SERVICE_STATUS (
     id          STRING PRIMARY KEY
                        UNIQUE
                        NOT NULL,
-    description TEXT   NOT NULL
+    description TEXT
 );
 
 CREATE TABLE SERVICE_TYPE (
     id          STRING PRIMARY KEY
                        UNIQUE
                        NOT NULL,
-    description TEXT   NOT NULL
+    description TEXT
 );
 
 CREATE TABLE SERVICE (
@@ -123,7 +123,7 @@ CREATE TABLE CHECK_STATUS (
     id          STRING PRIMARY KEY
                        UNIQUE
                        NOT NULL,
-    description TEXT   NOT NULL
+    description TEXT
 );
 
 CREATE TABLE CHECK_LOG (

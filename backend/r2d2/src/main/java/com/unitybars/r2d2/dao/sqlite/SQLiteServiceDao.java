@@ -35,8 +35,8 @@ public class SQLiteServiceDao implements ServiceDao {
         String sql =
                 "SELECT " +
                         "SERVICE.*, " +
-                        "SERVICE_STATUS.status as service_status, " +
-                        "SERVICE_TYPE.name as service_type " +
+                        "SERVICE_STATUS.id as service_status, " +
+                        "SERVICE_TYPE.id as service_type " +
                 "FROM SERVICE " +
                         "JOIN SERVICE_TYPE  on SERVICE.service_type_id=SERVICE_TYPE.id " +
                         "JOIN SERVICE_STATUS  on SERVICE.service_status_id=SERVICE_STATUS.id";
@@ -48,8 +48,8 @@ public class SQLiteServiceDao implements ServiceDao {
         String sql =
                 "SELECT " +
                         "SERVICE.*, " +
-                        "SERVICE_STATUS.status as service_status, " +
-                        "SERVICE_TYPE.name as service_type " +
+                        "SERVICE_STATUS.id as service_status, " +
+                        "SERVICE_TYPE.id as service_type " +
                 "FROM SERVICE " +
                         "JOIN SERVICE_TYPE  on SERVICE.service_type_id=SERVICE_TYPE.id " +
                         "JOIN SERVICE_STATUS  on SERVICE.service_status_id=SERVICE_STATUS.id " +
