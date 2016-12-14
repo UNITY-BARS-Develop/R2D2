@@ -1,10 +1,10 @@
 -- create services with parameters
-INSERT INTO SERVICE ( id, name, service_type_id, service_status_id)  VALUES (1, "Service 1", 'WEB', 'ACTIVE');
-INSERT INTO SERVICE ( id, name, service_type_id, service_status_id)  VALUES (2, "Service 2", 'WEB', 'PAUSED');
-INSERT INTO SERVICE ( id, name, service_type_id, service_status_id)  VALUES (3, "Service 3", 'WEB', 'DELETED');
-INSERT INTO SERVICE ( id, name, service_type_id, service_status_id)  VALUES (4, "Service 4", 'SQL', 'ACTIVE');
-INSERT INTO SERVICE ( id, name, service_type_id, service_status_id)  VALUES (5, "Service 5", 'SQL', 'PAUSED');
-INSERT INTO SERVICE ( id, name, service_type_id, service_status_id)  VALUES (6, "Service 6", 'SQL', 'DELETED');
+INSERT INTO SERVICE (service_type_id, service_status_id, name, id) VALUES ('WEB', 'ACTIVE', 'Service 1', 1);
+INSERT INTO SERVICE (service_type_id, service_status_id, name, id) VALUES ('WEB', 'PAUSED', 'Service 2', 2);
+INSERT INTO SERVICE (service_type_id, service_status_id, name, id) VALUES ('WEB', 'DELETED', 'Service 3', 3);
+INSERT INTO SERVICE (service_type_id, service_status_id, name, id) VALUES ('SQL', 'ACTIVE', 'Service 4', 4);
+INSERT INTO SERVICE (service_type_id, service_status_id, name, id) VALUES ('SQL', 'PAUSED', 'Service 5', 5);
+INSERT INTO SERVICE (service_type_id, service_status_id, name, id) VALUES ('SQL', 'DELETED', 'Service 6', 6);
 
 INSERT INTO SERVICE_TYPE_PARAMETER_VALUES (service_type_parameter_id, service_id, value, id)
     VALUES
