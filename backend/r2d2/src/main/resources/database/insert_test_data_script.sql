@@ -11,6 +11,6 @@ INSERT INTO SERVICE_TYPE_PARAMETER_VALUES (service_type_parameter_id, service_id
         (1, 6, 'Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;', 1),
         (1, 5, 'Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;', 2),
         (1, 4, 'Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;', 3),
-        (2, 3, 'https://corplightdev.unity-bars.com:4443/', 4),
-        (2, 2, 'https://corplightdev.unity-bars.com:4443/', 5),
-        (2, 1, 'https://corplightdev.unity-bars.com:4443/', 6);
+        (2, 3, 'https://corplightdev.unity-bars.com:4443', 4),
+        (2, 2, 'https://corplightdev.unity-bars.com:4443', 5),
+        (2, 1, 'https://corplightdev.unity-bars.com:4443', 6);

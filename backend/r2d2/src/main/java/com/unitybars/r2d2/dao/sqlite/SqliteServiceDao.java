@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Repository
 @Qualifier("sqliteData")
-public class SQLiteServiceDao implements ServiceDao {
+public class SqliteServiceDao implements ServiceDao {
 
     private JdbcTemplate jdbcTemplate;
 
@@ -34,12 +34,12 @@ public class SQLiteServiceDao implements ServiceDao {
     public List<Service> getAllServices() {
         String sql =
                 "SELECT " +
-                        "SERVICE.*, " +
-                        "SERVICE_STATUS.id as service_status, " +
-                        "SERVICE_TYPE.id as service_type " +
+                    "SERVICE.*, " +
+                    "SERVICE_STATUS.id as service_status, " +
+                    "SERVICE_TYPE.id as service_type " +
                 "FROM SERVICE " +
-                        "JOIN SERVICE_TYPE  on SERVICE.service_type_id=SERVICE_TYPE.id " +
-                        "JOIN SERVICE_STATUS  on SERVICE.service_status_id=SERVICE_STATUS.id";
+                    "JOIN SERVICE_TYPE on SERVICE.service_type_id=SERVICE_TYPE.id " +
+                    "JOIN SERVICE_STATUS on SERVICE.service_status_id=SERVICE_STATUS.id";
         return (List<Service>) jdbcTemplate.query(sql, new ServiceRowMapper());
     }
 
@@ -47,16 +47,15 @@ public class SQLiteServiceDao implements ServiceDao {
     public Service getServiceById(int id) {
         String sql =
                 "SELECT " +
-                        "SERVICE.*, " +
-                        "SERVICE_STATUS.id as service_status, " +
-                        "SERVICE_TYPE.id as service_type " +
+                    "SERVICE.*, " +
+                    "SERVICE_STATUS.id as service_status, " +
+                    "SERVICE_TYPE.id as service_type " +
                 "FROM SERVICE " +
-                        "JOIN SERVICE_TYPE  on SERVICE.service_type_id=SERVICE_TYPE.id " +
-                        "JOIN SERVICE_STATUS  on SERVICE.service_status_id=SERVICE_STATUS.id " +
+                    "JOIN SERVICE_TYPE on SERVICE.service_type_id=SERVICE_TYPE.id " +
+                    "JOIN SERVICE_STATUS on SERVICE.service_status_id=SERVICE_STATUS.id " +
                 "WHERE " +
-                        "SERVICE.id = ?";
+                    "SERVICE.id = ?";
         return (Service) jdbcTemplate.queryForObject(sql, new ServiceRowMapper(), id);
-
     }
 
     public class ServiceRowMapper implements RowMapper {

@@ -1,5 +1,7 @@
 package com.unitybars.r2d2.entity;
 
+import java.util.HashMap;
+
 /**
  * Created by oleg.nestyuk
  * Date: 08-Dec-16.
@@ -9,6 +11,7 @@ public class Service {
     private String name;
     private ServiceType serviceType;
     private ServiceStatus serviceStatus;
+    private HashMap<String, String> parameters;
 
     public Service(int id, String name, ServiceType serviceType, ServiceStatus serviceStatus) {
         this.id = id;
@@ -50,5 +53,13 @@ public class Service {
 
     public void setServiceStatus(ServiceStatus serviceStatus) {
         this.serviceStatus = serviceStatus;
+    }
+
+    public HashMap<String, String> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(HashMap<String, String> parameters) {
+        this.parameters = parameters;
     }
 }

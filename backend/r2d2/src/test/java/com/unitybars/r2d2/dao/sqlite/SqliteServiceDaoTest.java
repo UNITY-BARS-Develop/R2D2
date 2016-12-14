@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotNull;
  * Created by oleg.nestyuk
  * Date: 12-Dec-16.
  */
-public class ServiceDaoTest extends AbstractDaoTest {
+public class SqliteServiceDaoTest extends AbstractDaoTest {
 
     @Autowired
     private ServiceDao serviceDao;
