@@ -1,7 +1,6 @@
 package com.unitybars.r2d2.dao.sqlite;
 
 import com.unitybars.r2d2.dao.ServiceTypeParameterValueDao;
-import com.unitybars.r2d2.entity.ServiceTypeParameter;
 import com.unitybars.r2d2.entity.ServiceTypeParameterValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

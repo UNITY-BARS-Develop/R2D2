@@ -14,3 +14,15 @@ INSERT INTO SERVICE_TYPE_PARAMETER_VALUES (service_type_parameter_id, service_id
         (2, 3, 'https://corplightdev.unity-bars.com:4443', 4),
         (2, 2, 'https://corplightdev.unity-bars.com:4443', 5),
         (2, 1, 'https://corplightdev.unity-bars.com:4443', 6);
+
+-- create tasks with values
+INSERT INTO TASK (task_type_id, service_id, name, expected_value, id)
+    VALUES  ('SQLRequest', 4, 'Task 1', 'some expected value 1', 3),
+            ('JSON', 2 ,'Task 2' ,200, 1),
+            ('StatusCode', 2, 'Task 1', 200, 2);
+
+INSERT INTO TASK_FIELD_VALUE (task_type_field_id, task_id, value, id)
+    VALUES  (1, 3, 'SELECT * FROM tablename', 1),
+            (2, 3, 'Oracle', 2),
+            (3, 1, 'Status', 3);
+

@@ -1,5 +1,7 @@
 package com.unitybars.r2d2.entity;
 
+import java.util.HashMap;
+
 /**
  * Created by oleg.nestyuk
  * Date: 14-Dec-16.
@@ -10,6 +12,7 @@ public class Task {
     private TaskType taskType;
     private String expectedValue;
     private String name;
+    private HashMap<String, String> fields;
 
     public Task(int id, int serviceId, TaskType taskType, String expectedValue, String name) {
         this.id = id;
@@ -57,5 +60,13 @@ public class Task {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public HashMap<String, String> getFields() {
+        return fields;
+    }
+
+    public void setFields(HashMap<String, String> fields) {
+        this.fields = fields;
     }
 }
