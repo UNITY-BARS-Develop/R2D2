@@ -19,7 +19,8 @@ public class TaskCheckLog {
     public TaskCheckLog() {
     }
 
-    public TaskCheckLog(long id, String taskName, String taskType, String expectedValue, String resultValue, Date date, CheckStatus checkStatus, long serviceCheckLogId) {
+    public TaskCheckLog(long id, String taskName, String taskType, String expectedValue, String resultValue, Date date,
+                        CheckStatus checkStatus, long serviceCheckLogId) {
         this.id = id;
         this.taskName = taskName;
         this.taskType = taskType;
