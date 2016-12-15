@@ -11,7 +11,7 @@ import java.util.List;
 public interface CheckLogDao {
     long insertCheckLog(CheckLog checkLog);
 
-    CheckLog getCheckLogById(int id);
+    CheckLog getCheckLogById(long id);
 
     List<CheckLog> getAllCheckLogs();
 }

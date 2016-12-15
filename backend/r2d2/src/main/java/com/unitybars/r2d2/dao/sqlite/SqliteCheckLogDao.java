@@ -6,14 +6,12 @@ import com.unitybars.r2d2.utils.Formatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,7 +45,7 @@ public class SqliteCheckLogDao implements CheckLogDao {
     }
 
     @Override
-    public CheckLog getCheckLogById(int id) {
+    public CheckLog getCheckLogById(long id) {
         String sql = "SELECT * " +
                 "FROM CHECK_LOG " +
                 "WHERE CHECK_LOG.id = ?";
