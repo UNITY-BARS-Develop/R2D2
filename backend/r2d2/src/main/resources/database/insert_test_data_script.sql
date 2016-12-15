@@ -30,3 +30,24 @@ INSERT INTO TASK_FIELD_VALUE ( task_type_field_id, task_id, value, id )
             ( 2, 3, 'Oracle', 2 ),
             ( 3, 1, 'Status', 3 );
 
+-- create logs
+INSERT INTO CHECK_LOG (date,id)
+    VALUES   ('14-12-2016 00:00:00', 1),
+             ('15-12-2016 00:00:00', 2);
+
+INSERT INTO SERVICE_CHECK_LOG (check_log_id,id,date,service_name)
+    VALUES  (1,1,'14-12-2016 00:00:00','Service 1'),
+            (1,2,'14-12-2016 00:00:00','Service 2'),
+            (1,3,'14-12-2016 00:00:00','Service 3'),
+            (2,4,'15-12-2016 00:00:00','Service 1'),
+            (2,5,'15-12-2016 00:00:00','Service 2'),
+            (2,6,'15-12-2016 00:00:00','Service 3');
+
+INSERT INTO TASK_CHECK_LOG ( check_status_id, service_check_log_id, id, date, result_value, expected_value, task_type, task_name )
+    VALUES  ( 'ERROR', 1, 1, '14-12-2016 00:00:00', 401, 200, 'JSON', 'Task 1. S1' ),
+            ( 'SUCCESS', 2, 2, '14-12-2016 00:00:00', 200, 200, 'StatusCode', 'Task 1.S2' ),
+            ( 'SUCCESS', 3, 3, '14-12-2016 00:00:00', 'OK', 'OK', 'JSON', 'Task 1.S3' ),
+            ( 'SUCCESS', 1, 4, '15-12-2016 00:00:00', 200, 200, 'JSON', 'Task 1. S1' ),
+            ( 'ERROR', 2, 5, '15-12-2016 00:00:00', 500, 200, 'StatusCode', 'Task 1.S2' ),
+            ( 'ERROR', 3, 6, '15-12-2016 00:00:00', 'ERROR', 'OK', 'JSON', 'Task 1.S3' );
+

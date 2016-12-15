@@ -130,9 +130,7 @@ CREATE TABLE CHECK_LOG (
     id              INTEGER  PRIMARY KEY AUTOINCREMENT
                              UNIQUE
                              NOT NULL,
-    date            DATETIME NOT NULL,
-    check_status_id INTEGER  REFERENCES CHECK_STATUS (id) ON DELETE NO ACTION
-                                                          ON UPDATE NO ACTION
+    date            DATETIME NOT NULL
 );
 
 CREATE TABLE SERVICE_CHECK_LOG (
