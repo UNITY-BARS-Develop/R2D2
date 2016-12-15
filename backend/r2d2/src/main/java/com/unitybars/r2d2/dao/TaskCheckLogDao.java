@@ -11,7 +11,7 @@ import java.util.List;
 public interface TaskCheckLogDao {
     long insertTaskCheckLog(TaskCheckLog taskCheckLog);
 
-    TaskCheckLog getTaskCheckLogById(int id);
+    TaskCheckLog getTaskCheckLogById(long id);
 
-    List<TaskCheckLog> getTaskCheckLogsForServiceCheckLog(int serviceCheckLogId);
+    List<TaskCheckLog> getTaskCheckLogsForServiceCheckLog(long serviceCheckLogId);
 }

@@ -1,8 +1,7 @@
 package com.unitybars.r2d2.dao.sqlite;
 
-import com.unitybars.r2d2.AbstractTest;
+import com.unitybars.r2d2.dao.AbstractDaoTest;
 import com.unitybars.r2d2.dao.ServiceCheckLogDao;
-import com.unitybars.r2d2.entity.CheckLog;
 import com.unitybars.r2d2.entity.ServiceCheckLog;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,7 @@ import static org.junit.Assert.assertNotNull;
  * Created by oleg.nestyuk
  * Date: 15-Dec-16.
  */
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class SqliteServiceCheckLogDaoTest extends AbstractTest {
+public class SqliteServiceCheckLogDaoTest extends AbstractDaoTest {
     @Autowired
     private ServiceCheckLogDao serviceCheckLogDao;
 

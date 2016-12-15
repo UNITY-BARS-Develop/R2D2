@@ -1,7 +1,6 @@
 package com.unitybars.r2d2.dao.sqlite;
 
-import com.unitybars.r2d2.AbstractTest;
-import com.unitybars.r2d2.dao.TaskDao;
+import com.unitybars.r2d2.dao.AbstractDaoTest;
 import com.unitybars.r2d2.dao.TaskFieldValueDao;
 import com.unitybars.r2d2.entity.TaskFieldValue;
 import com.unitybars.r2d2.entity.TaskType;
@@ -10,13 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by oleg.nestyuk
  * Date: 14-Dec-16.
  */
-public class SqliteTaskFieldValueDaoTest extends AbstractTest {
+public class SqliteTaskFieldValueDaoTest extends AbstractDaoTest {
 
     @Autowired
     private TaskFieldValueDao taskFieldValueDao;

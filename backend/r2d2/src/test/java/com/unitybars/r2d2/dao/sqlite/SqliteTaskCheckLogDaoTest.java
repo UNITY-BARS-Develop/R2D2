@@ -1,7 +1,6 @@
 package com.unitybars.r2d2.dao.sqlite;
 
-import com.unitybars.r2d2.AbstractTest;
-import com.unitybars.r2d2.dao.CheckLogDao;
+import com.unitybars.r2d2.dao.AbstractDaoTest;
 import com.unitybars.r2d2.dao.TaskCheckLogDao;
 import com.unitybars.r2d2.entity.CheckStatus;
 import com.unitybars.r2d2.entity.TaskCheckLog;
@@ -12,14 +11,14 @@ import org.springframework.test.annotation.DirtiesContext;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by oleg.nestyuk
  * Date: 15-Dec-16.
  */
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class SqliteTaskCheckLogDaoTest extends AbstractTest {
+public class SqliteTaskCheckLogDaoTest extends AbstractDaoTest {
     @Autowired
     private TaskCheckLogDao taskCheckLogDao;
 

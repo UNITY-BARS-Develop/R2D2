@@ -53,7 +53,7 @@ public class SqliteTaskCheckLogDao implements TaskCheckLogDao {
     }
 
     @Override
-    public TaskCheckLog getTaskCheckLogById(int id) {
+    public TaskCheckLog getTaskCheckLogById(long id) {
         String sql = "SELECT * " +
                 "FROM TASK_CHECK_LOG " +
                 "WHERE TASK_CHECK_LOG.id = ?";
@@ -61,7 +61,7 @@ public class SqliteTaskCheckLogDao implements TaskCheckLogDao {
     }
 
     @Override
-    public List<TaskCheckLog> getTaskCheckLogsForServiceCheckLog(int serviceCheckLogId) {
+    public List<TaskCheckLog> getTaskCheckLogsForServiceCheckLog(long serviceCheckLogId) {
         String sql = "SELECT * " +
                 "FROM TASK_CHECK_LOG " +
                 "WHERE TASK_CHECK_LOG.service_check_log_id = ?";

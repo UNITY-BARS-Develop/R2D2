@@ -1,23 +1,22 @@
 package com.unitybars.r2d2.dao.sqlite;
 
-import com.unitybars.r2d2.AbstractTest;
+import com.unitybars.r2d2.dao.AbstractDaoTest;
 import com.unitybars.r2d2.dao.CheckLogDao;
 import com.unitybars.r2d2.entity.CheckLog;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by oleg.nestyuk
  * Date: 15-Dec-16.
  */
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class SqliteCheckLogDaoTest extends AbstractTest {
+public class SqliteCheckLogDaoTest extends AbstractDaoTest {
     @Autowired
     private CheckLogDao checkLogDao;
 

@@ -1,7 +1,6 @@
 package com.unitybars.r2d2.dao.sqlite;
 
-import com.unitybars.r2d2.AbstractTest;
-import com.unitybars.r2d2.dao.ServiceDao;
+import com.unitybars.r2d2.dao.AbstractDaoTest;
 import com.unitybars.r2d2.dao.TaskDao;
 import com.unitybars.r2d2.entity.Task;
 import com.unitybars.r2d2.entity.TaskType;
@@ -9,7 +8,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -18,7 +16,7 @@ import static org.junit.Assert.*;
  * Created by oleg.nestyuk
  * Date: 14-Dec-16.
  */
-public class SqliteTaskDaoTest extends AbstractTest {
+public class SqliteTaskDaoTest extends AbstractDaoTest {
 
     @Autowired
     private TaskDao taskDao;

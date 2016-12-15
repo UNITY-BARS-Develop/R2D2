@@ -1,6 +1,6 @@
 package com.unitybars.r2d2.dao.sqlite;
 
-import com.unitybars.r2d2.AbstractTest;
+import com.unitybars.r2d2.dao.AbstractDaoTest;
 import com.unitybars.r2d2.dao.ServiceTypeParameterValueDao;
 import com.unitybars.r2d2.entity.ServiceTypeParameterValue;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNotNull;
  * Created by oleg.nestyuk
  * Date: 14-Dec-16.
  */
-public class SqliteServiceTypeParameterValueDaoTest extends AbstractTest {
+public class SqliteServiceTypeParameterValueDaoTest extends AbstractDaoTest {
 
     @Autowired
     private ServiceTypeParameterValueDao serviceTypeParameterValueDao;

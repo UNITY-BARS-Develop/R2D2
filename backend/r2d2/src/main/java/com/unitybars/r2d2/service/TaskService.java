@@ -2,7 +2,6 @@ package com.unitybars.r2d2.service;
 
 import com.unitybars.r2d2.dao.TaskDao;
 import com.unitybars.r2d2.dao.TaskFieldValueDao;
-import com.unitybars.r2d2.entity.ServiceTypeParameterValue;
 import com.unitybars.r2d2.entity.Task;
 import com.unitybars.r2d2.entity.TaskFieldValue;
 import org.springframework.beans.factory.annotation.Autowired;
