@@ -14,6 +14,9 @@ public class Task {
     private String name;
     private HashMap<String, String> fields;
 
+    public Task() {
+    }
+
     public Task(int id, int serviceId, TaskType taskType, String expectedValue, String name) {
         this.id = id;
         this.serviceId = serviceId;

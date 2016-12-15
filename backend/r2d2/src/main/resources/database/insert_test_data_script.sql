@@ -21,8 +21,12 @@ INSERT INTO TASK (task_type_id, service_id, name, expected_value, id)
             ('JSON', 2 ,'Task 2' ,200, 1),
             ('StatusCode', 2, 'Task 1', 200, 2);
 
-INSERT INTO TASK_FIELD_VALUE (task_type_field_id, task_id, value, id)
-    VALUES  (1, 3, 'SELECT * FROM tablename', 1),
-            (2, 3, 'Oracle', 2),
-            (3, 1, 'Status', 3);
+INSERT INTO TASK_FIELD_VALUE ( task_type_field_id, task_id, value, id )
+    VALUES  ( 7, 2, 'Content-Type:text/plain', 7 ),
+            ( 7, 2, 'key:AAAAAAAA', 6 ),
+            ( 5, 2, 'GET', 5 ),
+            ( 4, 1, 'GET', 4 ),
+            ( 1, 3, 'SELECT * FROM tablename', 1 ),
+            ( 2, 3, 'Oracle', 2 ),
+            ( 3, 1, 'Status', 3 );
 

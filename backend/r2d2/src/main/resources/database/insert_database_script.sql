@@ -38,7 +38,12 @@ INSERT INTO TASK_TYPE_FIELD ( task_type_id, format, count, name, id )
     VALUES
         ('SQLRequest', NULL, 1, 'Request', 1 ),
         ('SQLRequest', NULL, 1, 'Database type', 2 ),
-        ('JSON', NULL, 1, 'JSON field name', 3 );
+        ('JSON', NULL, 1, 'JSON field name', 3 ),
+        ('StatusCode','{name}:{value}',0,'Header',7),
+        ('JSON','{name}:{value}',0,'Header',6),
+        ('StatusCode',NULL,1,'Request method',5),
+        ('JSON',NULL,1,'Request method',4);
+
 
 INSERT INTO SERVICE_TYPE_PARAMETER (service_type_id, name, id)
     VALUES
