@@ -61,7 +61,7 @@ public class TaskServiceTest extends AbstractTest {
     public void getTaskById() throws Exception {
         Task myTask = new Task(1, 1, TaskType.StatusCode, "200", "Task 1");
         TaskTypeField taskTypeField1 = new TaskTypeField(1, TaskType.StatusCode, "Request method", 1, null);
-        TaskTypeField taskTypeField2 = new TaskTypeField(2, TaskType.StatusCode, "Header", 0, null);
+        TaskTypeField taskTypeField2 = new TaskTypeField(2, TaskType.StatusCode, "HeaderItem", 0, null);
         TaskFieldValue taskFieldValue1 = new TaskFieldValue(1, 1, taskTypeField1, "GET");
         TaskFieldValue taskFieldValue2 = new TaskFieldValue(2, 1, taskTypeField2, "Content-type:text/plain");
         TaskFieldValue taskFieldValue3 = new TaskFieldValue(3, 1, taskTypeField2, "key:AAAAAA");
@@ -91,7 +91,7 @@ public class TaskServiceTest extends AbstractTest {
         taskList.add(new Task(2, 1, TaskType.JSON, "200", "Task 2"));
         taskList.add(new Task(3, 1, TaskType.SQLRequest, "", "Task 3"));
         TaskTypeField taskTypeField1 = new TaskTypeField(1, TaskType.StatusCode, "Request method", 1, null);
-        TaskTypeField taskTypeField2 = new TaskTypeField(2, TaskType.JSON, "Header", 0, null);
+        TaskTypeField taskTypeField2 = new TaskTypeField(2, TaskType.JSON, "HeaderItem", 0, null);
         TaskTypeField taskTypeField3 = new TaskTypeField(3, TaskType.SQLRequest, "Database type", 1, null);
         TaskFieldValue taskFieldValue1 = new TaskFieldValue(1, 1, taskTypeField1, "GET");
         TaskFieldValue taskFieldValue2 = new TaskFieldValue(2, 2, taskTypeField2, "Content-Type:application/json");

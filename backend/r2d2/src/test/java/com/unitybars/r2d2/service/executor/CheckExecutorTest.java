@@ -1,12 +1,9 @@
 package com.unitybars.r2d2.service.executor;
 
 import com.unitybars.r2d2.AbstractTest;
-import com.unitybars.r2d2.service.CheckService;
-import com.unitybars.r2d2.service.LogService;
-import com.unitybars.r2d2.service.ServiceService;
-import com.unitybars.r2d2.service.TaskService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 /**
  * Created by oleg.nestyuk
@@ -15,17 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class CheckExecutorTest extends AbstractTest {
 
     @Autowired
-    LogService logService;
-
-    @Autowired
-    ServiceService serviceService;
-
-    @Autowired
-    TaskService taskService;
+    ApplicationContext applicationContext;
 
     @Test
     public void start() throws Exception {
-        CheckExecutor checkExecutor = new CheckExecutor(logService, serviceService, taskService);
+        CheckExecutor checkExecutor = applicationContext.getBean(CheckExecutor.class);
         checkExecutor.start();
     }
 }

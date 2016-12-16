@@ -5,7 +5,7 @@ package com.unitybars.r2d2.exception;
  * Date: 16-Dec-16.
  */
 public class FunctionalityNotImplemented extends Exception {
-    private static final String globalMessage = "This functionality didn't implement";
+    private static final String globalMessage = "This functionality didn't implement.";
 
     public FunctionalityNotImplemented() {
         super(getExceptionMessage());
@@ -30,7 +30,7 @@ public class FunctionalityNotImplemented extends Exception {
 
     private static String getExceptionMessage(String message) {
         if (message != null && message.length() > 0) {
-            return String.format("%s\n%s", globalMessage, message);
+            return String.format("%s %s", globalMessage, message);
         } else {
             return getExceptionMessage();
         }

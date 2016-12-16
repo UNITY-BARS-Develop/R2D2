@@ -1,5 +1,6 @@
 package com.unitybars.r2d2.service.executor.task;
 
+import com.unitybars.r2d2.entity.Service;
 import com.unitybars.r2d2.entity.Task;
 
 /**
@@ -7,5 +8,5 @@ import com.unitybars.r2d2.entity.Task;
  * Date: 16-Dec-16.
  */
 public interface TaskExecutorCreator {
-    TaskExecutor factoryMethod(Task task);
+    TaskExecutor factoryMethod(Task task, Service service);
 }
