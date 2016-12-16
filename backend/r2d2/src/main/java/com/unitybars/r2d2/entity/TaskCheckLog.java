@@ -94,4 +94,10 @@ public class TaskCheckLog {
     public void setId(long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Task: %s -> %s\n\tExpected: %s\n\tResult: %s", taskName, checkStatus.name(),
+                expectedValue, resultValue);
+    }
 }
