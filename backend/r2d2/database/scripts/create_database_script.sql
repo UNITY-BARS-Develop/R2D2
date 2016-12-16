@@ -1,48 +1,47 @@
-DROP TABLE IF EXISTS CHECK_LOG;
+DROP TABLE IF EXISTS SERVICE_TYPE_PARAMETER_VALUES;
 
-DROP TABLE IF EXISTS CHECK_STATUS;
+DROP TABLE IF EXISTS SERVICE_TYPE_PARAMETER;
+
+DROP TABLE IF EXISTS TASK_FIELD_VALUE;
+
+DROP TABLE IF EXISTS TASK_TYPE_FIELD;
+
+DROP TABLE IF EXISTS TASK;
+
+DROP TABLE IF EXISTS TASK_TYPE;
+
+DROP TABLE IF EXISTS SERVICE;
+
+DROP TABLE IF EXISTS SERVICE_TYPE;
+
+DROP TABLE IF EXISTS SERVICE_STATUS;
+
+DROP TABLE IF EXISTS SETTINGS;
 
 DROP TABLE IF EXISTS DICTIONARY_DATABASE_TYPE;
 
 DROP TABLE IF EXISTS DICTIONARY_REQUEST_METHOD;
 
-DROP TABLE IF EXISTS SERVICE;
-
-DROP TABLE IF EXISTS SERVICE_CHECK_LOG;
-
-DROP TABLE IF EXISTS SERVICE_STATUS;
-
-DROP TABLE IF EXISTS SERVICE_TYPE;
-
-DROP TABLE IF EXISTS SERVICE_TYPE_PARAMETER;
-
-DROP TABLE IF EXISTS SERVICE_TYPE_PARAMETER_VALUES;
-
-DROP TABLE IF EXISTS SETTINGS;
-
-DROP TABLE IF EXISTS TASK;
+DROP TABLE IF EXISTS CHECK_STATUS;
 
 DROP TABLE IF EXISTS TASK_CHECK_LOG;
 
-DROP TABLE IF EXISTS TASK_FIELD_VALUE;
+DROP TABLE IF EXISTS SERVICE_CHECK_LOG;
 
-DROP TABLE IF EXISTS TASK_TYPE;
-
-DROP TABLE IF EXISTS TASK_TYPE_FIELD;
-
+DROP TABLE IF EXISTS CHECK_LOG;
 
 CREATE TABLE SERVICE_STATUS (
-    id     INTEGER PRIMARY KEY AUTOINCREMENT
-                   UNIQUE
-                   NOT NULL,
-    status TEXT    NOT NULL
+    id          STRING PRIMARY KEY
+                       UNIQUE
+                       NOT NULL,
+    description TEXT
 );
 
 CREATE TABLE SERVICE_TYPE (
-    id   INTEGER PRIMARY KEY AUTOINCREMENT
-                 UNIQUE
-                 NOT NULL,
-    name TEXT    NOT NULL
+    id          STRING PRIMARY KEY
+                       UNIQUE
+                       NOT NULL,
+    description TEXT
 );
 
 CREATE TABLE SERVICE (
@@ -50,9 +49,9 @@ CREATE TABLE SERVICE (
                               UNIQUE
                               NOT NULL,
     name              STRING  NOT NULL,
-    service_status_id INTEGER REFERENCES SERVICE_STATUS (id) ON DELETE NO ACTION
+    service_status_id STRING  REFERENCES SERVICE_STATUS (id) ON DELETE NO ACTION
                                                              ON UPDATE NO ACTION,
-    service_type_id   INTEGER REFERENCES SERVICE_TYPE (id) ON DELETE NO ACTION
+    service_type_id   STRING  REFERENCES SERVICE_TYPE (id) ON DELETE NO ACTION
                                                            ON UPDATE NO ACTION
 );
 
@@ -61,7 +60,7 @@ CREATE TABLE SERVICE_TYPE_PARAMETER (
                             UNIQUE
                             NOT NULL,
     name            STRING  NOT NULL,
-    service_type_id INTEGER REFERENCES SERVICE_TYPE (id) ON DELETE NO ACTION
+    service_type_id STRING  REFERENCES SERVICE_TYPE (id) ON DELETE NO ACTION
                                                          ON UPDATE NO ACTION
 );
 
@@ -77,12 +76,12 @@ CREATE TABLE SERVICE_TYPE_PARAMETER_VALUES (
 );
 
 CREATE TABLE TASK_TYPE (
-    id              INTEGER PRIMARY KEY AUTOINCREMENT
-                            UNIQUE
-                            NOT NULL,
-    name            STRING  NOT NULL,
-    service_type_id INTEGER REFERENCES SERVICE_TYPE (id) ON DELETE NO ACTION
-                                                         ON UPDATE NO ACTION
+    id              STRING PRIMARY KEY
+                           UNIQUE
+                           NOT NULL,
+    description     STRING,
+    service_type_id STRING REFERENCES SERVICE_TYPE (id) ON DELETE NO ACTION
+                                                        ON UPDATE NO ACTION
 );
 
 CREATE TABLE TASK_TYPE_FIELD (
@@ -93,7 +92,7 @@ CREATE TABLE TASK_TYPE_FIELD (
     count        INTEGER NOT NULL
                          DEFAULT 1,
     format       TEXT,
-    task_type_id INTEGER REFERENCES TASK_TYPE (id) ON DELETE NO ACTION
+    task_type_id STRING  REFERENCES TASK_TYPE (id) ON DELETE NO ACTION
                                                    ON UPDATE NO ACTION
 );
 
@@ -116,24 +115,22 @@ CREATE TABLE TASK (
     name           STRING  NOT NULL,
     service_id     INTEGER REFERENCES SERVICE (id) ON DELETE NO ACTION
                                                    ON UPDATE NO ACTION,
-    task_type_id   INTEGER REFERENCES TASK_TYPE (id) ON DELETE NO ACTION
+    task_type_id   STRING  REFERENCES TASK_TYPE (id) ON DELETE NO ACTION
                                                      ON UPDATE NO ACTION
 );
 
 CREATE TABLE CHECK_STATUS (
-    id   INTEGER PRIMARY KEY AUTOINCREMENT
-                 UNIQUE
-                 NOT NULL,
-    name STRING  NOT NULL
+    id          STRING PRIMARY KEY
+                       UNIQUE
+                       NOT NULL,
+    description TEXT
 );
 
 CREATE TABLE CHECK_LOG (
     id              INTEGER  PRIMARY KEY AUTOINCREMENT
                              UNIQUE
                              NOT NULL,
-    date            DATETIME NOT NULL,
-    check_status_id INTEGER  REFERENCES CHECK_STATUS (id) ON DELETE NO ACTION
-                                                          ON UPDATE NO ACTION
+    date            DATETIME NOT NULL
 );
 
 CREATE TABLE SERVICE_CHECK_LOG (
@@ -157,7 +154,7 @@ CREATE TABLE TASK_CHECK_LOG (
                                   NOT NULL,
     service_check_log_id INTEGER  REFERENCES SERVICE_CHECK_LOG (id) ON DELETE NO ACTION
                                                                     ON UPDATE NO ACTION,
-    check_status_id      INTEGER  REFERENCES CHECK_STATUS (id) ON DELETE NO ACTION
+    check_status_id      STRING   REFERENCES CHECK_STATUS (id) ON DELETE NO ACTION
                                                                ON UPDATE NO ACTION
 );
 
