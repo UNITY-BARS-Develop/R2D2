@@ -30,21 +30,27 @@ public class SqliteTaskFieldValueDaoTest extends AbstractDaoTest {
     public void getAllTaskFieldValues() {
         List<TaskFieldValue> taskFieldValues = taskFieldValueDao.getAllTaskFieldValues();
         assertNotNull(taskFieldValues);
-        assertEquals(7, taskFieldValues.size());
+        assertEquals(8, taskFieldValues.size());
     }
 
     @Test
     public void getTaskFieldValuesForTask() {
-        List<TaskFieldValue> taskFieldValues = taskFieldValueDao.getTaskFieldValuesForTask(3);
-        assertNotNull(taskFieldValues);
-        assertEquals(2, taskFieldValues.size());
-        assertNotNull(taskFieldValues.get(0).getTaskTypeField());
-        assertEquals(1, taskFieldValues.get(0).getId());
-        assertEquals(3, taskFieldValues.get(0).getTaskId());
-        assertEquals("SELECT * FROM tablename", taskFieldValues.get(0).getValue());
-        assertEquals(1, taskFieldValues.get(0).getTaskTypeField().getId());
-        assertEquals("Request", taskFieldValues.get(0).getTaskTypeField().getName());
-        assertEquals(TaskType.SQLRequest, taskFieldValues.get(0).getTaskTypeField().getTaskType());
-        assertEquals(1, taskFieldValues.get(0).getTaskTypeField().getCount());
+        List<TaskFieldValue> taskFieldValues3 = taskFieldValueDao.getTaskFieldValuesForTask(3);
+        assertNotNull(taskFieldValues3);
+        assertEquals(2, taskFieldValues3.size());
+        assertNotNull(taskFieldValues3.get(0).getTaskTypeField());
+        assertEquals(1, taskFieldValues3.get(0).getId());
+        assertEquals(3, taskFieldValues3.get(0).getTaskId());
+        assertEquals("SELECT * FROM tablename", taskFieldValues3.get(0).getValue());
+        assertEquals(1, taskFieldValues3.get(0).getTaskTypeField().getId());
+        assertEquals("Request", taskFieldValues3.get(0).getTaskTypeField().getName());
+        assertEquals(TaskType.SQLRequest, taskFieldValues3.get(0).getTaskTypeField().getTaskType());
+        assertEquals(1, taskFieldValues3.get(0).getTaskTypeField().getCount());
+
+        List<TaskFieldValue> taskFieldValues4 = taskFieldValueDao.getTaskFieldValuesForTask(4);
+        assertNotNull(taskFieldValues4);
+        assertEquals(1, taskFieldValues4.size());
+        assertNotNull(taskFieldValues4.get(0).getTaskTypeField());
+        assertEquals("GET", taskFieldValues4.get(0).getValue());
     }
 }

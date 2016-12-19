@@ -36,7 +36,7 @@ public class SqliteTaskFieldValueDao implements TaskFieldValueDao {
                 "SELECT " +
                         "TASK_FIELD_VALUE.*, TASK_TYPE_FIELD.count, TASK_TYPE_FIELD.task_type_id, TASK_TYPE_FIELD.name, TASK_TYPE_FIELD.format " +
                         "FROM TASK_FIELD_VALUE " +
-                        "JOIN TASK_TYPE_FIELD on TASK_FIELD_VALUE.id = TASK_TYPE_FIELD.id";
+                        "JOIN TASK_TYPE_FIELD on TASK_FIELD_VALUE.task_type_field_id = TASK_TYPE_FIELD.id";
         return jdbcTemplate.query(sql, new TaskFieldValueRowMapper());
     }
 
@@ -45,7 +45,7 @@ public class SqliteTaskFieldValueDao implements TaskFieldValueDao {
         String sql =
                 "SELECT TASK_FIELD_VALUE.*, TASK_TYPE_FIELD.count, TASK_TYPE_FIELD.task_type_id, TASK_TYPE_FIELD.name, TASK_TYPE_FIELD.format " +
                         "FROM TASK_FIELD_VALUE " +
-                        "JOIN TASK_TYPE_FIELD on TASK_FIELD_VALUE.id = TASK_TYPE_FIELD.id " +
+                        "JOIN TASK_TYPE_FIELD on TASK_FIELD_VALUE.task_type_field_id = TASK_TYPE_FIELD.id " +
                         "WHERE TASK_FIELD_VALUE.task_id = ?";
         return jdbcTemplate.query(sql, new TaskFieldValueRowMapper(), taskId);
     }
@@ -68,5 +68,4 @@ public class SqliteTaskFieldValueDao implements TaskFieldValueDao {
             );
         }
     }
-
 }

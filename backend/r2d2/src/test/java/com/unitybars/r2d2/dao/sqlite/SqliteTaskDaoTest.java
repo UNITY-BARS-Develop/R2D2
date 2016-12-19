@@ -29,7 +29,7 @@ public class SqliteTaskDaoTest extends AbstractDaoTest {
     @Test
     public void getAllTasks() throws Exception {
         assertNotNull(taskDao.getAllTasks());
-        assertEquals(3, taskDao.getAllTasks().size());
+        assertEquals(4, taskDao.getAllTasks().size());
     }
 
     @Test
@@ -37,8 +37,8 @@ public class SqliteTaskDaoTest extends AbstractDaoTest {
         Task task = taskDao.getTaskById(1);
         assertNotNull(task);
         assertEquals(1, task.getId());
-        assertEquals(2, task.getServiceId());
-        assertEquals("Task 2", task.getName());
+        assertEquals(1, task.getServiceId());
+        assertEquals("Task 1", task.getName());
         assertEquals("200", task.getExpectedValue());
         assertNull(task.getFields());
     }
@@ -53,10 +53,10 @@ public class SqliteTaskDaoTest extends AbstractDaoTest {
         List<Task> tasks = taskDao.getTasksForService(2);
         assertNotNull(tasks);
         assertEquals(2, tasks.size());
-        assertEquals("Task 2", tasks.get(0).getName());
+        assertEquals("Task Json", tasks.get(0).getName());
         assertEquals(TaskType.JSON, tasks.get(0).getTaskType());
-        assertEquals("200", tasks.get(0).getExpectedValue());
-        assertEquals("Task 1", tasks.get(1).getName());
+        assertEquals("404", tasks.get(0).getExpectedValue());
+        assertEquals("Task StatusCode", tasks.get(1).getName());
         assertEquals(TaskType.StatusCode, tasks.get(1).getTaskType());
         assertEquals("200", tasks.get(1).getExpectedValue());
     }
