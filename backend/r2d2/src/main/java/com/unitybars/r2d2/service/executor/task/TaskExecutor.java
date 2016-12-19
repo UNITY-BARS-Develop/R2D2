@@ -3,7 +3,7 @@ package com.unitybars.r2d2.service.executor.task;
 import com.unitybars.r2d2.entity.Service;
 import com.unitybars.r2d2.entity.Task;
 import com.unitybars.r2d2.entity.TaskCheckLog;
-import com.unitybars.r2d2.exception.MissedServiceParameterException;
+import com.unitybars.r2d2.exception.MissedParameterException;
 import com.unitybars.r2d2.exception.RequestExecuteError;
 
 /**
@@ -11,7 +11,7 @@ import com.unitybars.r2d2.exception.RequestExecuteError;
  * Date: 16-Dec-16.
  */
 public interface TaskExecutor {
-    TaskCheckLog doCheck() throws MissedServiceParameterException, RequestExecuteError;
+    TaskCheckLog doCheck() throws MissedParameterException, RequestExecuteError;
     void setTask(Task task);
     void setService(Service service);
 }

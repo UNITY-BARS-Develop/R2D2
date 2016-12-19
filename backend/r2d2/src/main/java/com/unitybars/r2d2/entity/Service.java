@@ -11,7 +11,7 @@ public class Service {
     private String name;
     private ServiceType serviceType;
     private ServiceStatus serviceStatus;
-    private HashMap<String, String> parameters;
+    private HashMap<ServiceTypeParameter, String> parameters;
 
     public Service(int id, String name, ServiceType serviceType, ServiceStatus serviceStatus) {
         this.id = id;
@@ -55,11 +55,11 @@ public class Service {
         this.serviceStatus = serviceStatus;
     }
 
-    public HashMap<String, String> getParameters() {
+    public HashMap<ServiceTypeParameter, String> getParameters() {
         return parameters;
     }
 
-    public void setParameters(HashMap<String, String> parameters) {
+    public void setParameters(HashMap<ServiceTypeParameter, String> parameters) {
         this.parameters = parameters;
     }
 }

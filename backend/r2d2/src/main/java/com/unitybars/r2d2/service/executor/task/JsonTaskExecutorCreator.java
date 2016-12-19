@@ -21,7 +21,7 @@ public class JsonTaskExecutorCreator implements TaskExecutorCreator {
 
     @Override
     public TaskExecutor factoryMethod(Task task, Service service) {
-        TaskExecutor taskExecutor = context.getBean(JSONTaskExecutor.class);
+        TaskExecutor taskExecutor = context.getBean(JsonTaskExecutor.class);
         taskExecutor.setTask(task);
         taskExecutor.setService(service);
         return taskExecutor;

@@ -42,7 +42,7 @@ public class SqliteServiceTypeParameterValueDaoTest extends AbstractDaoTest {
         assertNotNull(serviceTypeParameterValues.get(0));
         assertEquals("https://corplightdev.unity-bars.com:4443", serviceTypeParameterValues.get(0).getValue());
         assertEquals(1, serviceTypeParameterValues.get(0).getServiceId());
-        assertEquals("url", serviceTypeParameterValues.get(0).getServiceTypeParameter().toLowerCase());
+        assertEquals("url", serviceTypeParameterValues.get(0).getServiceTypeParameter().name().toLowerCase());
     }
 
     @Test

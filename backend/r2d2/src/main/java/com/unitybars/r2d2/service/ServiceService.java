@@ -57,9 +57,9 @@ public class ServiceService {
         return service;
     }
 
-    private HashMap<String, String> convertServiceParameters(List<ServiceTypeParameterValue> serviceTypeParameterValues) {
+    private HashMap<ServiceTypeParameter, String> convertServiceParameters(List<ServiceTypeParameterValue> serviceTypeParameterValues) {
         if (serviceTypeParameterValues != null && serviceTypeParameterValues.size() > 0) {
-            HashMap<String, String> parameters = new HashMap<>();
+            HashMap<ServiceTypeParameter, String> parameters = new HashMap<>();
             for (ServiceTypeParameterValue parameter : serviceTypeParameterValues) {
                 parameters.put(parameter.getServiceTypeParameter(), parameter.getValue());
             }

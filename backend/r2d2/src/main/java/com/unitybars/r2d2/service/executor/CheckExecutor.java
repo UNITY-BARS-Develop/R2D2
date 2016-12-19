@@ -82,12 +82,12 @@ public class CheckExecutor {
             logger.error("Error happened when try to check task", e);
             taskCheckLog = getUnexpectedErrorTaskCheckLog(task, serviceCheckLog);
         }
-        writeTaskCheckLog(taskCheckLog);
+        writeTaskCheckLog(taskCheckLog, service);
     }
 
-    private void writeTaskCheckLog(TaskCheckLog taskCheckLog) {
+    private void writeTaskCheckLog(TaskCheckLog taskCheckLog, Service service) {
         taskCheckLog.setId(logService.insertTaskCheckLog(taskCheckLog));
-        logTaskCheckResult(taskCheckLog);
+        logTaskCheckResult(taskCheckLog, service);
     }
 
     private TaskCheckLog getUnexpectedErrorTaskCheckLog(Task task, ServiceCheckLog serviceCheckLog) {
@@ -95,8 +95,8 @@ public class CheckExecutor {
                 new Date(), CheckStatus.UNEXPECTED_ERROR, serviceCheckLog.getId());
     }
 
-    private void logTaskCheckResult(TaskCheckLog taskCheckLog) {
-        logger.info(taskCheckLog.toString());
+    private void logTaskCheckResult(TaskCheckLog taskCheckLog, Service service) {
+        logger.info(String.format("Service: %s\t%s", service.getName(), taskCheckLog.toString()));
     }
 
     private TaskExecutorCreator getTaskExecutorCreator(Task task) throws FunctionalityNotImplemented {

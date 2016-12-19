@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Scope;
 
 @org.springframework.stereotype.Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class JSONTaskExecutor implements TaskExecutor {
+public class JsonTaskExecutor implements TaskExecutor {
     @Autowired
     private RequestService requestService;
     private Task task;
