@@ -44,7 +44,7 @@ public class RequestService {
             return client.newCall(request).execute();
         } catch (IOException e) {
             logger.error("Error when try execute request.", e);
-            throw new RequestExecuteError();
+            throw new RequestExecuteError(url);
         }
     }
 

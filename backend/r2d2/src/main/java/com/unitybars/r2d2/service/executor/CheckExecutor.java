@@ -1,7 +1,6 @@
 package com.unitybars.r2d2.service.executor;
 
 import com.unitybars.r2d2.entity.*;
-import com.unitybars.r2d2.exception.FunctionalityNotImplemented;
 import com.unitybars.r2d2.service.LogService;
 import com.unitybars.r2d2.service.ServiceService;
 import com.unitybars.r2d2.service.TaskService;
@@ -100,7 +99,7 @@ public class CheckExecutor {
         logger.info(String.format("Service: %s\t%s", service.getName(), taskCheckLog.toString()));
     }
 
-    private TaskExecutorCreator getTaskExecutorCreator(Task task) throws FunctionalityNotImplemented {
+    private TaskExecutorCreator getTaskExecutorCreator(Task task) throws UnsupportedOperationException {
         switch (task.getTaskType()) {
             case JSON:
                 return context.getBean(JsonTaskExecutorCreator.class);
@@ -108,7 +107,7 @@ public class CheckExecutor {
                 return context.getBean(StatusCodeTaskExecutorCreator.class);
             case SQLRequest:
                 logger.error("Error when try create taskExecuteCreator for SQLRequests. SQLRequest not supported in current version");
-                throw new FunctionalityNotImplemented("SQLRequests not supported in current version");
+                throw new UnsupportedOperationException("SQLRequests not supported in current version");
             default:
                 throw new NullPointerException("Task type can't be null");
         }

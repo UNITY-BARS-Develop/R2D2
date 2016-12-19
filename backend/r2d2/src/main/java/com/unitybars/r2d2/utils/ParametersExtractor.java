@@ -20,7 +20,7 @@ public class ParametersExtractor {
         if (requestMethodValues.size() > 0) {
             return requestMethodValues.get(0).getValue();
         } else {
-            throw new MissedParameterException();
+            throw new MissedParameterException("json field name");
         }
     }
 
@@ -29,7 +29,7 @@ public class ParametersExtractor {
         if (requestMethodValues.size() > 0) {
             return RequestMethod.getRequestMethod(requestMethodValues.get(0).getValue());
         } else {
-            throw new MissedParameterException();
+            throw new MissedParameterException("request method");
         }
     }
 
@@ -49,11 +49,11 @@ public class ParametersExtractor {
         if (service.getParameters() != null) {
             String parameterValue = service.getParameters().get(parameter);
             if (parameterValue == null) {
-                throw new MissedParameterException();
+                throw new MissedParameterException(parameter.name());
             }
             return parameterValue;
         }
-        throw new MissedParameterException();
+        throw new MissedParameterException(parameter.name());
     }
 
     protected static List<TaskFieldValue> getTaskFieldValues(Task task, String parameterName) {
