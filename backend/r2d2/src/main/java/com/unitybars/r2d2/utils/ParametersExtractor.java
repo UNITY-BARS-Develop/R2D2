@@ -15,6 +15,15 @@ import static java.util.stream.Collectors.toList;
  */
 public class ParametersExtractor {
 
+    public static String getTaskJsonFieldName(Task task) throws MissedParameterException {
+        List<TaskFieldValue> requestMethodValues = getTaskFieldValues(task, Constants.TaskTypeFieldConstants.JSON_FIELD_NAME);
+        if (requestMethodValues.size() > 0) {
+            return requestMethodValues.get(0).getValue();
+        } else {
+            throw new MissedParameterException();
+        }
+    }
+
     public static RequestMethod getTaskRequestMethod(Task task) throws MissedParameterException {
         List<TaskFieldValue> requestMethodValues = getTaskFieldValues(task, Constants.TaskTypeFieldConstants.REQUEST_METHOD);
         if (requestMethodValues.size() > 0) {
@@ -37,11 +46,14 @@ public class ParametersExtractor {
 
     public static String getServiceParameter(Service service, ServiceTypeParameter parameter)
             throws MissedParameterException {
-        String parameterValue = service.getParameters().get(parameter.name());
-        if (parameterValue == null) {
-            throw new MissedParameterException();
+        if (service.getParameters() != null) {
+            String parameterValue = service.getParameters().get(parameter);
+            if (parameterValue == null) {
+                throw new MissedParameterException();
+            }
+            return parameterValue;
         }
-        return parameterValue;
+        throw new MissedParameterException();
     }
 
     protected static List<TaskFieldValue> getTaskFieldValues(Task task, String parameterName) {

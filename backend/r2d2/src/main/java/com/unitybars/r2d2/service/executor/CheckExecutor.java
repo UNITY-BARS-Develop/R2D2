@@ -5,6 +5,7 @@ import com.unitybars.r2d2.exception.FunctionalityNotImplemented;
 import com.unitybars.r2d2.service.LogService;
 import com.unitybars.r2d2.service.ServiceService;
 import com.unitybars.r2d2.service.TaskService;
+import com.unitybars.r2d2.service.executor.task.JsonTaskExecutorCreator;
 import com.unitybars.r2d2.service.executor.task.StatusCodeTaskExecutorCreator;
 import com.unitybars.r2d2.service.executor.task.TaskExecutor;
 import com.unitybars.r2d2.service.executor.task.TaskExecutorCreator;
@@ -102,7 +103,7 @@ public class CheckExecutor {
     private TaskExecutorCreator getTaskExecutorCreator(Task task) throws FunctionalityNotImplemented {
         switch (task.getTaskType()) {
             case JSON:
-                return context.getBean(TaskExecutorCreator.class);
+                return context.getBean(JsonTaskExecutorCreator.class);
             case StatusCode:
                 return context.getBean(StatusCodeTaskExecutorCreator.class);
             case SQLRequest:

@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 
@@ -31,12 +30,12 @@ public class StatusCodeTaskExecutor implements TaskExecutor {
     private TaskCheckLog taskCheckLog;
 
     @Override
-    public void setTask(@NotNull Task task) {
+    public void setTask(Task task) {
         this.task = task;
     }
 
     @Override
-    public void setService(@NotNull Service service) {
+    public void setService(Service service) {
         this.service = service;
     }
 
@@ -60,7 +59,5 @@ public class StatusCodeTaskExecutor implements TaskExecutor {
             return CheckStatus.SUCCESS;
         }
         return CheckStatus.ERROR;
-
     }
-
 }
