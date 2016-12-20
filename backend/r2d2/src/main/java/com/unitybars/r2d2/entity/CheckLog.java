@@ -43,4 +43,19 @@ public class CheckLog {
     public void setServiceCheckLogs(List<ServiceCheckLog> serviceCheckLogs) {
         this.serviceCheckLogs = serviceCheckLogs;
     }
+
+    public CheckStatus getStatus() {
+        if (serviceCheckLogs != null) {
+            for (ServiceCheckLog serviceCheckLog : serviceCheckLogs) {
+                if (serviceCheckLog.getTaskCheckLogs() != null) {
+                    for (TaskCheckLog taskCheckLog : serviceCheckLog.getTaskCheckLogs()) {
+                        if (taskCheckLog.getCheckStatus() != CheckStatus.SUCCESS) {
+                            return CheckStatus.ERROR;
+                        }
+                    }
+                }
+            }
+        }
+        return CheckStatus.SUCCESS;
+    }
 }

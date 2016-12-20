@@ -5,8 +5,10 @@ import com.unitybars.r2d2.entity.MailSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 
 import java.util.Properties;
 
@@ -32,6 +34,14 @@ public class MailConfiguration {
         mailSender.setUsername(mailSettings.getUsername());
         mailSender.setPassword(mailSettings.getPassword());
         return mailSender;
+    }
+
+    @Bean
+    @Primary
+    public FreeMarkerConfigurationFactoryBean getFreeMarkerConfiguration() {
+        FreeMarkerConfigurationFactoryBean freeMarkerConfigurationFactoryBean = new FreeMarkerConfigurationFactoryBean();
+        freeMarkerConfigurationFactoryBean.setTemplateLoaderPath("classpath:/templates/");
+        return freeMarkerConfigurationFactoryBean;
     }
 
 }

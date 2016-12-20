@@ -1,12 +1,23 @@
 package com.unitybars.r2d2.service.sender;
 
 import com.unitybars.r2d2.dao.SettingsDao;
-import com.unitybars.r2d2.entity.CheckLog;
-import com.unitybars.r2d2.entity.MailSettings;
+import com.unitybars.r2d2.entity.*;
+import com.unitybars.r2d2.exception.ContentTransformationException;
+import freemarker.template.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by oleg.nestyuk
@@ -21,6 +32,10 @@ public class MailSender implements Sender {
     @Autowired
     private SettingsDao settingsDao;
 
+    @Autowired
+    private Configuration freemarkerConfiguration;
+
+    private Logger logger = LoggerFactory.getLogger(MailSender.class);
     private MailSettings mailSettings;
 
     public void setSettingsDao(SettingsDao settingsDao) {
@@ -29,19 +44,38 @@ public class MailSender implements Sender {
 
     @Override
     public void send(String subject, String message, String[] recipients) {
-        if (recipients != null && recipients.length > 0){
-            SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(recipients);
-            mailMessage.setFrom(getMailSettings().getUsername());
-            mailMessage.setSubject(subject);
-            mailMessage.setText(message);
-            javaMailSender.send(mailMessage);
+        if (recipients != null && recipients.length > 0) {
+            try {
+                MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+                MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+                mimeMessage.setContent(message, "text/html; charset=UTF-8");
+                helper.setTo(recipients);
+                helper.setSubject(subject);
+                helper.setFrom(getMailSettings().getUsername());
+                javaMailSender.send(mimeMessage);
+            } catch (MessagingException e) {
+                logger.error("Error happened when trye to send message" + e);
+            }
         }
     }
 
     @Override
-    public String transform(CheckLog checkLog) {
-        return null;
+    public String transform(CheckLog checkLog) throws ContentTransformationException {
+        try {
+
+            Map<String, Object> objectsMap = new HashMap<String, Object>() {
+                {
+                    put("status", checkLog.getStatus());
+                    put("checklog", checkLog);
+                }
+            };
+
+            return FreeMarkerTemplateUtils.processTemplateIntoString(
+                    freemarkerConfiguration.getTemplate("mail.html"), objectsMap);
+        } catch (Exception e) {
+            logger.error("Exception occurred while processing fmtemplate:", e);
+            throw new ContentTransformationException();
+        }
     }
 
     private MailSettings getMailSettings() {

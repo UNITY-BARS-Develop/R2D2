@@ -1,0 +1,159 @@
+<#setting datetime_format="dd.MM.yyyy hh:mm:ss">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>R2D2 - звіт</title>
+        <style>
+		.content{
+			font-family: Tahoma, sans-serif	;
+			font-size: 14px;
+			color: #061f4e;
+			background-color: #f4f9fd;
+			margin: 0;
+			padding: 0;
+		}
+
+		.header{
+			text-align: center;
+			padding: 15px 0 10px
+		}
+
+		.header .img{
+			margin: 0 auto;
+		    width: 306px;
+		    height: 175px;
+		}
+
+		.header .title{
+			font-size: 40px;
+		}
+
+		.header .subtitle{			
+			font-size: 16px;
+			color: #4f90e4;
+		}
+
+		.header .result{
+			font-size: 25px;
+			margin-top: 15px;
+			font-weight: bold;
+			color: #00c173;
+			text-transform: uppercase;
+		}
+		.header .result.error{
+			color: #ff0050;
+		}
+
+		.body{
+			margin: 30px 30px 0 30px;
+			background-color: #fff;
+            border: 1px solid #eee;
+			padding: 15px;
+			border-radius: 3px;
+		}
+		.body .service{
+			margin: 10px 0 35px;
+		}
+		.body .service .servicename{
+			font-size: 18px;
+			text-transform: uppercase;
+			color: #4e81d6;
+		}
+		.body .service table{
+			margin-top: 10px;
+			box-sizing: border-box;
+			width: 100%;
+			border-spacing: 0;
+		}
+		.body .service table tr th{
+			padding: 10px 5px;
+			color: #999;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+		.body .service table tr th.status{
+			text-align: right;
+		}
+		.body .service table tr td{
+			padding: 10px 5px;
+			border-bottom: 1px solid #ddd;
+		}
+		.body .service table tr td.status{
+			color: #00c173;
+			text-align: right;
+			font-weight: 600;
+		}
+		.body .service table tr td.status.error{
+			color: #ff0050;
+		}
+		.body .service table tr:last-child td{
+			border-bottom: 0 none;
+		}
+		.footer{
+			margin-top: 40px;
+			background: #1f3969;
+			padding: 25px 0 25px;
+			text-align: center;
+			color: #d8ecfa;
+			font-size: 14px;
+		}
+
+		@media screen and (max-width: 480px) {
+            .body{
+                margin: 30px 0 0;
+            }
+		}
+
+
+        </style>
+    </head>
+    <body>
+    <div class="content">
+        <div class="header">
+            <img src="https://bone.unity-bars.com:2443/assets/img/r2d2.png" alt="">
+            <div class="title">R2D2 - звіт</div>
+            <div class="subtitle">${checklog.date?datetime}</div>
+            <#if status == "SUCCESS">
+                <div class="result">успішно</div>
+                <#else>
+                    <div class="result error"> неуспішно</div>
+            </#if>
+            <div class="body">
+                <#list checklog.serviceCheckLogs as serviceCheckLog>
+                    <div class="service">
+                        <div class="servicename">${serviceCheckLog.serviceName}</div>
+                        <table>
+                            <tr>
+                                <th>№</th>
+                                <th>Назва</th>
+                                <th>Очікуване значення</th>
+                                <th>Отримане значення</th>
+                                <th class="status">Статус</th>
+                            </tr>
+                            <#list serviceCheckLog.taskCheckLogs as taskCheckLog>
+                                <tr>
+                                    <td>${taskCheckLog?index + 1 }</td>
+                                    <td>${taskCheckLog.taskName}</td>
+                                    <td>${taskCheckLog.expectedValue}</td>
+                                    <td>${taskCheckLog.resultValue}</td>
+                                    <#if taskCheckLog.checkStatus == "SUCCESS">
+                                        <td class="status">${taskCheckLog.checkStatus}</td>
+                                        <#else>
+                                            <td class="status error">${taskCheckLog.checkStatus}</td>
+                                    </#if>
+                                </tr>
+                            </#list>
+                        </table>
+                    </div>
+                    <div>
+                        <h4></h4>
+                    </div>
+                </#list>
+            </div>
+            <div class="footer">
+                May the force be with you!
+            </div>
+        </div>
+    </body>
+    </html>
