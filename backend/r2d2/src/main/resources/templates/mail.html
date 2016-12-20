@@ -106,6 +106,7 @@
 		}
 
 
+
         </style>
     </head>
     <body>
@@ -119,41 +120,42 @@
                 <#else>
                     <div class="result error"> неуспішно</div>
             </#if>
-            <div class="body">
-                <#list checklog.serviceCheckLogs as serviceCheckLog>
-                    <div class="service">
-                        <div class="servicename">${serviceCheckLog.serviceName}</div>
-                        <table>
-                            <tr>
-                                <th>№</th>
-                                <th>Назва</th>
-                                <th>Очікуване значення</th>
-                                <th>Отримане значення</th>
-                                <th class="status">Статус</th>
-                            </tr>
-                            <#list serviceCheckLog.taskCheckLogs as taskCheckLog>
-                                <tr>
-                                    <td>${taskCheckLog?index + 1 }</td>
-                                    <td>${taskCheckLog.taskName}</td>
-                                    <td>${taskCheckLog.expectedValue}</td>
-                                    <td>${taskCheckLog.resultValue}</td>
-                                    <#if taskCheckLog.checkStatus == "SUCCESS">
-                                        <td class="status">${taskCheckLog.checkStatus}</td>
-                                        <#else>
-                                            <td class="status error">${taskCheckLog.checkStatus}</td>
-                                    </#if>
-                                </tr>
-                            </#list>
-                        </table>
-                    </div>
-                    <div>
-                        <h4></h4>
-                    </div>
-                </#list>
-            </div>
-            <div class="footer">
-                May the force be with you!
-            </div>
         </div>
+        <div class="body">
+            <#list checklog.serviceCheckLogs as serviceCheckLog>
+                <div class="service">
+                    <div class="servicename">${serviceCheckLog.serviceName}</div>
+                    <table>
+                        <tr>
+                            <th>№</th>
+                            <th>Назва</th>
+                            <th>Очікуване значення</th>
+                            <th>Отримане значення</th>
+                            <th class="status">Статус</th>
+                        </tr>
+                        <#list serviceCheckLog.taskCheckLogs as taskCheckLog>
+                            <tr>
+                                <td>${taskCheckLog?index + 1 }</td>
+                                <td>${taskCheckLog.taskName}</td>
+                                <td>${taskCheckLog.expectedValue}</td>
+                                <td>${taskCheckLog.resultValue}</td>
+                                <#if taskCheckLog.checkStatus == "SUCCESS">
+                                    <td class="status">${taskCheckLog.checkStatus}</td>
+                                    <#else>
+                                        <td class="status error">${taskCheckLog.checkStatus}</td>
+                                </#if>
+                            </tr>
+                        </#list>
+                    </table>
+                </div>
+                <div>
+                    <h4></h4>
+                </div>
+            </#list>
+        </div>
+        <div class="footer">
+            May the force be with you!
+        </div>
+    </div>
     </body>
     </html>

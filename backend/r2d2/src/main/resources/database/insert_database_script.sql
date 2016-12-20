@@ -57,6 +57,5 @@ INSERT INTO SETTINGS (description, value, key)
             ( NULL, 'r2d2.monitorbot@gmail.com', 'smtp.username' ),
             ( NULL, 'smtp.gmail.com', 'smtp.host' ),
             ( NULL, 'r2d2.monitorbot@gmail.com', 'sender.mail.recipient' ),
-            ( NULL, 'andrii.lazarenko@unity-bars.com ', 'sender.mail.recipient' ),
             ( NULL, 'oleg.nestyuk@unity-bars.com', 'sender.mail.recipient' ),
             ( NULL, 'R2D2 - Звіт', 'sender.mail.subject' );
