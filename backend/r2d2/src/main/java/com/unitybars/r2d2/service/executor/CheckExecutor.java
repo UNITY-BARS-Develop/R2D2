@@ -51,12 +51,13 @@ public class CheckExecutor {
         this.taskService = taskService;
     }
 
-    public void start() {
+    public CheckLog doCheck() {
         initCheckLog();
         services = serviceService.getAllServicesWithParameters();
         for (Service service : services) {
             startCheckForService(service);
         }
+        return checkLog;
     }
 
     private void startCheckForService(Service service) {
@@ -65,6 +66,8 @@ public class CheckExecutor {
         for (Task task : tasks) {
             startCheckForTask(task, service, serviceCheckLog);
         }
+        serviceCheckLog.setCheckLogId(checkLog.getId());
+        checkLog.getServiceCheckLogs().add(serviceCheckLog);
     }
 
     private void startCheckForTask(Task task, Service service, ServiceCheckLog serviceCheckLog) {
@@ -74,6 +77,7 @@ public class CheckExecutor {
             TaskExecutor taskExecutor = taskExecutorCreator.factoryMethod(task, service);
             taskCheckLog = taskExecutor.doCheck();
             if (taskCheckLog != null) {
+                serviceCheckLog.getTaskCheckLogs().add(taskCheckLog);
                 taskCheckLog.setServiceCheckLogId(serviceCheckLog.getId());
             } else {
                 throw new NullPointerException("TaskCheckLog can't be null");

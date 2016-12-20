@@ -17,6 +17,6 @@ public class CheckExecutorTest extends AbstractTest {
     @Test
     public void start() throws Exception {
         CheckExecutor checkExecutor = applicationContext.getBean(CheckExecutor.class);
-        checkExecutor.start();
+        checkExecutor.doCheck();
     }
 }

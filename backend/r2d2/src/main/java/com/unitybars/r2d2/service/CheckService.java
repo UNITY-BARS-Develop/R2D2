@@ -1,6 +1,8 @@
 package com.unitybars.r2d2.service;
 
+import com.unitybars.r2d2.entity.CheckLog;
 import com.unitybars.r2d2.service.executor.CheckExecutor;
+import com.unitybars.r2d2.service.sender.SenderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,16 @@ public class CheckService {
     private ApplicationContext context;
 
     @Autowired
+    private SenderService senderService;
+
+    @Autowired
     public void setContext(ApplicationContext context) {
         this.context = context;
     }
 
     public void startCheck() {
         CheckExecutor checkExecutor = context.getBean(CheckExecutor.class);
-        checkExecutor.start();
+        CheckLog checkLog = checkExecutor.doCheck();
+        senderService.sendCheckReport(checkLog);
     }
 }
