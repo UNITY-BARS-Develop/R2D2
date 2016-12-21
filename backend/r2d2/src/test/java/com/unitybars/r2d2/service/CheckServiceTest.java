@@ -18,13 +18,13 @@ import static org.junit.Assert.*;
  * Created by oleg.nestyuk
  * Date: 20-Dec-16.
  */
-public class CheckServiceTest extends AbstractTest{
+public class CheckServiceTest extends AbstractTest {
 
     @Autowired
     private CheckService checkService;
 
     @Test
     public void startCheck() throws Exception {
-        // TODO
+        checkService.startCheck();
     }
 }

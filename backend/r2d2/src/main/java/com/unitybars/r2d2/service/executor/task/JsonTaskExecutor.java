@@ -34,6 +34,10 @@ public class JsonTaskExecutor implements TaskExecutor {
     private Service service;
     private TaskCheckLog taskCheckLog;
 
+    public void setRequestService(RequestService requestService) {
+        this.requestService = requestService;
+    }
+
     @Override
     public void setTask(Task task) {
         this.task = task;

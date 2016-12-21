@@ -3,6 +3,7 @@ package com.unitybars.r2d2.service;
 import com.unitybars.r2d2.dao.SettingsDao;
 import com.unitybars.r2d2.entity.CheckScheduleParameters;
 import com.unitybars.r2d2.entity.CheckSenderParameters;
+import com.unitybars.r2d2.entity.MailSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,12 @@ public class SettingsService {
         return settingsDao.getCheckScheduleParameters();
     }
 
-    public CheckSenderParameters getCheckSenderParameters(){
+    public CheckSenderParameters getCheckSenderParameters() {
         return settingsDao.getCheckSenderParameters();
     }
+
+    public MailSettings getMailSettings() {
+        return settingsDao.getMailSettings();
+    }
+
 }

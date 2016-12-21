@@ -1,6 +1,7 @@
 package com.unitybars.r2d2.entity;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by oleg.nestyuk
@@ -61,5 +62,21 @@ public class Service {
 
     public void setParameters(HashMap<ServiceTypeParameter, String> parameters) {
         this.parameters = parameters;
+    }
+
+    public void setParameters(List<ServiceTypeParameterValue> parameters) {
+        this.parameters = convertServiceParameters(parameters);
+    }
+
+    protected HashMap<ServiceTypeParameter, String> convertServiceParameters(
+            List<ServiceTypeParameterValue> serviceTypeParameterValues) {
+        if (serviceTypeParameterValues != null && serviceTypeParameterValues.size() > 0) {
+            HashMap<ServiceTypeParameter, String> parameters = new HashMap<>();
+            for (ServiceTypeParameterValue parameter : serviceTypeParameterValues) {
+                parameters.put(parameter.getServiceTypeParameter(), parameter.getValue());
+            }
+            return parameters;
+        }
+        return null;
     }
 }

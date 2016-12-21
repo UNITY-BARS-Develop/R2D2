@@ -40,7 +40,7 @@ public class ServiceService {
             List<ServiceTypeParameterValue> concreteServiceParameters = servicesParameters.stream()
                     .filter(p -> p.getServiceId() == service.getId())
                     .collect(toList());
-            service.setParameters(convertServiceParameters(concreteServiceParameters));
+            service.setParameters(concreteServiceParameters);
         }
         return services;
     }
@@ -53,18 +53,8 @@ public class ServiceService {
         Service service = serviceDao.getServiceById(id);
         List<ServiceTypeParameterValue> serviceTypeParameterValues =
                 serviceTypeParameterValueDao.getServiceTypeParameterValuesForService(service.getId());
-        service.setParameters(convertServiceParameters(serviceTypeParameterValues));
+        service.setParameters(serviceTypeParameterValues);
         return service;
     }
 
-    private HashMap<ServiceTypeParameter, String> convertServiceParameters(List<ServiceTypeParameterValue> serviceTypeParameterValues) {
-        if (serviceTypeParameterValues != null && serviceTypeParameterValues.size() > 0) {
-            HashMap<ServiceTypeParameter, String> parameters = new HashMap<>();
-            for (ServiceTypeParameterValue parameter : serviceTypeParameterValues) {
-                parameters.put(parameter.getServiceTypeParameter(), parameter.getValue());
-            }
-            return parameters;
-        }
-        return null;
-    }
 }

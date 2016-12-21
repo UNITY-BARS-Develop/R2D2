@@ -50,7 +50,7 @@ public class ParametersExtractorTest {
         assertEquals(1, taskFieldValues.size());
     }
 
-    @Test()
+    @Test
     public void getNoneExistTaskFieldValues() throws Exception {
         List<TaskFieldValue> taskFieldValues = ParametersExtractor.getTaskFieldValues(initEmptyTask(), "non_exist_parameter");
         assertNotNull(taskFieldValues);
@@ -58,7 +58,6 @@ public class ParametersExtractorTest {
     }
 
     @Test
-
     public void getTaskJsonFieldName() throws Exception {
         String fieldName = ParametersExtractor.getTaskJsonFieldName(initJsonTask());
         assertNotNull(fieldName);
@@ -81,7 +80,6 @@ public class ParametersExtractorTest {
     public void getNoneExistServiceParameter2() throws Exception {
         ParametersExtractor.getServiceParameter(initEmptyService(), ServiceTypeParameter.CONNECTION_STRING);
     }
-
 
     private Task initStatusCodeTask() {
         Task task = new Task(1, 1, TaskType.StatusCode, "200", "Task 1");
@@ -121,6 +119,4 @@ public class ParametersExtractorTest {
     private Service initEmptyService() {
         return new Service(1, "Service 1", ServiceType.WEB, ServiceStatus.ACTIVE);
     }
-
-
 }

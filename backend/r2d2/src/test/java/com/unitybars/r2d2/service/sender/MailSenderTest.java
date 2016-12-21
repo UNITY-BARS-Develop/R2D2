@@ -3,6 +3,7 @@ package com.unitybars.r2d2.service.sender;
 import com.unitybars.r2d2.AbstractTest;
 import com.unitybars.r2d2.dao.SettingsDao;
 import com.unitybars.r2d2.entity.*;
+import com.unitybars.r2d2.service.SettingsService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -24,13 +25,17 @@ public class MailSenderTest extends AbstractTest {
     @Autowired
     private MailSender mailSender;
 
+    @Autowired
+    private SettingsService settingsService;
+
     @Mock
     private SettingsDao settingsDao;
 
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
-        mailSender.setSettingsDao(settingsDao);
+        settingsService.setSettingsDao(settingsDao);
+        mailSender.setSettingsService(settingsService);
     }
 
     @Test

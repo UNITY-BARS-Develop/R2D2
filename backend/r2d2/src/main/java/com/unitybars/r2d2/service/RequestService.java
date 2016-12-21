@@ -15,6 +15,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.security.cert.CertificateException;
 import java.util.List;
@@ -35,6 +36,14 @@ public class RequestService {
 
     @Value("${request.read_timeout}")
     protected int readTimeout;
+
+    public void setConnectedTimeout(int connectedTimeout) {
+        this.connectedTimeout = connectedTimeout;
+    }
+
+    public void setReadTimeout(int readTimeout) {
+        this.readTimeout = readTimeout;
+    }
 
     public Response executeResponse(String url, RequestMethod requestMethod, List<HeaderItem> headerItems)
             throws RequestExecuteError {
@@ -87,46 +96,33 @@ public class RequestService {
             builder.hostnameVerifier((hostname, session) -> true);
             return builder
                     .connectTimeout(connectedTimeout, TimeUnit.SECONDS)
-                    .readTimeout(connectedTimeout, TimeUnit.SECONDS)
+                    .readTimeout(readTimeout, TimeUnit.SECONDS)
                     .build();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    protected Request generateRequest(String url, RequestMethod requestMethod, List<HeaderItem> headerItems) {
+    protected Request generateRequest(@NotNull String url, @NotNull RequestMethod requestMethod, List<HeaderItem> headerItems) {
         Request request;
+        Request.Builder builder = new Request.Builder()
+                .url(url)
+                .headers(generateHeaders(headerItems));
         switch (requestMethod) {
             case POST:
-                request = new Request.Builder()
-                        .url(url)
-                        .headers(generateHeaders(headerItems))
-                        .post(RequestBody.create(null, new byte[0]))
-                        .build();
+                builder.post(RequestBody.create(null, new byte[0]));
                 break;
             case PUT:
-                request = new Request.Builder()
-                        .url(url)
-                        .headers(generateHeaders(headerItems))
-                        .put(RequestBody.create(null, new byte[0]))
-                        .build();
+                builder.put(RequestBody.create(null, new byte[0]));
                 break;
             case DELETE:
-                request = new Request.Builder()
-                        .url(url)
-                        .headers(generateHeaders(headerItems))
-                        .delete()
-                        .build();
+                builder.delete(RequestBody.create(null, new byte[0]));
                 break;
             default:
-                request = new Request.Builder()
-                        .url(url)
-                        .headers(generateHeaders(headerItems))
-                        .get()
-                        .build();
+                builder.get();
                 break;
         }
-        return request;
+        return builder.build();
     }
 
     protected Headers generateHeaders(List<HeaderItem> headerItems) {
@@ -139,6 +135,6 @@ public class RequestService {
             }
             return builder.build();
         }
-        return null;
+        return new Headers.Builder().build();
     }
 }

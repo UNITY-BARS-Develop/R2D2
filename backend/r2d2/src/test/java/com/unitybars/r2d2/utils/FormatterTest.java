@@ -32,4 +32,12 @@ public class FormatterTest {
         assertEquals(date.getTime(), convertedDate.getTime());
     }
 
+    @Test
+    public void formatDateTime() throws Exception {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2015, 2, 28, 16, 0, 0);
+        String formattedDate = Formatter.formatDateTime(calendar);
+        assertEquals("2015-03-28 16:00:00", formattedDate);
+    }
+
 }
