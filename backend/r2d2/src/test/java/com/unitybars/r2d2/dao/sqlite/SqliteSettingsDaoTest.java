@@ -42,4 +42,10 @@ public class SqliteSettingsDaoTest extends AbstractDaoTest {
         assertEquals("oleg.nestyuk@unity-bars.com", checkSenderParameters.getMailRecipients()[1]);
     }
 
+    @Test
+    public void getCheckPeriodInMilliseconds() throws Exception {
+        // TODO
+    }
+
+
 }

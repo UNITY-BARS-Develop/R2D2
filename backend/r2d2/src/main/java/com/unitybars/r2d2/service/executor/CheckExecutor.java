@@ -15,6 +15,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -61,13 +62,15 @@ public class CheckExecutor {
     }
 
     private void startCheckForService(Service service) {
-        ServiceCheckLog serviceCheckLog = initServiceCheckLog(service);
-        List<Task> tasks = taskService.getAllTasksWithFieldsForService(service.getId());
-        for (Task task : tasks) {
-            startCheckForTask(task, service, serviceCheckLog);
+        if (service.getServiceStatus() == ServiceStatus.ACTIVE){
+            ServiceCheckLog serviceCheckLog = initServiceCheckLog(service);
+            List<Task> tasks = taskService.getAllTasksWithFieldsForService(service.getId());
+            for (Task task : tasks) {
+                startCheckForTask(task, service, serviceCheckLog);
+            }
+            serviceCheckLog.setCheckLogId(checkLog.getId());
+            checkLog.getServiceCheckLogs().add(serviceCheckLog);
         }
-        serviceCheckLog.setCheckLogId(checkLog.getId());
-        checkLog.getServiceCheckLogs().add(serviceCheckLog);
     }
 
     private void startCheckForTask(Task task, Service service, ServiceCheckLog serviceCheckLog) {
@@ -76,16 +79,15 @@ public class CheckExecutor {
             TaskExecutorCreator taskExecutorCreator = getTaskExecutorCreator(task);
             TaskExecutor taskExecutor = taskExecutorCreator.factoryMethod(task, service);
             taskCheckLog = taskExecutor.doCheck();
-            if (taskCheckLog != null) {
-                serviceCheckLog.getTaskCheckLogs().add(taskCheckLog);
-                taskCheckLog.setServiceCheckLogId(serviceCheckLog.getId());
-            } else {
+            if (taskCheckLog == null) {
                 throw new NullPointerException("TaskCheckLog can't be null");
             }
         } catch (Exception e) {
             logger.error("Error happened when try to check task", e);
             taskCheckLog = getUnexpectedErrorTaskCheckLog(task, serviceCheckLog);
         }
+        serviceCheckLog.getTaskCheckLogs().add(taskCheckLog);
+        taskCheckLog.setServiceCheckLogId(serviceCheckLog.getId());
         writeTaskCheckLog(taskCheckLog, service);
     }
 
@@ -121,11 +123,13 @@ public class CheckExecutor {
         checkLog = new CheckLog(0, new Date());
         long checkLogId = logService.insertCheckLog(checkLog);
         checkLog.setId(checkLogId);
+        checkLog.setServiceCheckLogs(new ArrayList<>());
     }
 
     private ServiceCheckLog initServiceCheckLog(Service service) {
         ServiceCheckLog serviceCheckLog = new ServiceCheckLog(0, checkLog.getId(), service.getName(), new Date());
         serviceCheckLog.setId(logService.insertServiceCheckLog(serviceCheckLog));
+        serviceCheckLog.setTaskCheckLogs(new ArrayList<>());
         return serviceCheckLog;
     }
 }

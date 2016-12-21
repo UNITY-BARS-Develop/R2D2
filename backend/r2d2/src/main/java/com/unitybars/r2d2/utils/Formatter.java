@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -20,6 +21,11 @@ public class Formatter {
     public static String formatDatabaseDateTime(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(databaseDatetimeFormat, Locale.getDefault());
         return dateFormat.format(date);
+    }
+
+    public static String formatDateTime(Calendar calendar) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(databaseDatetimeFormat, Locale.getDefault());
+        return dateFormat.format(calendar.getTime());
     }
 
     public static Date convertDatabaseDateTime(String datetime) {

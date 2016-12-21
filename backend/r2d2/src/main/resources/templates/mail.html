@@ -107,6 +107,7 @@
 
 
 
+
         </style>
     </head>
     <body>
@@ -138,7 +139,8 @@
                                 <td>${taskCheckLog?index + 1 }</td>
                                 <td>${taskCheckLog.taskName}</td>
                                 <td>${taskCheckLog.expectedValue}</td>
-                                <td>${taskCheckLog.resultValue}</td>
+                                <td>${(taskCheckLog.resultValue)!"null"}
+                                </td>
                                 <#if taskCheckLog.checkStatus == "SUCCESS">
                                     <td class="status">${taskCheckLog.checkStatus}</td>
                                     <#else>

@@ -11,6 +11,9 @@ public class Constants {
         public static String JSON_FIELD_NAME = "json field name";
         public static String DATABASE_TYPE = "database type";
         public static String REQUEST = "request";
+    }
 
+    public static class CheckPeriod{
+        public static int DEFAULT_CHECK_PERIOD = 3600000;   // 1 hour
     }
 }
