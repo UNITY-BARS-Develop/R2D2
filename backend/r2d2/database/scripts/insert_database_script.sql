@@ -54,7 +54,7 @@ INSERT INTO SETTINGS ( description, value, [key] )
     VALUES
         ( NULL, 'true', 'schedule.enable' ),
         ( NULL, 'false', 'sender.mail.send_if_success' ),
-        ( 'Period in miliseconds', 20000, 'schedule.period' ),
+        ( 'Period in miliseconds', 900000, 'schedule.period' ),
         ( NULL, 'true', 'smtp.tlsenable' ),
         ( NULL, 587, 'smtp.port' ),
         ( NULL, 'r2d2d2r2', 'smtp.password' ),

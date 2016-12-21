@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.net.ssl.HostnameVerifier;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 

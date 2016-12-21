@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  * Created by oleg.nestyuk
  * Date: 20-Dec-16.
  */
-public class CheckServiceTest extends AbstractTest {
+public class CheckControllerTest extends AbstractTest {
 
     @Autowired
     private CheckService checkService;
