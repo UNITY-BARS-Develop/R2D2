@@ -34,6 +34,10 @@ public class JsonTaskExecutor implements TaskExecutor {
     private Service service;
     private TaskCheckLog taskCheckLog;
 
+    public void setRequestService(RequestService requestService) {
+        this.requestService = requestService;
+    }
+
     @Override
     public void setTask(Task task) {
         this.task = task;
@@ -45,26 +49,21 @@ public class JsonTaskExecutor implements TaskExecutor {
     }
 
     @Override
-    public TaskCheckLog doCheck() throws MissedParameterException, RequestExecuteError {
-        logger.info(ParametersExtractor.getServiceParameter(service, ServiceTypeParameter.URL));
-        Response response = requestService.executeResponse(
-                ParametersExtractor.getServiceParameter(service, ServiceTypeParameter.URL),
-                ParametersExtractor.getTaskRequestMethod(task),
+    public TaskCheckLog doCheck() throws MissedParameterException, RequestExecuteError, IOException {
+        String url = ParametersExtractor.getServiceParameter(service, ServiceTypeParameter.URL);
+        logger.info(url);
+        Response response = requestService.executeResponse(url, ParametersExtractor.getTaskRequestMethod(task),
                 ParametersExtractor.getTaskHeaders(task));
-        return parseResponse(response);
+        String responseStr = response.body().string();
+        logger.info(responseStr);
+        return parseResponse(responseStr);
     }
 
-    private TaskCheckLog parseResponse(Response response) throws MissedParameterException {
-        try {
-            String responseJsonStr = response.body().string();
-            logger.info(responseJsonStr);
-            JsonObject responseJson = parseJson(responseJsonStr);
-            return new TaskCheckLog(0, task.getName(), task.getTaskType().name(), task.getExpectedValue(),
-                    getResultValue(responseJson), new Date(), getStatus(responseJson), 0);
-        } catch (IOException e) {
-            logger.error("Error happened when try to parse response body", e);
-            return getErrorTaskCheckLog();
-        }
+    private TaskCheckLog parseResponse(String responseJsonString) throws MissedParameterException {
+        logger.info("Server answer:" + responseJsonString);
+        JsonObject responseJson = parseJson(responseJsonString);
+        return new TaskCheckLog(0, task.getName(), task.getTaskType().name(), task.getExpectedValue(),
+                getResultValue(responseJson), new Date(), getStatus(responseJson), 0);
     }
 
     private CheckStatus getStatus(JsonObject jsonObject) throws MissedParameterException {

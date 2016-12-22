@@ -50,12 +50,14 @@ INSERT INTO SERVICE_TYPE_PARAMETER (service_type_id, name, id)
         ('SQL', 'Connection string', 1),
         ('WEB', 'url', 2 );
 
-INSERT INTO SETTINGS (description, value, key)
-    VALUES  ( NULL, 'true', 'smtp.tlsenable' ),
-            ( NULL, 587, 'smtp.port' ),
-            ( NULL, 'r2d2d2r2', 'smtp.password' ),
-            ( NULL, 'r2d2.monitorbot@gmail.com', 'smtp.username' ),
-            ( NULL, 'smtp.gmail.com', 'smtp.host' ),
-            ( NULL, 'r2d2.monitorbot@gmail.com', 'sender.mail.recipient' ),
-            ( NULL, 'oleg.nestyuk@unity-bars.com', 'sender.mail.recipient' ),
-            ( NULL, 'R2D2 - Звіт', 'sender.mail.subject' );
+INSERT INTO SETTINGS ( description, value, [key] )
+    VALUES
+        ( NULL, 'true', 'schedule.enable' ),
+        ( NULL, 'false', 'sender.mail.send_if_success' ),
+        ( 'Period in miliseconds', 900000, 'schedule.period' ),
+        ( NULL, 'true', 'smtp.tlsenable' ),
+        ( NULL, 587, 'smtp.port' ),
+        ( NULL, 'r2d2d2r2', 'smtp.password' ),
+        ( NULL, 'r2d2.monitorbot@gmail.com', 'smtp.username' ),
+        ( NULL, 'smtp.gmail.com', 'smtp.host' ),
+        ( NULL, 'R2D2 - Звіт', 'sender.mail.subject' );

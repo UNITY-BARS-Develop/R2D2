@@ -1,5 +1,6 @@
 package com.unitybars.r2d2.dao;
 
+import com.unitybars.r2d2.entity.CheckScheduleParameters;
 import com.unitybars.r2d2.entity.CheckSenderParameters;
 import com.unitybars.r2d2.entity.MailSettings;
 
@@ -11,4 +12,6 @@ public interface SettingsDao {
     MailSettings getMailSettings();
 
     CheckSenderParameters getCheckSenderParameters();
+
+    CheckScheduleParameters getCheckScheduleParameters();
 }

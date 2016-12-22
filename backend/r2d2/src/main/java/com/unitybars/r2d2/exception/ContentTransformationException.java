@@ -5,5 +5,4 @@ package com.unitybars.r2d2.exception;
  * Date: 20-Dec-16.
  */
 public class ContentTransformationException extends Exception {
-    // TODO realized
 }

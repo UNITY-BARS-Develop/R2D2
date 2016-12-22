@@ -26,7 +26,6 @@ public class SqliteServiceCheckLogDaoTest extends AbstractDaoTest {
         assertNotNull(serviceCheckLogDao);
     }
 
-
     @Test
     public void insertServiceCheckLog() throws Exception {
         Date date = new Date();
@@ -54,5 +53,4 @@ public class SqliteServiceCheckLogDaoTest extends AbstractDaoTest {
         assertNotNull(serviceCheckLogs);
         assertEquals(3, serviceCheckLogs.size());
     }
-
 }

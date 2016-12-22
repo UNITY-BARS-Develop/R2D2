@@ -2,6 +2,7 @@ package com.unitybars.r2d2.configuration;
 
 import com.unitybars.r2d2.dao.SettingsDao;
 import com.unitybars.r2d2.entity.MailSettings;
+import com.unitybars.r2d2.service.SettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,11 +20,11 @@ import java.util.Properties;
 @Configuration
 public class MailConfiguration {
     @Autowired
-    private SettingsDao settingsDao;
+    private SettingsService settingsService;
 
     @Bean
     public JavaMailSender javaMailSender() {
-        MailSettings mailSettings = settingsDao.getMailSettings();
+        MailSettings mailSettings = settingsService.getMailSettings();
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         Properties mailProperties = new Properties();
         mailProperties.put("mail.smtp.starttls.enable", mailSettings.isStartTlsEnable());

@@ -57,5 +57,4 @@ public class SqliteTaskCheckLogDaoTest extends AbstractDaoTest {
         assertNotNull(taskCheckLogs);
         assertEquals(2, taskCheckLogs.size());
     }
-
 }

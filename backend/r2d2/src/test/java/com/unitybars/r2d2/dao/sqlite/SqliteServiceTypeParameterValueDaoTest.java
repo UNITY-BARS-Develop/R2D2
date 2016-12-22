@@ -52,5 +52,4 @@ public class SqliteServiceTypeParameterValueDaoTest extends AbstractDaoTest {
         assertNotNull(serviceTypeParameterValues);
         assertEquals(0, serviceTypeParameterValues.size());
     }
-
 }

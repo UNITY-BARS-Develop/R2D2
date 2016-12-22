@@ -2,6 +2,7 @@ package com.unitybars.r2d2.dao.sqlite;
 
 import com.unitybars.r2d2.dao.AbstractDaoTest;
 import com.unitybars.r2d2.dao.SettingsDao;
+import com.unitybars.r2d2.entity.CheckScheduleParameters;
 import com.unitybars.r2d2.entity.CheckSenderParameters;
 import com.unitybars.r2d2.entity.MailSettings;
 import org.junit.Test;
@@ -15,7 +16,6 @@ import static org.junit.Assert.assertNotNull;
  * Date: 19-Dec-16.
  */
 public class SqliteSettingsDaoTest extends AbstractDaoTest {
-
 
     @Autowired
     private SettingsDao settingsDao;
@@ -42,4 +42,11 @@ public class SqliteSettingsDaoTest extends AbstractDaoTest {
         assertEquals("oleg.nestyuk@unity-bars.com", checkSenderParameters.getMailRecipients()[1]);
     }
 
+    @Test
+    public void getCheckScheduleParameters() throws Exception {
+        CheckScheduleParameters checkScheduleParameters = settingsDao.getCheckScheduleParameters();
+        assertNotNull(checkScheduleParameters);
+        assertEquals(true, checkScheduleParameters.isEnableScheduler());
+        assertEquals(900000, checkScheduleParameters.getSchedulePeriod());
+    }
 }

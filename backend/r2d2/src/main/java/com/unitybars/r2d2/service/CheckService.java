@@ -1,6 +1,7 @@
 package com.unitybars.r2d2.service;
 
 import com.unitybars.r2d2.entity.CheckLog;
+import com.unitybars.r2d2.entity.CheckStatus;
 import com.unitybars.r2d2.service.executor.CheckExecutor;
 import com.unitybars.r2d2.service.sender.SenderService;
 import org.slf4j.Logger;
@@ -24,13 +25,21 @@ public class CheckService {
     private SenderService senderService;
 
     @Autowired
+    private SettingsService settingsService;
+
+    @Autowired
     public void setContext(ApplicationContext context) {
         this.context = context;
     }
 
-    public void startCheck() {
+    public CheckLog startCheck() {
         CheckExecutor checkExecutor = context.getBean(CheckExecutor.class);
         CheckLog checkLog = checkExecutor.doCheck();
-        senderService.sendCheckReport(checkLog);
+        CheckStatus checkStatus = checkLog.getStatus();
+        if (checkStatus != CheckStatus.SUCCESS ||
+                settingsService.getCheckSenderParameters().isSendMessagesWhenSuccess()) {
+            senderService.sendCheckReport(checkLog);
+        }
+        return checkLog;
     }
 }

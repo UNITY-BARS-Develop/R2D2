@@ -1,10 +1,10 @@
-<#setting datetime_format="dd.MM.yyyy hh:mm:ss">
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>R2D2 - звіт</title>
-        <style>
+<#setting datetime_format="dd.MM.yyyy hh:mm:ss"/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>R2D2 - звіт</title>
+    <style>
 		.content{
 			font-family: Tahoma, sans-serif	;
 			font-size: 14px;
@@ -104,58 +104,56 @@
                 margin: 30px 0 0;
             }
 		}
-
-
-
-        </style>
-    </head>
-    <body>
-    <div class="content">
-        <div class="header">
-            <img src="https://bone.unity-bars.com:2443/assets/img/r2d2.png" alt="">
-            <div class="title">R2D2 - звіт</div>
-            <div class="subtitle">${checklog.date?datetime}</div>
-            <#if status == "SUCCESS">
-                <div class="result">успішно</div>
-                <#else>
-                    <div class="result error"> неуспішно</div>
-            </#if>
-        </div>
-        <div class="body">
-            <#list checklog.serviceCheckLogs as serviceCheckLog>
-                <div class="service">
-                    <div class="servicename">${serviceCheckLog.serviceName}</div>
-                    <table>
-                        <tr>
-                            <th>№</th>
-                            <th>Назва</th>
-                            <th>Очікуване значення</th>
-                            <th>Отримане значення</th>
-                            <th class="status">Статус</th>
-                        </tr>
-                        <#list serviceCheckLog.taskCheckLogs as taskCheckLog>
-                            <tr>
-                                <td>${taskCheckLog?index + 1 }</td>
-                                <td>${taskCheckLog.taskName}</td>
-                                <td>${taskCheckLog.expectedValue}</td>
-                                <td>${taskCheckLog.resultValue}</td>
-                                <#if taskCheckLog.checkStatus == "SUCCESS">
-                                    <td class="status">${taskCheckLog.checkStatus}</td>
-                                    <#else>
-                                        <td class="status error">${taskCheckLog.checkStatus}</td>
-                                </#if>
-                            </tr>
-                        </#list>
-                    </table>
-                </div>
-                <div>
-                    <h4></h4>
-                </div>
-            </#list>
-        </div>
-        <div class="footer">
-            May the force be with you!
-        </div>
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="header">
+        <img src="https://bone.unity-bars.com:2443/assets/img/r2d2.png" alt="">
+        <div class="title">R2D2 - звіт</div>
+        <div class="subtitle">${checklog.date?datetime}</div>
+        <#if status == "SUCCESS">
+            <div class="result">успішно</div>
+            <#else>
+                <div class="result error"> неуспішно</div>
+        </#if>
     </div>
-    </body>
-    </html>
+    <div class="body">
+        <#list checklog.serviceCheckLogs as serviceCheckLog>
+            <div class="service">
+                <div class="servicename">${serviceCheckLog.serviceName}</div>
+                <table>
+                    <tr>
+                        <th>№</th>
+                        <th>Назва</th>
+                        <th>Очікуване значення</th>
+                        <th>Отримане значення</th>
+                        <th class="status">Статус</th>
+                    </tr>
+                    <#list serviceCheckLog.taskCheckLogs as taskCheckLog>
+                        <tr>
+                            <td>${taskCheckLog?index + 1 }</td>
+                            <td>${taskCheckLog.taskName}</td>
+                            <td>${taskCheckLog.expectedValue}</td>
+                            <td>${(taskCheckLog.resultValue)!"null"}
+                            </td>
+                            <#if taskCheckLog.checkStatus == "SUCCESS">
+                                <td class="status">${taskCheckLog.checkStatus}</td>
+                                <#else>
+                                    <td class="status error">${taskCheckLog.checkStatus}</td>
+                            </#if>
+                        </tr>
+                    </#list>
+                </table>
+            </div>
+            <div>
+                <h4></h4>
+            </div>
+        </#list>
+    </div>
+    <div class="footer">
+        May the force be with you!
+    </div>
+</div>
+</body>
+</html>

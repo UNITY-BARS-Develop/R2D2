@@ -53,3 +53,8 @@ INSERT INTO TASK_CHECK_LOG ( check_status_id, service_check_log_id, id, date, re
             ( 'SUCCESS', 1, 4, '15-12-2016 00:00:00', 200, 200, 'JSON', 'Task 1. S1' ),
             ( 'ERROR', 2, 5, '15-12-2016 00:00:00', 500, 200, 'StatusCode', 'Task 1.S2' ),
             ( 'ERROR', 3, 6, '15-12-2016 00:00:00', 'ERROR', 'OK', 'JSON', 'Task 1.S3' );
+
+INSERT INTO SETTINGS ( description, value, [key] )
+    VALUES
+        ( NULL, 'r2d2.monitorbot@gmail.com', 'sender.mail.recipient' ),
+        ( NULL, 'oleg.nestyuk@unity-bars.com', 'sender.mail.recipient' );
