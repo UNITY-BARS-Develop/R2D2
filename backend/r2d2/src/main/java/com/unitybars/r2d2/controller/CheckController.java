@@ -1,5 +1,6 @@
 package com.unitybars.r2d2.controller;
 
+import com.unitybars.r2d2.entity.CheckLog;
 import com.unitybars.r2d2.service.CheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +19,7 @@ public class CheckController {
     private CheckService checkService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String getAllServices() {
-        checkService.startCheck();
-        return "";
+    public CheckLog getAllServices() {
+        return checkService.startCheck();
     }
 }

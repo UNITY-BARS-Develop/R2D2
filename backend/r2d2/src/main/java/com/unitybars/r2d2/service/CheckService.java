@@ -32,7 +32,7 @@ public class CheckService {
         this.context = context;
     }
 
-    public void startCheck() {
+    public CheckLog startCheck() {
         CheckExecutor checkExecutor = context.getBean(CheckExecutor.class);
         CheckLog checkLog = checkExecutor.doCheck();
         CheckStatus checkStatus = checkLog.getStatus();
@@ -40,5 +40,6 @@ public class CheckService {
                 settingsService.getCheckSenderParameters().isSendMessagesWhenSuccess()) {
             senderService.sendCheckReport(checkLog);
         }
+        return checkLog;
     }
 }

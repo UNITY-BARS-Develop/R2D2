@@ -47,6 +47,6 @@ public class SqliteSettingsDaoTest extends AbstractDaoTest {
         CheckScheduleParameters checkScheduleParameters = settingsDao.getCheckScheduleParameters();
         assertNotNull(checkScheduleParameters);
         assertEquals(true, checkScheduleParameters.isEnableScheduler());
-        assertEquals(20000, checkScheduleParameters.getSchedulePeriod());
+        assertEquals(900000, checkScheduleParameters.getSchedulePeriod());
     }
 }
