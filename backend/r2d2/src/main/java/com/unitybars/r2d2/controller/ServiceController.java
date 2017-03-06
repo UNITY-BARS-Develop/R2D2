@@ -1,12 +1,12 @@
 package com.unitybars.r2d2.controller;
 
 import com.unitybars.r2d2.entity.Service;
+import com.unitybars.r2d2.entity.response.ServiceId;
+import com.unitybars.r2d2.exception.InvalidRequestBody;
 import com.unitybars.r2d2.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +28,10 @@ public class ServiceController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Service getServiceById(@PathVariable("id") int id) {
         return serviceService.getServiceById(id);
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ServiceId add(@RequestBody Service service) throws InvalidRequestBody {
+        return new ServiceId(serviceService.add(service));
     }
 }

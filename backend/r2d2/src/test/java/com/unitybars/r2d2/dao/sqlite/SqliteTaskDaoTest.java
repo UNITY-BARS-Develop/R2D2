@@ -36,8 +36,8 @@ public class SqliteTaskDaoTest extends AbstractDaoTest {
     public void getTaskById() throws Exception {
         Task task = taskDao.getTaskById(1);
         assertNotNull(task);
-        assertEquals(1, task.getId());
-        assertEquals(1, task.getServiceId());
+        assertEquals("1", task.getId());
+        assertEquals("1", task.getServiceId());
         assertEquals("Task 1", task.getName());
         assertEquals("200", task.getExpectedValue());
         assertNull(task.getFields());
@@ -50,7 +50,7 @@ public class SqliteTaskDaoTest extends AbstractDaoTest {
 
     @Test
     public void getTasksForService() throws Exception {
-        List<Task> tasks = taskDao.getTasksForService(2);
+        List<Task> tasks = taskDao.getTasksForService("2");
         assertNotNull(tasks);
         assertEquals(2, tasks.size());
         assertEquals("Task Json", tasks.get(0).getName());
@@ -63,7 +63,7 @@ public class SqliteTaskDaoTest extends AbstractDaoTest {
 
     @Test
     public void getNotExistTasksForService() throws Exception {
-        assertNotNull(taskDao.getTasksForService(0));
-        assertEquals(0, taskDao.getTasksForService(0).size());
+        assertNotNull(taskDao.getTasksForService("0"));
+        assertEquals(0, taskDao.getTasksForService("0").size());
     }
 }

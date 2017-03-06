@@ -34,12 +34,12 @@ public class SqliteServiceDao implements ServiceDao {
     public List<Service> getAllServices() {
         String sql =
                 "SELECT " +
-                    "SERVICE.*, " +
-                    "SERVICE_STATUS.id as service_status, " +
-                    "SERVICE_TYPE.id as service_type " +
-                "FROM SERVICE " +
-                    "JOIN SERVICE_TYPE on SERVICE.service_type_id=SERVICE_TYPE.id " +
-                    "JOIN SERVICE_STATUS on SERVICE.service_status_id=SERVICE_STATUS.id";
+                        "SERVICE.*, " +
+                        "SERVICE_STATUS.id as service_status, " +
+                        "SERVICE_TYPE.id as service_type " +
+                        "FROM SERVICE " +
+                        "JOIN SERVICE_TYPE on SERVICE.service_type_id=SERVICE_TYPE.id " +
+                        "JOIN SERVICE_STATUS on SERVICE.service_status_id=SERVICE_STATUS.id";
         return (List<Service>) jdbcTemplate.query(sql, new ServiceRowMapper());
     }
 
@@ -47,25 +47,32 @@ public class SqliteServiceDao implements ServiceDao {
     public Service getServiceById(int id) {
         String sql =
                 "SELECT " +
-                    "SERVICE.*, " +
-                    "SERVICE_STATUS.id as service_status, " +
-                    "SERVICE_TYPE.id as service_type " +
-                "FROM SERVICE " +
-                    "JOIN SERVICE_TYPE on SERVICE.service_type_id=SERVICE_TYPE.id " +
-                    "JOIN SERVICE_STATUS on SERVICE.service_status_id=SERVICE_STATUS.id " +
-                "WHERE " +
-                    "SERVICE.id = ?";
+                        "SERVICE.*, " +
+                        "SERVICE_STATUS.id as service_status, " +
+                        "SERVICE_TYPE.id as service_type " +
+                        "FROM SERVICE " +
+                        "JOIN SERVICE_TYPE on SERVICE.service_type_id=SERVICE_TYPE.id " +
+                        "JOIN SERVICE_STATUS on SERVICE.service_status_id=SERVICE_STATUS.id " +
+                        "WHERE " +
+                        "SERVICE.id = ?";
         return (Service) jdbcTemplate.queryForObject(sql, new ServiceRowMapper(), id);
+    }
+
+    @Override
+    public void create(Service service) {
+        String sql = "INSERT INTO SERVICE (id, service_type_id, service_status_id, name) " +
+                "VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, service.getId(), service.getServiceType(), service.getServiceStatus(), service.getName());
     }
 
     public class ServiceRowMapper implements RowMapper {
         @Override
         public Object mapRow(ResultSet resultSet, int i) throws SQLException {
             return new Service(
-                    resultSet.getInt("id"),
+                    resultSet.getString("id"),
                     resultSet.getString("name"),
                     ServiceType.getServiceType(resultSet.getString("service_type")),
-                    ServiceStatus.getServiceType(resultSet.getString("service_status"))
+                    ServiceStatus.getServiceStatus(resultSet.getString("service_status"))
             );
         }
     }

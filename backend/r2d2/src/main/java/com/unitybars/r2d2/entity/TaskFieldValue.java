@@ -6,14 +6,14 @@ package com.unitybars.r2d2.entity;
  */
 public class TaskFieldValue {
     private int id;
-    private int taskId;
+    private String taskId;
     private TaskTypeField taskTypeField;
     private String value;
 
     public TaskFieldValue() {
     }
 
-    public TaskFieldValue(int id, int taskId, TaskTypeField taskTypeField, String value) {
+    public TaskFieldValue(int id, String taskId, TaskTypeField taskTypeField, String value) {
         this.id = id;
         this.taskId = taskId;
         this.taskTypeField = taskTypeField;
@@ -28,11 +28,11 @@ public class TaskFieldValue {
         this.id = id;
     }
 
-    public int getTaskId() {
+    public String getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(int taskId) {
+    public void setTaskId(String taskId) {
         this.taskId = taskId;
     }
 

@@ -13,5 +13,5 @@ public interface TaskDao {
 
     Task getTaskById(int id);
 
-    List<Task> getTasksForService(int serviceId);
+    List<Task> getTasksForService(String serviceId);
 }

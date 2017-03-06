@@ -27,7 +27,9 @@ public class MailConfiguration {
         MailSettings mailSettings = settingsService.getMailSettings();
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         Properties mailProperties = new Properties();
-        mailProperties.put("mail.smtp.starttls.enable", mailSettings.isStartTlsEnable());
+        if (mailSettings.isStartTlsEnable()) {
+            mailProperties.put("mail.smtp.starttls.enable", true);
+        }
         mailSender.setJavaMailProperties(mailProperties);
         mailSender.setHost(mailSettings.getHost());
         mailSender.setPort(Integer.parseInt(mailSettings.getPort()));

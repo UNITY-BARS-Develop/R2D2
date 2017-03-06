@@ -36,19 +36,19 @@ public class SqliteServiceTypeParameterValueDaoTest extends AbstractDaoTest {
     @Test
     public void getServiceTypeParameterValuesForService() {
         List<ServiceTypeParameterValue> serviceTypeParameterValues =
-                serviceTypeParameterValueDao.getServiceTypeParameterValuesForService(1);
+                serviceTypeParameterValueDao.getServiceTypeParameterValuesForService("1");
         assertNotNull(serviceTypeParameterValues);
         assertEquals(1, serviceTypeParameterValues.size());
         assertNotNull(serviceTypeParameterValues.get(0));
         assertEquals("https://corplightdev.unity-bars.com:4443", serviceTypeParameterValues.get(0).getValue());
-        assertEquals(1, serviceTypeParameterValues.get(0).getServiceId());
+        assertEquals("1", serviceTypeParameterValues.get(0).getServiceId());
         assertEquals("url", serviceTypeParameterValues.get(0).getServiceTypeParameter().name().toLowerCase());
     }
 
     @Test
     public void getNonexistServiceTypeParameterValuesForService() {
         List<ServiceTypeParameterValue> serviceTypeParameterValues =
-                serviceTypeParameterValueDao.getServiceTypeParameterValuesForService(0);
+                serviceTypeParameterValueDao.getServiceTypeParameterValuesForService("0");
         assertNotNull(serviceTypeParameterValues);
         assertEquals(0, serviceTypeParameterValues.size());
     }

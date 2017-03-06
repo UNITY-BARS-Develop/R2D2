@@ -49,7 +49,7 @@ public class SqliteTaskDao implements TaskDao {
     }
 
     @Override
-    public List<Task> getTasksForService(int serviceId) {
+    public List<Task> getTasksForService(String serviceId) {
         String sql =
                 "SELECT TASK.*, TASK_TYPE.id as task_type_name " +
                         "FROM TASK " +
@@ -63,8 +63,8 @@ public class SqliteTaskDao implements TaskDao {
         @Override
         public Task mapRow(ResultSet resultSet, int i) throws SQLException {
             return new Task(
-                    resultSet.getInt("id"),
-                    resultSet.getInt("service_id"),
+                    resultSet.getString("id"),
+                    resultSet.getString("service_id"),
                     TaskType.getTaskType(resultSet.getString("task_type_name")),
                     resultSet.getString("expected_value"),
                     resultSet.getString("name")

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.stream.Collectors.toList;
 
@@ -33,7 +34,7 @@ public class TaskService {
         this.taskFieldValueDao = taskFieldValueDao;
     }
 
-    public List<Task> getAllTasksForService(int serviceId) {
+    public List<Task> getAllTasksForService(String serviceId) {
         return taskDao.getTasksForService(serviceId);
     }
 
@@ -43,12 +44,12 @@ public class TaskService {
         return task;
     }
 
-    public List<Task> getAllTasksWithFieldsForService(int serviceId) {
+    public List<Task> getAllTasksWithFieldsForService(String serviceId) {
         List<Task> taskList = taskDao.getTasksForService(serviceId);
         List<TaskFieldValue> taskFieldValueList = taskFieldValueDao.getAllTaskFieldValues();
         for (Task task : taskList) {
             List<TaskFieldValue> fieldValuesForConcreteTask = taskFieldValueList.stream()
-                    .filter(t -> t.getTaskId() == task.getId())
+                    .filter(t -> Objects.equals(t.getTaskId(), task.getId()))
                     .collect(toList());
             task.setFields(fieldValuesForConcreteTask);
         }

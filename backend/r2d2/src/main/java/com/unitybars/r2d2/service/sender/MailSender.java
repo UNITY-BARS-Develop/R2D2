@@ -1,6 +1,5 @@
 package com.unitybars.r2d2.service.sender;
 
-import com.unitybars.r2d2.dao.SettingsDao;
 import com.unitybars.r2d2.entity.CheckLog;
 import com.unitybars.r2d2.entity.MailSettings;
 import com.unitybars.r2d2.exception.ContentTransformationException;
@@ -54,7 +53,7 @@ public class MailSender implements Sender {
                 helper.setFrom(getMailSettings().getUsername());
                 javaMailSender.send(mimeMessage);
             } catch (MessagingException e) {
-                logger.error("Error happened when trye to send message" + e);
+                logger.error("Error happened when try to send message" + e);
             }
         }
     }

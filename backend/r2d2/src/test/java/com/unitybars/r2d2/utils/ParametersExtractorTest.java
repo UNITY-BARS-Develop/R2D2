@@ -82,34 +82,34 @@ public class ParametersExtractorTest {
     }
 
     private Task initStatusCodeTask() {
-        Task task = new Task(1, 1, TaskType.StatusCode, "200", "Task 1");
+        Task task = new Task("1", "1", TaskType.StatusCode, "200", "Task 1");
         List<TaskFieldValue> taskFieldValues = new ArrayList<>();
         TaskTypeField taskTypeField1 = new TaskTypeField(1, TaskType.StatusCode, "header", 0, null);
         TaskTypeField taskTypeField2 = new TaskTypeField(2, TaskType.StatusCode, "Request method", 1, null);
-        taskFieldValues.add(new TaskFieldValue(1, 1, taskTypeField1, "header_1"));
-        taskFieldValues.add(new TaskFieldValue(2, 1, taskTypeField1, "header_2"));
-        taskFieldValues.add(new TaskFieldValue(3, 1, taskTypeField2, "get"));
+        taskFieldValues.add(new TaskFieldValue(1, "1", taskTypeField1, "header_1"));
+        taskFieldValues.add(new TaskFieldValue(2, "1", taskTypeField1, "header_2"));
+        taskFieldValues.add(new TaskFieldValue(3, "1", taskTypeField2, "get"));
         task.setFields(taskFieldValues);
         return task;
     }
 
     private Task initEmptyTask() {
-        return new Task(2, 1, TaskType.StatusCode, "200", "Task 2");
+        return new Task("2", "1", TaskType.StatusCode, "200", "Task 2");
     }
 
     private Task initJsonTask() {
-        Task task = new Task(3, 1, TaskType.JSON, "200", "Task 3");
+        Task task = new Task("3", "1", TaskType.JSON, "200", "Task 3");
         List<TaskFieldValue> taskFieldValuesJson = new ArrayList<>();
         TaskTypeField taskTypeField1 = new TaskTypeField(2, TaskType.StatusCode, "Request method", 1, null);
         TaskTypeField taskTypeField2 = new TaskTypeField(3, TaskType.JSON, "json field name", 1, null);
-        taskFieldValuesJson.add(new TaskFieldValue(4, 3, taskTypeField1, "GET"));
-        taskFieldValuesJson.add(new TaskFieldValue(4, 3, taskTypeField2, "StatusCode"));
+        taskFieldValuesJson.add(new TaskFieldValue(4, "3", taskTypeField1, "GET"));
+        taskFieldValuesJson.add(new TaskFieldValue(4, "3", taskTypeField2, "StatusCode"));
         task.setFields(taskFieldValuesJson);
         return task;
     }
 
     private Service initWebService() {
-        Service service = new Service(1, "Service 1", ServiceType.WEB, ServiceStatus.ACTIVE);
+        Service service = new Service("1", "Service 1", ServiceType.WEB, ServiceStatus.ACTIVE);
         HashMap<ServiceTypeParameter, String> serviceTypeParameter = new HashMap<>();
         serviceTypeParameter.put(ServiceTypeParameter.URL, "test_url_1");
         service.setParameters(serviceTypeParameter);
@@ -117,6 +117,6 @@ public class ParametersExtractorTest {
     }
 
     private Service initEmptyService() {
-        return new Service(1, "Service 1", ServiceType.WEB, ServiceStatus.ACTIVE);
+        return new Service("1", "Service 1", ServiceType.WEB, ServiceStatus.ACTIVE);
     }
 }

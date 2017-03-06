@@ -56,7 +56,7 @@ public class SqliteTaskFieldValueDao implements TaskFieldValueDao {
         public TaskFieldValue mapRow(ResultSet resultSet, int i) throws SQLException {
             return new TaskFieldValue(
                     resultSet.getInt("id"),
-                    resultSet.getInt("task_id"),
+                    resultSet.getString("task_id"),
                     new TaskTypeField(
                             resultSet.getInt("task_type_field_id"),
                             TaskType.getTaskType(resultSet.getString("task_type_id")),

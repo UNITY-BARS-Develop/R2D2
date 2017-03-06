@@ -8,6 +8,9 @@ public class HeaderItem {
     private String key;
     private String value;
 
+    public HeaderItem() {
+    }
+
     public HeaderItem(String key, String value) {
         this.key = key;
         this.value = value;

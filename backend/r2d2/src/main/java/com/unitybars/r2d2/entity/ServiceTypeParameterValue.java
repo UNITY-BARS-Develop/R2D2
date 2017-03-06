@@ -6,11 +6,11 @@ package com.unitybars.r2d2.entity;
  */
 public class ServiceTypeParameterValue {
     private int id;
-    private int serviceId;
+    private String serviceId;
     private ServiceTypeParameter serviceTypeParameter;
     private String value;
 
-    public ServiceTypeParameterValue(int id, int serviceId, ServiceTypeParameter serviceTypeParameter, String value) {
+    public ServiceTypeParameterValue(int id, String serviceId, ServiceTypeParameter serviceTypeParameter, String value) {
         this.id = id;
         this.serviceId = serviceId;
         this.serviceTypeParameter = serviceTypeParameter;
@@ -41,11 +41,11 @@ public class ServiceTypeParameterValue {
         this.value = value;
     }
 
-    public int getServiceId() {
+    public String getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(int serviceId) {
+    public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
     }
 }

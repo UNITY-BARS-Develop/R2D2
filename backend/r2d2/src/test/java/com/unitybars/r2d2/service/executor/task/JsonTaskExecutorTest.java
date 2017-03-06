@@ -35,7 +35,7 @@ public class JsonTaskExecutorTest extends AbstractTest {
         field.setAccessible(true);
         Task task = (Task) field.get(jsonTaskExecutor);
         assertNotNull(task);
-        assertEquals(7, task.getId());
+        assertEquals("7", task.getId());
         assertEquals("1", task.getExpectedValue());
         assertEquals("Task test", task.getName());
     }
@@ -47,7 +47,7 @@ public class JsonTaskExecutorTest extends AbstractTest {
         field.setAccessible(true);
         Service service = (Service) field.get(jsonTaskExecutor);
         assertNotNull(service);
-        assertEquals(45, service.getId());
+        assertEquals("45", service.getId());
         assertEquals("Service test", service.getName());
     }
 
@@ -88,13 +88,13 @@ public class JsonTaskExecutorTest extends AbstractTest {
     }
 
     private Task getTask() {
-        Task task = new Task(7, 1, TaskType.JSON, "1", "Task test");
+        Task task = new Task("7", "1", TaskType.JSON, "1", "Task test");
         TaskTypeField taskTypeField1 = new TaskTypeField(1, TaskType.JSON,
                 Constants.TaskTypeFieldConstants.REQUEST_METHOD, 1, null);
         TaskTypeField taskTypeField2 = new TaskTypeField(2, TaskType.JSON,
                 Constants.TaskTypeFieldConstants.JSON_FIELD_NAME, 1, null);
-        TaskFieldValue taskFieldValue1 = new TaskFieldValue(1, 1, taskTypeField1, "GET");
-        TaskFieldValue taskFieldValue2 = new TaskFieldValue(2, 1, taskTypeField2, "id");
+        TaskFieldValue taskFieldValue1 = new TaskFieldValue(1, "1", taskTypeField1, "GET");
+        TaskFieldValue taskFieldValue2 = new TaskFieldValue(2, "1", taskTypeField2, "id");
         List<TaskFieldValue> taskFieldValues = new ArrayList<>();
         taskFieldValues.add(taskFieldValue1);
         taskFieldValues.add(taskFieldValue2);
@@ -104,11 +104,11 @@ public class JsonTaskExecutorTest extends AbstractTest {
 
     private Service getService() {
         List<Service> services = new ArrayList<>();
-        Service service = new Service(45, "Service test", ServiceType.WEB, ServiceStatus.ACTIVE);
+        Service service = new Service("45", "Service test", ServiceType.WEB, ServiceStatus.ACTIVE);
         List<ServiceTypeParameterValue> parameters = new ArrayList<>();
-        parameters.add(new ServiceTypeParameterValue(1, 1, ServiceTypeParameter.URL,
+        parameters.add(new ServiceTypeParameterValue(1, "1", ServiceTypeParameter.URL,
                 "https://jsonplaceholder.typicode.com/posts/1"));
-        service.setParameters(parameters);
+        service.setParametersFromList(parameters);
         return service;
     }
 

@@ -1,6 +1,5 @@
 package com.unitybars.r2d2.entity;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -8,8 +7,8 @@ import java.util.List;
  * Date: 14-Dec-16.
  */
 public class Task {
-    private int id;
-    private int serviceId;
+    private String id;
+    private String serviceId;
     private TaskType taskType;
     private String expectedValue;
     private String name;
@@ -18,7 +17,7 @@ public class Task {
     public Task() {
     }
 
-    public Task(int id, int serviceId, TaskType taskType, String expectedValue, String name) {
+    public Task(String id, String serviceId, TaskType taskType, String expectedValue, String name) {
         this.id = id;
         this.serviceId = serviceId;
         this.taskType = taskType;
@@ -26,19 +25,19 @@ public class Task {
         this.name = name;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getServiceId() {
+    public String getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(int serviceId) {
+    public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
     }
 

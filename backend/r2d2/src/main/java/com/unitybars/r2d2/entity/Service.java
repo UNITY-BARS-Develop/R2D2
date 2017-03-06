@@ -2,19 +2,20 @@ package com.unitybars.r2d2.entity;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by oleg.nestyuk
  * Date: 08-Dec-16.
  */
 public class Service {
-    private int id;
+    private String id;
     private String name;
     private ServiceType serviceType;
     private ServiceStatus serviceStatus;
-    private HashMap<ServiceTypeParameter, String> parameters;
+    private Map<ServiceTypeParameter, String> parameters;
 
-    public Service(int id, String name, ServiceType serviceType, ServiceStatus serviceStatus) {
+    public Service(String id, String name, ServiceType serviceType, ServiceStatus serviceStatus) {
         this.id = id;
         this.name = name;
         this.serviceType = serviceType;
@@ -24,11 +25,11 @@ public class Service {
     public Service() {
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -56,15 +57,15 @@ public class Service {
         this.serviceStatus = serviceStatus;
     }
 
-    public HashMap<ServiceTypeParameter, String> getParameters() {
+    public Map<ServiceTypeParameter, String> getParameters() {
         return parameters;
     }
 
-    public void setParameters(HashMap<ServiceTypeParameter, String> parameters) {
+    public void setParameters(Map<ServiceTypeParameter, String> parameters) {
         this.parameters = parameters;
     }
 
-    public void setParameters(List<ServiceTypeParameterValue> parameters) {
+    public void setParametersFromList(List<ServiceTypeParameterValue> parameters) {
         this.parameters = convertServiceParameters(parameters);
     }
 
