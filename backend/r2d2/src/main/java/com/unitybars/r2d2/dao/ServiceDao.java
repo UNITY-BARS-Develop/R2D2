@@ -1,6 +1,7 @@
 package com.unitybars.r2d2.dao;
 
 import com.unitybars.r2d2.entity.Service;
+import com.unitybars.r2d2.entity.ServiceStatus;
 
 import java.util.List;
 
@@ -11,7 +12,9 @@ import java.util.List;
 public interface ServiceDao {
     List<Service> getAllServices();
 
-    Service getServiceById(int id);
+    Service getServiceById(String id);
 
     void create(Service service);
+
+    void setServiceStatus(String id, ServiceStatus status);
 }

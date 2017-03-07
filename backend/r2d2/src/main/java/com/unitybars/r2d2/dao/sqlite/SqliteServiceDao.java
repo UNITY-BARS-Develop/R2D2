@@ -44,7 +44,7 @@ public class SqliteServiceDao implements ServiceDao {
     }
 
     @Override
-    public Service getServiceById(int id) {
+    public Service getServiceById(String id) {
         String sql =
                 "SELECT " +
                         "SERVICE.*, " +
@@ -63,6 +63,14 @@ public class SqliteServiceDao implements ServiceDao {
         String sql = "INSERT INTO SERVICE (id, service_type_id, service_status_id, name) " +
                 "VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, service.getId(), service.getServiceType(), service.getServiceStatus(), service.getName());
+    }
+
+    @Override
+    public void setServiceStatus(String id, ServiceStatus status) {
+        String sql = "UPDATE SERVICE " +
+                "SET service_status_id = ? " +
+                "WHERE id = ?";
+        jdbcTemplate.update(sql, status, id);
     }
 
     public class ServiceRowMapper implements RowMapper {

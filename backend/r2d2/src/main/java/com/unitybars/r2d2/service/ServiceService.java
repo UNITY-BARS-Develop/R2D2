@@ -3,10 +3,7 @@ package com.unitybars.r2d2.service;
 import com.unitybars.r2d2.dao.ServiceDao;
 import com.unitybars.r2d2.dao.ServiceTypeParameterDao;
 import com.unitybars.r2d2.dao.ServiceTypeParameterValueDao;
-import com.unitybars.r2d2.entity.Service;
-import com.unitybars.r2d2.entity.ServiceType;
-import com.unitybars.r2d2.entity.ServiceTypeParameter;
-import com.unitybars.r2d2.entity.ServiceTypeParameterValue;
+import com.unitybars.r2d2.entity.*;
 import com.unitybars.r2d2.exception.InvalidRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -53,7 +50,7 @@ public class ServiceService {
         return serviceDao.getAllServices();
     }
 
-    public Service getServiceById(int id) {
+    public Service getServiceById(String id) {
         Service service = serviceDao.getServiceById(id);
         List<ServiceTypeParameterValue> serviceTypeParameterValues =
                 serviceTypeParameterValueDao.getServiceTypeParameterValuesForService(service.getId());
@@ -89,5 +86,9 @@ public class ServiceService {
 
     public List<ServiceTypeParameter> getAllServiceTypeParametersByServiceType(ServiceType serviceType) {
         return serviceTypeParameterDao.getByServiceType(serviceType);
+    }
+
+    public void setServiceStatus(String id, ServiceStatus status) {
+        serviceDao.setServiceStatus(id, status);
     }
 }

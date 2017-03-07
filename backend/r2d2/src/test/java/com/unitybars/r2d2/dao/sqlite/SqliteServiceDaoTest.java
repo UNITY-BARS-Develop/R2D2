@@ -33,7 +33,7 @@ public class SqliteServiceDaoTest extends AbstractDaoTest {
 
     @Test
     public void testGetServiceById() {
-        Service service = serviceDao.getServiceById(1);
+        Service service = serviceDao.getServiceById("1");
         assertEquals(1, service.getId());
         assertEquals("Service 1", service.getName());
         assertEquals(ServiceStatus.ACTIVE, service.getServiceStatus());
@@ -42,6 +42,6 @@ public class SqliteServiceDaoTest extends AbstractDaoTest {
 
     @Test(expected = EmptyResultDataAccessException.class)
     public void getNonexistentService() {
-        serviceDao.getServiceById(7);
+        serviceDao.getServiceById("7");
     }
 }

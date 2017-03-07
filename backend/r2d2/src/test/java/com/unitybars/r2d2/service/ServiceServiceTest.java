@@ -92,12 +92,12 @@ public class ServiceServiceTest extends AbstractTest {
         List<ServiceTypeParameterValue> serviceTypeParameterValues = new ArrayList<>();
         serviceTypeParameterValues.add(
                 new ServiceTypeParameterValue(1, "1", ServiceTypeParameter.URL, "https://test.com"));
-        when(serviceDao.getServiceById(1)).thenReturn(serviceItem);
+        when(serviceDao.getServiceById("1")).thenReturn(serviceItem);
         when(serviceTypeParameterValueDao.getServiceTypeParameterValuesForService(serviceItem.getId()))
                 .thenReturn(serviceTypeParameterValues);
-        assertEquals("1", service.getServiceById(1).getId());
-        assertNotNull(service.getServiceById(1).getParameters());
-        assertEquals(1, service.getServiceById(1).getParameters().size());
-        assertEquals("https://test.com", service.getServiceById(1).getParameters().get(ServiceTypeParameter.URL));
+        assertEquals("1", service.getServiceById("1").getId());
+        assertNotNull(service.getServiceById("1").getParameters());
+        assertEquals(1, service.getServiceById("1").getParameters().size());
+        assertEquals("https://test.com", service.getServiceById("1").getParameters().get(ServiceTypeParameter.URL));
     }
 }

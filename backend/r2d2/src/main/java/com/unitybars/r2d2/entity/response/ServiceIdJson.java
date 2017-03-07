@@ -4,13 +4,13 @@ package com.unitybars.r2d2.entity.response;
  * Created by oleg.nestyuk
  * Date: 06-Mar-17.
  */
-public class ServiceId {
+public class ServiceIdJson {
     private String serviceId;
 
-    public ServiceId() {
+    public ServiceIdJson() {
     }
 
-    public ServiceId(String serviceId) {
+    public ServiceIdJson(String serviceId) {
         this.serviceId = serviceId;
     }
 
