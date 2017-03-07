@@ -59,7 +59,7 @@ public class ServiceService {
     }
 
     public String add(Service service) throws InvalidRequestBody {
-        if (validateService(service)) {
+        if (validateServiceToCreate(service)) {
             String serviceId = UUID.randomUUID().toString();
             service.setId(serviceId);
             serviceDao.create(service);
@@ -70,7 +70,17 @@ public class ServiceService {
         }
     }
 
-    private boolean validateService(Service service) {
+    public String update(Service service) throws InvalidRequestBody {
+        if (validateServiceToUpdate(service)) {
+            serviceTypeParameterValueDao.update(service.getParameters(), service.getId());
+            serviceDao.update(service);
+            return service.getId();
+        } else {
+            throw new InvalidRequestBody();
+        }
+    }
+
+    private boolean validateServiceToCreate(Service service) {
         if (service != null && service.getServiceStatus() != null && service.getServiceType() != null) {
             List<ServiceTypeParameter> serviceTypeParameters = getAllServiceTypeParametersByServiceType(service.getServiceType());
             for (ServiceTypeParameter serviceTypeParameter : serviceTypeParameters) {
@@ -81,6 +91,11 @@ public class ServiceService {
             return true;
         }
         return false;
+    }
+
+    private boolean validateServiceToUpdate(Service service) {
+        return service != null && service.getServiceStatus() != null && service.getId() != null
+                && service.getId().length() > 0;
     }
 
     public List<ServiceTypeParameter> getAllServiceTypeParametersByServiceType(ServiceType serviceType) {

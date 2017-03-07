@@ -77,6 +77,30 @@ public class SqliteServiceTypeParameterValueDao implements ServiceTypeParameterV
         });
     }
 
+    @Override
+    public void update(Map<ServiceTypeParameter, String> parameters, String serviceId) {
+        List<String[]> parametersList = new ArrayList<>();
+        for (Map.Entry<ServiceTypeParameter, String> entry : parameters.entrySet()) {
+            parametersList.add(new String[]{entry.getKey().toString(), entry.getValue()});
+        }
+        String sql = "UPDATE SERVICE_TYPE_PARAMETER_VALUES " +
+                "SET value = ?" +
+                "WHERE service_id = ? AND service_type_parameter_id = ?";
+        jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {
+                preparedStatement.setString(1, parametersList.get(i)[1]);
+                preparedStatement.setString(2, serviceId);
+                preparedStatement.setString(3, parametersList.get(i)[0]);
+            }
+
+            @Override
+            public int getBatchSize() {
+                return parametersList.size();
+            }
+        });
+    }
+
     public class ServiceTypeParameterValueRowMapper implements RowMapper {
         @Override
         public ServiceTypeParameterValue mapRow(ResultSet resultSet, int i) throws SQLException {

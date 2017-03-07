@@ -16,4 +16,6 @@ public interface ServiceTypeParameterValueDao {
     List<ServiceTypeParameterValue> getServiceTypeParameterValuesForService(String serviceId);
 
     void create(Map<ServiceTypeParameter, String> parameters, String serviceId);
+
+    void update(Map<ServiceTypeParameter, String> parameters, String serviceId);
 }

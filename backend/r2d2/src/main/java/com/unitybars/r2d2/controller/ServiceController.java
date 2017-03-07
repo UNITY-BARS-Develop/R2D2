@@ -27,6 +27,16 @@ public class ServiceController {
         return serviceService.getAllServices();
     }
 
+    @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ServiceIdJson add(@RequestBody Service service) throws InvalidRequestBody {
+        return new ServiceIdJson(serviceService.add(service));
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ServiceIdJson update(@RequestBody Service service) throws InvalidRequestBody {
+        return new ServiceIdJson(serviceService.update(service));
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Service getServiceById(@PathVariable("id") String id) {
         return serviceService.getServiceById(id);
@@ -35,10 +45,5 @@ public class ServiceController {
     @RequestMapping(value = "/{id}/status", method = RequestMethod.PUT)
     public void setServiceStatus(@PathVariable("id") String id, @RequestBody ServiceStatusJson serviceStatusJson) {
         serviceService.setServiceStatus(id, serviceStatusJson.getStatus());
-    }
-
-    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ServiceIdJson add(@RequestBody Service service) throws InvalidRequestBody {
-        return new ServiceIdJson(serviceService.add(service));
     }
 }

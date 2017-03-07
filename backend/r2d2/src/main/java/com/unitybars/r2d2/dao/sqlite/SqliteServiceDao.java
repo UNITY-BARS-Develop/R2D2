@@ -66,6 +66,14 @@ public class SqliteServiceDao implements ServiceDao {
     }
 
     @Override
+    public void update(Service service) {
+        String sql = "UPDATE SERVICE " +
+                "SET name = ?, service_status_id = ?" +
+                "WHERE id = ?";
+        jdbcTemplate.update(sql, service.getName(), service.getServiceStatus(), service.getId());
+    }
+
+    @Override
     public void setServiceStatus(String id, ServiceStatus status) {
         String sql = "UPDATE SERVICE " +
                 "SET service_status_id = ? " +

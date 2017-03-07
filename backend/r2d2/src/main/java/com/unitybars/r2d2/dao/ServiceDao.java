@@ -17,4 +17,6 @@ public interface ServiceDao {
     void create(Service service);
 
     void setServiceStatus(String id, ServiceStatus status);
+
+    void update(Service service);
 }
