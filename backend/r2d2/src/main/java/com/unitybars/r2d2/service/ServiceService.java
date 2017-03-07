@@ -39,7 +39,7 @@ public class ServiceService {
         List<ServiceTypeParameterValue> servicesParameters = serviceTypeParameterValueDao.getAllServiceTypeParameterValues();
         for (Service service : services) {
             List<ServiceTypeParameterValue> concreteServiceParameters = servicesParameters.stream()
-                    .filter(p -> p.getServiceId() == service.getId())
+                    .filter(p -> p.getServiceId().equals(service.getId()))
                     .collect(toList());
             service.setParametersFromList(concreteServiceParameters);
         }
@@ -82,7 +82,6 @@ public class ServiceService {
         }
         return false;
     }
-
 
     public List<ServiceTypeParameter> getAllServiceTypeParametersByServiceType(ServiceType serviceType) {
         return serviceTypeParameterDao.getByServiceType(serviceType);
