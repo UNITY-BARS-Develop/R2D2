@@ -71,6 +71,12 @@ public class SqliteTaskDao implements TaskDao {
         jdbcTemplate.update(sql, task.getExpectedValue(), task.getName(), task.getId());
     }
 
+    @Override
+    public void delete(String taskId) {
+        String sql = "DELETE FROM TASK WHERE id = ?";
+        jdbcTemplate.update(sql, taskId);
+    }
+
     public class TaskRowMapper implements RowMapper {
 
         @Override

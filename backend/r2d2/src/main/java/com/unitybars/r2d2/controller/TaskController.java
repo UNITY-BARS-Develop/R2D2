@@ -33,4 +33,10 @@ public class TaskController {
     public Task getTask(@PathVariable("id") String taskId) {
         return taskService.getTaskById(taskId);
     }
+
+
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    public void deleteTask(@PathVariable("id") String taskId) {
+        taskService.deleteTaskById(taskId);
+    }
 }

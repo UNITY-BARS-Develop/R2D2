@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.sqlite.SQLiteConfig;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -25,6 +26,9 @@ public class DatabaseConfiguration {
         dataSource.setUrl(environment.getProperty("sqlitedb.datasource.url"));
         dataSource.setUsername(environment.getProperty("sqlitedb.datasource.username"));
         dataSource.setPassword(environment.getProperty("sqlitedb.datasource.password"));
+        SQLiteConfig config = new SQLiteConfig();
+        config.enforceForeignKeys(true);
+        dataSource.setConnectionProperties(config.toProperties());
         return dataSource;
     }
 

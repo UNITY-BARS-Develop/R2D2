@@ -133,4 +133,8 @@ public class TaskService {
         }
         return sentTaskFieldTypesCount.size() == 0;
     }
+
+    public void deleteTaskById(String taskId) {
+        taskDao.delete(taskId);
+    }
 }

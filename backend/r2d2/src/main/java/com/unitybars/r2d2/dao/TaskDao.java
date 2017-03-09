@@ -18,4 +18,6 @@ public interface TaskDao {
     void create(Task task);
 
     void update(Task task);
+
+    void delete(String taskId);
 }
