@@ -2,7 +2,7 @@ package com.unitybars.r2d2.controller;
 
 import com.unitybars.r2d2.entity.Task;
 import com.unitybars.r2d2.entity.response.TaskIdJson;
-import com.unitybars.r2d2.exception.InvalidRequestBody;
+import com.unitybars.r2d2.exception.InvalidRequestBodyException;
 import com.unitybars.r2d2.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +19,12 @@ public class TaskController {
 
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public TaskIdJson addTask(@RequestBody Task task) throws InvalidRequestBody {
+    public TaskIdJson addTask(@RequestBody Task task) throws InvalidRequestBodyException {
         return new TaskIdJson(taskService.add(task));
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public TaskIdJson updateTask(@RequestBody Task task) throws InvalidRequestBody {
+    public TaskIdJson updateTask(@RequestBody Task task) throws InvalidRequestBodyException {
         return new TaskIdJson(taskService.updateTask(task));
     }
 

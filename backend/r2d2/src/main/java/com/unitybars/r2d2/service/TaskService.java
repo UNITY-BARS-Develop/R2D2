@@ -7,7 +7,7 @@ import com.unitybars.r2d2.entity.Task;
 import com.unitybars.r2d2.entity.TaskFieldValue;
 import com.unitybars.r2d2.entity.TaskTypeField;
 import com.unitybars.r2d2.entity.response.TaskTypeJson;
-import com.unitybars.r2d2.exception.InvalidRequestBody;
+import com.unitybars.r2d2.exception.InvalidRequestBodyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,7 +65,7 @@ public class TaskService {
     }
 
     @Transactional
-    public String add(Task task) throws InvalidRequestBody {
+    public String add(Task task) throws InvalidRequestBodyException {
         if (validateTaskToCreate(task)) {
             String taskId = UUID.randomUUID().toString();
             task.setId(taskId);
@@ -73,18 +73,18 @@ public class TaskService {
             taskFieldValueDao.create(task.getFields(), taskId);
             return taskId;
         } else {
-            throw new InvalidRequestBody();
+            throw new InvalidRequestBodyException();
         }
     }
 
     @Transactional
-    public String updateTask(Task task) throws InvalidRequestBody {
+    public String updateTask(Task task) throws InvalidRequestBodyException {
         if (validateTaskToUpdate(task)) {
             taskDao.update(task);
             taskFieldValueDao.update(task.getFields(), task.getId());
             return task.getId();
         } else {
-            throw new InvalidRequestBody();
+            throw new InvalidRequestBodyException();
         }
     }
 

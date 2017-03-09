@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/v1/tasktype")
+@RequestMapping("/api/v1/tasktypes")
 public class TaskTypeController {
 
     @Autowired

@@ -36,10 +36,6 @@ public class SqliteSettingsDaoTest extends AbstractDaoTest {
         CheckSenderParameters checkSenderParameters = settingsDao.getCheckSenderParameters();
         assertNotNull(checkSenderParameters);
         assertEquals("R2D2 - Звіт", checkSenderParameters.getMailSubject());
-        assertNotNull(checkSenderParameters.getMailRecipients());
-        assertEquals(2, checkSenderParameters.getMailRecipients().length);
-        assertEquals("r2d2.monitorbot@gmail.com", checkSenderParameters.getMailRecipients()[0]);
-        assertEquals("oleg.nestyuk@unity-bars.com", checkSenderParameters.getMailRecipients()[1]);
     }
 
     @Test

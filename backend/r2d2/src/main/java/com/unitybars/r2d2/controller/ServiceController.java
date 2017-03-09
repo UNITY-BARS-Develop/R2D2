@@ -1,11 +1,10 @@
 package com.unitybars.r2d2.controller;
 
 import com.unitybars.r2d2.entity.Service;
-import com.unitybars.r2d2.entity.ServiceStatus;
 import com.unitybars.r2d2.entity.Task;
 import com.unitybars.r2d2.entity.response.ServiceIdJson;
 import com.unitybars.r2d2.entity.response.ServiceStatusJson;
-import com.unitybars.r2d2.exception.InvalidRequestBody;
+import com.unitybars.r2d2.exception.InvalidRequestBodyException;
 import com.unitybars.r2d2.service.ServiceService;
 import com.unitybars.r2d2.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +26,12 @@ public class ServiceController {
     private TaskService taskService;
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ServiceIdJson add(@RequestBody Service service) throws InvalidRequestBody {
+    public ServiceIdJson add(@RequestBody Service service) throws InvalidRequestBodyException {
         return new ServiceIdJson(serviceService.add(service));
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ServiceIdJson update(@RequestBody Service service) throws InvalidRequestBody {
+    public ServiceIdJson update(@RequestBody Service service) throws InvalidRequestBodyException {
         return new ServiceIdJson(serviceService.update(service));
     }
 

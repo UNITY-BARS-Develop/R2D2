@@ -7,7 +7,6 @@ import com.unitybars.r2d2.entity.MailSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ParameterDisposer;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -66,8 +65,6 @@ public class SqliteSettingsDao implements SettingsDao {
             CheckSenderParameters checkSenderParameters = new CheckSenderParameters();
             ArrayList<String> subjects = parameters.get("sender.mail.subject");
             checkSenderParameters.setMailSubject(subjects != null && subjects.size() > 0 ? subjects.get(0) : null);
-            ArrayList<String> recipients = parameters.get("sender.mail.recipient");
-            checkSenderParameters.setMailRecipients(recipients != null ? recipients.toArray(new String[0]) : null);
             ArrayList<String> sendMessageIfSuccessList = parameters.get("sender.mail.send_if_success");
             if (sendMessageIfSuccessList != null && sendMessageIfSuccessList.size() > 0) {
                 String sendMessageIfSuccess = sendMessageIfSuccessList.get(0);

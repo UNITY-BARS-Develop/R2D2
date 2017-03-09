@@ -4,7 +4,7 @@ import com.unitybars.r2d2.dao.ServiceDao;
 import com.unitybars.r2d2.dao.ServiceTypeParameterDao;
 import com.unitybars.r2d2.dao.ServiceTypeParameterValueDao;
 import com.unitybars.r2d2.entity.*;
-import com.unitybars.r2d2.exception.InvalidRequestBody;
+import com.unitybars.r2d2.exception.InvalidRequestBodyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,7 +60,7 @@ public class ServiceService {
     }
 
     @Transactional
-    public String add(Service service) throws InvalidRequestBody {
+    public String add(Service service) throws InvalidRequestBodyException {
         if (validateServiceToCreate(service)) {
             String serviceId = UUID.randomUUID().toString();
             service.setId(serviceId);
@@ -68,18 +68,18 @@ public class ServiceService {
             serviceTypeParameterValueDao.create(service.getParameters(), serviceId);
             return serviceId;
         } else {
-            throw new InvalidRequestBody();
+            throw new InvalidRequestBodyException();
         }
     }
 
     @Transactional
-    public String update(Service service) throws InvalidRequestBody {
+    public String update(Service service) throws InvalidRequestBodyException {
         if (validateServiceToUpdate(service)) {
             serviceTypeParameterValueDao.update(service.getParameters(), service.getId());
             serviceDao.update(service);
             return service.getId();
         } else {
-            throw new InvalidRequestBody();
+            throw new InvalidRequestBodyException();
         }
     }
 

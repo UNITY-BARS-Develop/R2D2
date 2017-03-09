@@ -10,9 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.mockito.Mockito.when;
 
@@ -41,13 +39,15 @@ public class MailSenderTest extends AbstractTest {
     @Test
     public void send() throws Exception {
         when(settingsDao.getMailSettings()).thenReturn(getMailSettings());
-        mailSender.send("Subject", "Fake message text", new String[]{"r2d2.monitorbot@gmail.com"});
+        List<Recipient> recipients = Collections.singletonList(
+                new Recipient(1, null, "r2d2.monitorbot@gmail.com"));
+        mailSender.send("Subject", "Fake message text", recipients);
     }
 
     @Test
     public void sendToNoOne() throws Exception {
         when(settingsDao.getMailSettings()).thenReturn(getMailSettings());
-        mailSender.send("Subject", "Fake message text", new String[]{});
+        mailSender.send("Subject", "Fake message text", new ArrayList<>());
     }
 
     @Test
