@@ -16,4 +16,6 @@ public interface TaskDao {
     List<Task> getTasksForService(String serviceId);
 
     void create(Task task);
+
+    void update(Task task);
 }

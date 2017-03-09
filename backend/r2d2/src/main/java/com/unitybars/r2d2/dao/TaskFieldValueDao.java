@@ -14,4 +14,6 @@ public interface TaskFieldValueDao {
     List<TaskFieldValue> getTaskFieldValuesForTask(String taskId);
 
     void create(List<TaskFieldValue> fields, String taskId);
+
+    void update(List<TaskFieldValue> fields, String id);
 }

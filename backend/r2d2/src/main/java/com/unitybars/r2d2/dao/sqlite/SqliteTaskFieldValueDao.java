@@ -72,6 +72,27 @@ public class SqliteTaskFieldValueDao implements TaskFieldValueDao {
         });
     }
 
+    @Override
+    public void update(List<TaskFieldValue> fields, String taskId) {
+        String sql = "UPDATE TASK_FIELD_VALUE " +
+                "SET value = ? " +
+                "WHERE id = ? AND task_id = ?";
+        jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {
+                TaskFieldValue taskFieldValue = fields.get(i);
+                preparedStatement.setString(1, taskFieldValue.getValue());
+                preparedStatement.setInt(2, taskFieldValue.getId());
+                preparedStatement.setString(3, taskId);
+            }
+
+            @Override
+            public int getBatchSize() {
+                return fields.size();
+            }
+        });
+    }
+
     public class TaskFieldValueRowMapper implements RowMapper {
 
         @Override

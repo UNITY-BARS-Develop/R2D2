@@ -11,8 +11,10 @@ import com.unitybars.r2d2.exception.InvalidRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
-import java.util.function.Function;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -75,10 +77,21 @@ public class TaskService {
         }
     }
 
+    @Transactional
+    public String updateTask(Task task) throws InvalidRequestBody {
+        if (validateTaskToUpdate(task)) {
+            taskDao.update(task);
+            taskFieldValueDao.update(task.getFields(), task.getId());
+            return task.getId();
+        } else {
+            throw new InvalidRequestBody();
+        }
+    }
+
     public boolean validateTaskToCreate(Task task) {
         try {
-            if (task.getServiceId() != null && task.getName() != null && task.getName().length() >
-                    0 && task.getTaskTypeId() != null && task.getExpectedValue() != null) {
+            if (task.getServiceId() != null && task.getName() != null && task.getName().length() > 0
+                    && task.getTaskTypeId() != null && task.getExpectedValue() != null) {
                 Service service = serviceService.getServiceById(task.getServiceId());
                 if (service != null) {
                     TaskTypeJson taskTypeJson = taskTypeService.getTaskType(task.getTaskTypeId());
@@ -94,25 +107,26 @@ public class TaskService {
         }
     }
 
-    private boolean isAllTaskFieldsFilledForTask(Task task) {
-        Map<Integer, Long> sentTaskFieldTypesCount = task.getFields().stream()
-                .collect(
-                        Collectors.groupingBy(
-                                t -> t.getTaskTypeField().getId(), Collectors.counting()
-                        )
-                );
+    private boolean validateTaskToUpdate(Task task) {
+        return task.getId() != null && task.getName() != null && task.getName().length() > 0
+                && task.getExpectedValue() != null;
+    }
 
+    private boolean isAllTaskFieldsFilledForTask(Task task) {
+        Map<Integer, Long> sentTaskFieldTypesCount = task.getFields().stream().collect(
+                Collectors.groupingBy(t -> t.getTaskTypeField().getId(), Collectors.counting())
+        );
         List<TaskTypeField> taskTypeFieldList = taskTypeService.getAllTaskTypeFieldsByTaskTypeId(task.getTaskTypeId());
         for (TaskTypeField taskTypeField : taskTypeFieldList) {
             int id = taskTypeField.getId();
             long expectCount = taskTypeField.getCount();
             if (expectCount == 0) {
                 sentTaskFieldTypesCount.remove(id);
-            } else{
+            } else {
                 Long sentCount = sentTaskFieldTypesCount.get(id);
-                if (sentCount != null && sentCount.equals(expectCount)){
+                if (sentCount != null && sentCount.equals(expectCount)) {
                     sentTaskFieldTypesCount.remove(id);
-                } else{
+                } else {
                     return false;
                 }
             }

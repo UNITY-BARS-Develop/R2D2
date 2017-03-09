@@ -19,8 +19,13 @@ public class TaskController {
 
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public TaskIdJson add(@RequestBody Task task) throws InvalidRequestBody {
+    public TaskIdJson addTask(@RequestBody Task task) throws InvalidRequestBody {
         return new TaskIdJson(taskService.add(task));
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public TaskIdJson updateTask(@RequestBody Task task) throws InvalidRequestBody {
+        return new TaskIdJson(taskService.updateTask(task));
     }
 
 

@@ -31,40 +31,44 @@ public class SqliteTaskDao implements TaskDao {
 
     @Override
     public List<Task> getAllTasks() {
-        String sql =
-                "SELECT TASK.*, TASK_TYPE.id as task_type_name " +
-                        "FROM TASK " +
-                        "JOIN TASK_TYPE on TASK.task_type_id=TASK_TYPE.id";
+        String sql = "SELECT TASK.*, TASK_TYPE.id as task_type_name " +
+                "FROM TASK " +
+                "JOIN TASK_TYPE on TASK.task_type_id=TASK_TYPE.id";
         return jdbcTemplate.query(sql, new TaskRowMapper());
     }
 
     @Override
     public Task getTaskById(String id) {
-        String sql =
-                "SELECT TASK.*, TASK_TYPE.id as task_type_name " +
-                        "FROM TASK " +
-                        "JOIN TASK_TYPE on TASK.task_type_id=TASK_TYPE.id " +
-                        "WHERE TASK.id = ?";
+        String sql = "SELECT TASK.*, TASK_TYPE.id as task_type_name " +
+                "FROM TASK " +
+                "JOIN TASK_TYPE on TASK.task_type_id=TASK_TYPE.id " +
+                "WHERE TASK.id = ?";
         return (Task) jdbcTemplate.queryForObject(sql, new TaskRowMapper(), id);
     }
 
     @Override
     public List<Task> getTasksForService(String serviceId) {
-        String sql =
-                "SELECT TASK.*, TASK_TYPE.id as task_type_name " +
-                        "FROM TASK " +
-                        "JOIN TASK_TYPE on TASK.task_type_id=TASK_TYPE.id " +
-                        "WHERE TASK.service_id = ?";
+        String sql = "SELECT TASK.*, TASK_TYPE.id as task_type_name " +
+                "FROM TASK " +
+                "JOIN TASK_TYPE on TASK.task_type_id=TASK_TYPE.id " +
+                "WHERE TASK.service_id = ?";
         return jdbcTemplate.query(sql, new TaskRowMapper(), serviceId);
     }
 
     @Override
     public void create(Task task) {
-        String sql =
-                "INSERT INTO TASK (id, task_type_id, service_id, name, expected_value)" +
-                        "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO TASK (id, task_type_id, service_id, name, expected_value)" +
+                "VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, task.getId(), task.getTaskTypeId(), task.getServiceId(), task.getName(),
                 task.getExpectedValue());
+    }
+
+    @Override
+    public void update(Task task) {
+        String sql = "UPDATE TASK " +
+                "SET expected_value = ?, name = ? " +
+                "WHERE id = ?";
+        jdbcTemplate.update(sql, task.getExpectedValue(), task.getName(), task.getId());
     }
 
     public class TaskRowMapper implements RowMapper {
