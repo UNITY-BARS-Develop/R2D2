@@ -14,8 +14,8 @@ import java.util.List;
  * Date: 07-Mar-17.
  */
 @RestController
-@RequestMapping("/api/v1/servicetypes")
-public class ServiceTypesController {
+@RequestMapping("/api/v1/servicetype")
+public class ServiceTypeController {
 
     @Autowired
     private ServiceTypeService serviceTypeService;

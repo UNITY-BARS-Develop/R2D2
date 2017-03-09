@@ -2,6 +2,7 @@ package com.unitybars.r2d2.service;
 
 import com.unitybars.r2d2.dao.TaskTypeDao;
 import com.unitybars.r2d2.dao.TaskTypeFieldDao;
+import com.unitybars.r2d2.entity.ServiceType;
 import com.unitybars.r2d2.entity.TaskTypeField;
 import com.unitybars.r2d2.entity.TaskTypeId;
 import com.unitybars.r2d2.entity.response.TaskTypeJson;
@@ -29,4 +30,7 @@ public class TaskTypeService {
         return taskTypeFieldDao.getAllTaskTypeFieldsByTaskTypeId(taskTypeId);
     }
 
+    public List<TaskTypeJson> getTaskTypesForServiceType(ServiceType serviceType) {
+        return taskTypeDao.getTaskTypesForServiceType(serviceType);
+    }
 }

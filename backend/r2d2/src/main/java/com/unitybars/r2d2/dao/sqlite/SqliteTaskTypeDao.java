@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by oleg.nestyuk
@@ -34,6 +35,14 @@ public class SqliteTaskTypeDao implements TaskTypeDao {
         String sql = "SELECT * FROM TASK_TYPE " +
                 "WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, new TaskTypeRowMapper(), taskTypeId.toString());
+    }
+
+    @Override
+    public List<TaskTypeJson> getTaskTypesForServiceType(ServiceType serviceType) {
+        String sql = "SELECT * " +
+                "FROM TASK_TYPE " +
+                "WHERE service_type_id = ?";
+        return jdbcTemplate.query(sql, new TaskTypeRowMapper(), serviceType.toString());
     }
 
     class TaskTypeRowMapper implements RowMapper<TaskTypeJson> {
