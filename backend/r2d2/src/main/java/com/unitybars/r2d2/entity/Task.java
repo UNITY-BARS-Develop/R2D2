@@ -9,7 +9,7 @@ import java.util.List;
 public class Task {
     private String id;
     private String serviceId;
-    private TaskType taskType;
+    private TaskTypeId taskTypeId;
     private String expectedValue;
     private String name;
     private List<TaskFieldValue> fields;
@@ -17,10 +17,10 @@ public class Task {
     public Task() {
     }
 
-    public Task(String id, String serviceId, TaskType taskType, String expectedValue, String name) {
+    public Task(String id, String serviceId, TaskTypeId taskTypeId, String expectedValue, String name) {
         this.id = id;
         this.serviceId = serviceId;
-        this.taskType = taskType;
+        this.taskTypeId = taskTypeId;
         this.expectedValue = expectedValue;
         this.name = name;
     }
@@ -41,12 +41,12 @@ public class Task {
         this.serviceId = serviceId;
     }
 
-    public TaskType getTaskType() {
-        return taskType;
+    public TaskTypeId getTaskTypeId() {
+        return taskTypeId;
     }
 
-    public void setTaskType(TaskType taskType) {
-        this.taskType = taskType;
+    public void setTaskTypeId(TaskTypeId taskTypeId) {
+        this.taskTypeId = taskTypeId;
     }
 
     public String getExpectedValue() {

@@ -88,10 +88,10 @@ public class JsonTaskExecutorTest extends AbstractTest {
     }
 
     private Task getTask() {
-        Task task = new Task("7", "1", TaskType.JSON, "1", "Task test");
-        TaskTypeField taskTypeField1 = new TaskTypeField(1, TaskType.JSON,
+        Task task = new Task("7", "1", TaskTypeId.JSON, "1", "Task test");
+        TaskTypeField taskTypeField1 = new TaskTypeField(1, TaskTypeId.JSON,
                 Constants.TaskTypeFieldConstants.REQUEST_METHOD, 1, null);
-        TaskTypeField taskTypeField2 = new TaskTypeField(2, TaskType.JSON,
+        TaskTypeField taskTypeField2 = new TaskTypeField(2, TaskTypeId.JSON,
                 Constants.TaskTypeFieldConstants.JSON_FIELD_NAME, 1, null);
         TaskFieldValue taskFieldValue1 = new TaskFieldValue(1, "1", taskTypeField1, "GET");
         TaskFieldValue taskFieldValue2 = new TaskFieldValue(2, "1", taskTypeField2, "id");

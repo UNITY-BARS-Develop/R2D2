@@ -50,7 +50,7 @@ public class StatusCodeTaskExecutor implements TaskExecutor {
 
     private TaskCheckLog parseResponse(Response response) {
         String statusCode = String.valueOf(response.code());
-        return new TaskCheckLog(0, task.getName(), task.getTaskType().name(), task.getExpectedValue(), statusCode,
+        return new TaskCheckLog(0, task.getName(), task.getTaskTypeId().name(), task.getExpectedValue(), statusCode,
                 new Date(), getStatus(response), 0);
     }
 

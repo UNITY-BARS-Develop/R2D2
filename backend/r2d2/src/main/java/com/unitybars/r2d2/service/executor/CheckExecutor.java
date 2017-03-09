@@ -97,7 +97,7 @@ public class CheckExecutor {
     }
 
     private TaskCheckLog getUnexpectedErrorTaskCheckLog(Task task, ServiceCheckLog serviceCheckLog) {
-        return new TaskCheckLog(0, task.getName(), task.getTaskType().name(), task.getExpectedValue(), null,
+        return new TaskCheckLog(0, task.getName(), task.getTaskTypeId().name(), task.getExpectedValue(), null,
                 new Date(), CheckStatus.UNEXPECTED_ERROR, serviceCheckLog.getId());
     }
 
@@ -106,7 +106,7 @@ public class CheckExecutor {
     }
 
     private TaskExecutorCreator getTaskExecutorCreator(Task task) throws UnsupportedOperationException {
-        switch (task.getTaskType()) {
+        switch (task.getTaskTypeId()) {
             case JSON:
                 return context.getBean(JsonTaskExecutorCreator.class);
             case StatusCode:

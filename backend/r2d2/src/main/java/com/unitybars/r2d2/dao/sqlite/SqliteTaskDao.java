@@ -2,7 +2,7 @@ package com.unitybars.r2d2.dao.sqlite;
 
 import com.unitybars.r2d2.dao.TaskDao;
 import com.unitybars.r2d2.entity.Task;
-import com.unitybars.r2d2.entity.TaskType;
+import com.unitybars.r2d2.entity.TaskTypeId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -39,7 +39,7 @@ public class SqliteTaskDao implements TaskDao {
     }
 
     @Override
-    public Task getTaskById(int id) {
+    public Task getTaskById(String id) {
         String sql =
                 "SELECT TASK.*, TASK_TYPE.id as task_type_name " +
                         "FROM TASK " +
@@ -58,6 +58,15 @@ public class SqliteTaskDao implements TaskDao {
         return jdbcTemplate.query(sql, new TaskRowMapper(), serviceId);
     }
 
+    @Override
+    public void create(Task task) {
+        String sql =
+                "INSERT INTO TASK (id, task_type_id, service_id, name, expected_value)" +
+                        "VALUES (?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, task.getId(), task.getTaskTypeId(), task.getServiceId(), task.getName(),
+                task.getExpectedValue());
+    }
+
     public class TaskRowMapper implements RowMapper {
 
         @Override
@@ -65,7 +74,7 @@ public class SqliteTaskDao implements TaskDao {
             return new Task(
                     resultSet.getString("id"),
                     resultSet.getString("service_id"),
-                    TaskType.getTaskType(resultSet.getString("task_type_name")),
+                    TaskTypeId.getTaskType(resultSet.getString("task_type_name")),
                     resultSet.getString("expected_value"),
                     resultSet.getString("name")
             );

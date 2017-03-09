@@ -11,7 +11,9 @@ import java.util.List;
 public interface TaskDao {
     List<Task> getAllTasks();
 
-    Task getTaskById(int id);
+    Task getTaskById(String id);
 
     List<Task> getTasksForService(String serviceId);
+
+    void create(Task task);
 }

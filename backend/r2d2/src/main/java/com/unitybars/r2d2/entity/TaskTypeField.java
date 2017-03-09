@@ -6,7 +6,7 @@ package com.unitybars.r2d2.entity;
  */
 public class TaskTypeField {
     private int id;
-    private TaskType taskType;
+    private TaskTypeId taskTypeId;
     private String name;
     private int count;
     private String format;
@@ -14,9 +14,9 @@ public class TaskTypeField {
     public TaskTypeField() {
     }
 
-    public TaskTypeField(int id, TaskType taskType, String name, int count, String format) {
+    public TaskTypeField(int id, TaskTypeId taskTypeId, String name, int count, String format) {
         this.id = id;
-        this.taskType = taskType;
+        this.taskTypeId = taskTypeId;
         this.name = name;
         this.count = count;
         this.format = format;
@@ -54,11 +54,11 @@ public class TaskTypeField {
         this.format = format;
     }
 
-    public TaskType getTaskType() {
-        return taskType;
+    public TaskTypeId getTaskTypeId() {
+        return taskTypeId;
     }
 
-    public void setTaskType(TaskType taskType) {
-        this.taskType = taskType;
+    public void setTaskTypeId(TaskTypeId taskTypeId) {
+        this.taskTypeId = taskTypeId;
     }
 }

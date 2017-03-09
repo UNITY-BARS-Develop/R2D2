@@ -62,7 +62,7 @@ public class JsonTaskExecutor implements TaskExecutor {
     private TaskCheckLog parseResponse(String responseJsonString) throws MissedParameterException {
         logger.info("Server answer:" + responseJsonString);
         JsonObject responseJson = parseJson(responseJsonString);
-        return new TaskCheckLog(0, task.getName(), task.getTaskType().name(), task.getExpectedValue(),
+        return new TaskCheckLog(0, task.getName(), task.getTaskTypeId().name(), task.getExpectedValue(),
                 getResultValue(responseJson), new Date(), getStatus(responseJson), 0);
     }
 
@@ -82,7 +82,7 @@ public class JsonTaskExecutor implements TaskExecutor {
     }
 
     private TaskCheckLog getErrorTaskCheckLog() {
-        new TaskCheckLog(0, task.getName(), task.getTaskType().name(), task.getExpectedValue(),
+        new TaskCheckLog(0, task.getName(), task.getTaskTypeId().name(), task.getExpectedValue(),
                 null, new Date(), CheckStatus.ERROR, 0);
         return null;
     }

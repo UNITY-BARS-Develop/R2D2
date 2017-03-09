@@ -11,5 +11,7 @@ import java.util.List;
 public interface TaskFieldValueDao {
     List<TaskFieldValue> getAllTaskFieldValues();
 
-    List<TaskFieldValue> getTaskFieldValuesForTask(int taskId);
+    List<TaskFieldValue> getTaskFieldValuesForTask(String taskId);
+
+    void create(List<TaskFieldValue> fields, String taskId);
 }

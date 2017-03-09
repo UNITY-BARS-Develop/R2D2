@@ -2,13 +2,18 @@ package com.unitybars.r2d2.service;
 
 import com.unitybars.r2d2.dao.TaskDao;
 import com.unitybars.r2d2.dao.TaskFieldValueDao;
+import com.unitybars.r2d2.entity.Service;
 import com.unitybars.r2d2.entity.Task;
 import com.unitybars.r2d2.entity.TaskFieldValue;
+import com.unitybars.r2d2.entity.TaskTypeField;
+import com.unitybars.r2d2.entity.response.TaskTypeJson;
+import com.unitybars.r2d2.exception.InvalidRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -16,13 +21,14 @@ import static java.util.stream.Collectors.toList;
  * Created by oleg.nestyuk
  * Date: 14-Dec-16.
  */
-
-@Service
+@org.springframework.stereotype.Service
 public class TaskService {
-
+    @Autowired
+    private ServiceService serviceService;
+    @Autowired
+    private TaskTypeService taskTypeService;
     @Autowired
     private TaskDao taskDao;
-
     @Autowired
     private TaskFieldValueDao taskFieldValueDao;
 
@@ -38,7 +44,7 @@ public class TaskService {
         return taskDao.getTasksForService(serviceId);
     }
 
-    public Task getTaskById(int taskId) {
+    public Task getTaskById(String taskId) {
         Task task = taskDao.getTaskById(taskId);
         task.setFields(taskFieldValueDao.getTaskFieldValuesForTask(taskId));
         return task;
@@ -56,5 +62,61 @@ public class TaskService {
         return taskList;
     }
 
+    @Transactional
+    public String add(Task task) throws InvalidRequestBody {
+        if (validateTaskToCreate(task)) {
+            String taskId = UUID.randomUUID().toString();
+            task.setId(taskId);
+            taskDao.create(task);
+            taskFieldValueDao.create(task.getFields(), taskId);
+            return taskId;
+        } else {
+            throw new InvalidRequestBody();
+        }
+    }
 
+    public boolean validateTaskToCreate(Task task) {
+        try {
+            if (task.getServiceId() != null && task.getName() != null && task.getName().length() >
+                    0 && task.getTaskTypeId() != null && task.getExpectedValue() != null) {
+                Service service = serviceService.getServiceById(task.getServiceId());
+                if (service != null) {
+                    TaskTypeJson taskTypeJson = taskTypeService.getTaskType(task.getTaskTypeId());
+                    if (taskTypeJson.getServiceType() == service.getServiceType()) {
+                        return isAllTaskFieldsFilledForTask(task);
+                    }
+                }
+                return false;
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private boolean isAllTaskFieldsFilledForTask(Task task) {
+        Map<Integer, Long> sentTaskFieldTypesCount = task.getFields().stream()
+                .collect(
+                        Collectors.groupingBy(
+                                t -> t.getTaskTypeField().getId(), Collectors.counting()
+                        )
+                );
+
+        List<TaskTypeField> taskTypeFieldList = taskTypeService.getAllTaskTypeFieldsByTaskTypeId(task.getTaskTypeId());
+        for (TaskTypeField taskTypeField : taskTypeFieldList) {
+            int id = taskTypeField.getId();
+            long expectCount = taskTypeField.getCount();
+            if (expectCount == 0) {
+                sentTaskFieldTypesCount.remove(id);
+            } else{
+                Long sentCount = sentTaskFieldTypesCount.get(id);
+                if (sentCount != null && sentCount.equals(expectCount)){
+                    sentTaskFieldTypesCount.remove(id);
+                } else{
+                    return false;
+                }
+            }
+        }
+        return sentTaskFieldTypesCount.size() == 0;
+    }
 }
