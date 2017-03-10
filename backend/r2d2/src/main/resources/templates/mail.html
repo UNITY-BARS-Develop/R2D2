@@ -128,6 +128,7 @@
                         <th>Назва</th>
                         <th>Очікуване значення</th>
                         <th>Отримане значення</th>
+                        <th>Коментар</th>
                         <th class="status">Статус</th>
                     </tr>
                     <#list serviceCheckLog.taskCheckLogs as taskCheckLog>
@@ -136,6 +137,7 @@
                             <td>${taskCheckLog.taskName}</td>
                             <td>${taskCheckLog.expectedValue}</td>
                             <td>${(taskCheckLog.resultValue)!"null"}
+                            <td>${(taskCheckLog.comment)!""}
                             </td>
                             <#if taskCheckLog.checkStatus == "SUCCESS">
                                 <td class="status">${taskCheckLog.checkStatus}</td>

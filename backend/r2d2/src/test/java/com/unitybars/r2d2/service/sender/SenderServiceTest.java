@@ -29,9 +29,9 @@ public class SenderServiceTest extends AbstractTest {
     private CheckLog getCheckLog() {
         List<TaskCheckLog> taskCheckLogList = new ArrayList<>();
         taskCheckLogList.add(new TaskCheckLog(1, "Task 1", "WEB", "200",
-                "200", new Date(), CheckStatus.SUCCESS, 1));
+                "200", new Date(), CheckStatus.SUCCESS, 1, null));
         taskCheckLogList.add(new TaskCheckLog(2, "Task 2", "WEB", "200",
-                "404", new Date(), CheckStatus.ERROR, 1));
+                "404", new Date(), CheckStatus.ERROR, 1, null));
         ServiceCheckLog serviceCheckLog1 = new ServiceCheckLog(1, 1, "Service 1", new Date());
         serviceCheckLog1.setTaskCheckLogs(taskCheckLogList);
         ServiceCheckLog serviceCheckLog2 = new ServiceCheckLog(2, 1, "Service 2", new Date());

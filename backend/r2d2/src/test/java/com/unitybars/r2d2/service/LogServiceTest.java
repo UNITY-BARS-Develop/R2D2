@@ -68,7 +68,7 @@ public class LogServiceTest extends AbstractTest {
     @Test
     public void insertTaskCheckLog() throws Exception {
         TaskCheckLog taskCheckLog = new TaskCheckLog(1, "Task 1", "JSON", "200",
-                "200", new Date(), CheckStatus.ERROR, 1);
+                "200", new Date(), CheckStatus.ERROR, 1, null);
         when(taskCheckLogDao.insertTaskCheckLog(taskCheckLog)).thenReturn(1L);
         assertEquals(1, logService.insertTaskCheckLog(taskCheckLog));
     }
@@ -93,9 +93,9 @@ public class LogServiceTest extends AbstractTest {
         List<TaskCheckLog> taskCheckLogs1 = new ArrayList<>();
         List<TaskCheckLog> taskCheckLogs2 = new ArrayList<>();
         taskCheckLogs1.add(new TaskCheckLog(1, "Task 1. S1", "JSON", "401",
-                "200", new Date(), CheckStatus.ERROR, 1));
+                "200", new Date(), CheckStatus.ERROR, 1, null));
         taskCheckLogs2.add(new TaskCheckLog(2, "Task 1. S2", "JSON", "200",
-                "200", new Date(), CheckStatus.SUCCESS, 2));
+                "200", new Date(), CheckStatus.SUCCESS, 2, null));
 
         when(taskCheckLogDao.getTaskCheckLogsForServiceCheckLog(1)).thenReturn(taskCheckLogs1);
         when(taskCheckLogDao.getTaskCheckLogsForServiceCheckLog(2)).thenReturn(taskCheckLogs2);

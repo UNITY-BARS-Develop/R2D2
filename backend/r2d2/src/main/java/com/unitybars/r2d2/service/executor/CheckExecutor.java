@@ -8,6 +8,7 @@ import com.unitybars.r2d2.service.executor.task.JsonTaskExecutorCreator;
 import com.unitybars.r2d2.service.executor.task.StatusCodeTaskExecutorCreator;
 import com.unitybars.r2d2.service.executor.task.TaskExecutor;
 import com.unitybars.r2d2.service.executor.task.TaskExecutorCreator;
+import com.unitybars.r2d2.utils.Formatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,7 @@ public class CheckExecutor {
     }
 
     private void startCheckForService(Service service) {
-        if (service.getServiceStatus() == ServiceStatus.ACTIVE){
+        if (service.getServiceStatus() == ServiceStatus.ACTIVE) {
             ServiceCheckLog serviceCheckLog = initServiceCheckLog(service);
             List<Task> tasks = taskService.getAllTasksWithFieldsForService(service.getId());
             for (Task task : tasks) {
@@ -84,7 +85,7 @@ public class CheckExecutor {
             }
         } catch (Exception e) {
             logger.error("Error happened when try to check task", e);
-            taskCheckLog = getUnexpectedErrorTaskCheckLog(task, serviceCheckLog);
+            taskCheckLog = getUnexpectedErrorTaskCheckLog(task, serviceCheckLog, e);
         }
         serviceCheckLog.getTaskCheckLogs().add(taskCheckLog);
         taskCheckLog.setServiceCheckLogId(serviceCheckLog.getId());
@@ -96,9 +97,13 @@ public class CheckExecutor {
         logTaskCheckResult(taskCheckLog, service);
     }
 
-    private TaskCheckLog getUnexpectedErrorTaskCheckLog(Task task, ServiceCheckLog serviceCheckLog) {
+    private TaskCheckLog getUnexpectedErrorTaskCheckLog(Task task, ServiceCheckLog serviceCheckLog, Throwable e) {
+        String comment = null;
+        if (e != null) {
+            comment = e.getMessage();
+        }
         return new TaskCheckLog(0, task.getName(), task.getTaskTypeId().name(), task.getExpectedValue(), null,
-                new Date(), CheckStatus.UNEXPECTED_ERROR, serviceCheckLog.getId());
+                new Date(), CheckStatus.UNEXPECTED_ERROR, serviceCheckLog.getId(), comment);
     }
 
     private void logTaskCheckResult(TaskCheckLog taskCheckLog, Service service) {

@@ -6,7 +6,6 @@ import com.unitybars.r2d2.entity.CheckStatus;
 import com.unitybars.r2d2.entity.TaskCheckLog;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.Date;
 import java.util.List;
@@ -30,7 +29,7 @@ public class SqliteTaskCheckLogDaoTest extends AbstractDaoTest {
     @Test
     public void insertTaskCheckLog() throws Exception {
         TaskCheckLog taskCheckLog = new TaskCheckLog(1, "Task 1", "JSON", "200",
-                "200", new Date(), CheckStatus.ERROR, 1);
+                "200", new Date(), CheckStatus.ERROR, 1, null);
         long startId = 7;
         for (int i = 0; i < 10; i++) {
             long id = taskCheckLogDao.insertTaskCheckLog(taskCheckLog);
