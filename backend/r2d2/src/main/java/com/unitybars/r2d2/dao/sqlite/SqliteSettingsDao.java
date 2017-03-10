@@ -131,6 +131,17 @@ public class SqliteSettingsDao implements SettingsDao {
         updateSettings(parameters);
     }
 
+    @Override
+    public void updateCheckSenderParameters(CheckSenderParameters checkSenderParameters) {
+        List<String[]> parameters = new ArrayList<String[]>() {
+            {
+                add(new String[]{"sender.mail.subject", String.valueOf(checkSenderParameters.getMailSubject())});
+                add(new String[]{"sender.mail.send_if_success", String.valueOf(checkSenderParameters.isSendMessagesWhenSuccess())});
+            }
+        };
+        updateSettings(parameters);
+    }
+
     private void updateSettings(List<String[]> parameters) {
         String sql = "UPDATE SETTINGS " +
                 "SET value = ? " +

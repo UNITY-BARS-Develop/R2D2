@@ -49,6 +49,18 @@ public class SettingsService {
         }
     }
 
+    public void setCheckSenderParameters(CheckSenderParameters checkSenderParameters) throws InvalidRequestBodyException {
+        if (isSenderParametersValidForUpdate(checkSenderParameters)) {
+            settingsDao.updateCheckSenderParameters(checkSenderParameters);
+        } else {
+            throw new InvalidRequestBodyException();
+        }
+    }
+
+    private boolean isSenderParametersValidForUpdate(CheckSenderParameters senderParameters) {
+        return senderParameters.getMailSubject() != null && senderParameters.getMailSubject().length() > 0;
+    }
+
     private boolean isCheckScheduleParametersValidForUpdate(CheckScheduleParameters checkScheduleParameters) {
         return checkScheduleParameters.getSchedulePeriod() > 0;
     }

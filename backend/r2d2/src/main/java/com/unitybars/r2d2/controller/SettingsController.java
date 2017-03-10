@@ -1,6 +1,7 @@
 package com.unitybars.r2d2.controller;
 
 import com.unitybars.r2d2.entity.CheckScheduleParameters;
+import com.unitybars.r2d2.entity.CheckSenderParameters;
 import com.unitybars.r2d2.entity.MailSettings;
 import com.unitybars.r2d2.exception.InvalidRequestBodyException;
 import com.unitybars.r2d2.service.SettingsService;
@@ -39,5 +40,16 @@ public class SettingsController {
     public void setSchedulerSettings(@RequestBody CheckScheduleParameters checkScheduleParameters)
             throws InvalidRequestBodyException {
         settingsService.setCheckScheduleParameters(checkScheduleParameters);
+    }
+
+    @RequestMapping(value = "send", method = RequestMethod.GET)
+    public CheckSenderParameters getSenderParameters() {
+        return settingsService.getCheckSenderParameters();
+    }
+
+    @RequestMapping(value = "send", method = RequestMethod.PUT)
+    public void setSenderParameters(@RequestBody CheckSenderParameters senderParameters)
+            throws InvalidRequestBodyException  {
+        settingsService.setCheckSenderParameters(senderParameters);
     }
 }
