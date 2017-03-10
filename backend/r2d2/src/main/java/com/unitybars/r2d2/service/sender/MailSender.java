@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
@@ -19,6 +20,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by oleg.nestyuk
@@ -26,9 +28,6 @@ import java.util.Map;
  */
 @Service
 public class MailSender implements Sender {
-
-    @Autowired
-    private JavaMailSender javaMailSender;
 
     @Autowired
     private SettingsService settingsService;
@@ -47,6 +46,7 @@ public class MailSender implements Sender {
     public void send(String subject, String message, List<Recipient> recipients) {
         if (recipients != null && recipients.size() > 0) {
             try {
+                JavaMailSender javaMailSender = createJavaMailSender();
                 MimeMessage mimeMessage = javaMailSender.createMimeMessage();
                 MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
                 mimeMessage.setContent(message, "text/html; charset=UTF-8");
@@ -75,6 +75,22 @@ public class MailSender implements Sender {
             logger.error("Exception occurred while processing fmtemplate:", e);
             throw new ContentTransformationException();
         }
+    }
+
+    public JavaMailSender createJavaMailSender() {
+        MailSettings mailSettings = settingsService.getMailSettings();
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        Properties mailProperties = new Properties();
+        if (mailSettings.isStartTlsEnable()) {
+            mailProperties.put("mail.smtp.starttls.enable", true);
+        }
+        mailSender.setJavaMailProperties(mailProperties);
+        mailSender.setHost(mailSettings.getHost());
+        mailSender.setPort(Integer.parseInt(mailSettings.getPort()));
+        mailSender.setProtocol("smtp");
+        mailSender.setUsername(mailSettings.getUsername());
+        mailSender.setPassword(mailSettings.getPassword());
+        return mailSender;
     }
 
     private MailSettings getMailSettings() {

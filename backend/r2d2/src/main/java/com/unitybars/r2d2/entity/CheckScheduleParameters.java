@@ -13,6 +13,9 @@ public class CheckScheduleParameters {
         this.enableScheduler = enableScheduler;
     }
 
+    public CheckScheduleParameters() {
+    }
+
     public int getSchedulePeriod() {
         return schedulePeriod;
     }

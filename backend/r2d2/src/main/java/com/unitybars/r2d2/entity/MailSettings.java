@@ -19,6 +19,9 @@ public class MailSettings {
         this.startTlsEnable = startTlsEnable;
     }
 
+    public MailSettings() {
+    }
+
     public String getHost() {
         return host;
     }
