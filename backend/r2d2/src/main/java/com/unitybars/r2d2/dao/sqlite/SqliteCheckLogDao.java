@@ -54,7 +54,9 @@ public class SqliteCheckLogDao implements CheckLogDao {
 
     @Override
     public List<CheckLog> getAllCheckLogs() {
-        String sql = "SELECT * FROM CHECK_LOG";
+        String sql = "SELECT * " +
+                "FROM CHECK_LOG " +
+                "ORDER BY date desc";
         return (List<CheckLog>) jdbcTemplate.query(sql, new CheckLogRowMapper());
     }
 

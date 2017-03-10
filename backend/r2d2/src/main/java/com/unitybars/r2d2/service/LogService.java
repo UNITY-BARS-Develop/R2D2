@@ -7,9 +7,11 @@ import com.unitybars.r2d2.entity.CheckLog;
 import com.unitybars.r2d2.entity.ServiceCheckLog;
 import com.unitybars.r2d2.entity.TaskCheckLog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,7 +55,11 @@ public class LogService {
     }
 
     public List<CheckLog> getAllCheckLogs() {
-        return checkLogDao.getAllCheckLogs();
+        try {
+            return checkLogDao.getAllCheckLogs();
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
     }
 
     public CheckLog getCheckLogById(long checkLogId) {
