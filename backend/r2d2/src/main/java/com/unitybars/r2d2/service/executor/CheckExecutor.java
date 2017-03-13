@@ -26,7 +26,6 @@ import java.util.List;
 @org.springframework.stereotype.Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class CheckExecutor {
-
     @Autowired
     private LogService logService;
     @Autowired
@@ -62,7 +61,7 @@ public class CheckExecutor {
     }
 
     private void startCheckForService(Service service) {
-        if (service.getServiceStatus() == ServiceStatus.ACTIVE){
+        if (service.getServiceStatus() == ServiceStatus.ACTIVE) {
             ServiceCheckLog serviceCheckLog = initServiceCheckLog(service);
             List<Task> tasks = taskService.getAllTasksWithFieldsForService(service.getId());
             for (Task task : tasks) {
@@ -84,7 +83,7 @@ public class CheckExecutor {
             }
         } catch (Exception e) {
             logger.error("Error happened when try to check task", e);
-            taskCheckLog = getUnexpectedErrorTaskCheckLog(task, serviceCheckLog);
+            taskCheckLog = getUnexpectedErrorTaskCheckLog(task, serviceCheckLog, e);
         }
         serviceCheckLog.getTaskCheckLogs().add(taskCheckLog);
         taskCheckLog.setServiceCheckLogId(serviceCheckLog.getId());
@@ -92,13 +91,17 @@ public class CheckExecutor {
     }
 
     private void writeTaskCheckLog(TaskCheckLog taskCheckLog, Service service) {
-        taskCheckLog.setId(logService.insertTaskCheckLog(taskCheckLog));
+        taskCheckLog.setId(logService.addTaskCheckLog(taskCheckLog));
         logTaskCheckResult(taskCheckLog, service);
     }
 
-    private TaskCheckLog getUnexpectedErrorTaskCheckLog(Task task, ServiceCheckLog serviceCheckLog) {
-        return new TaskCheckLog(0, task.getName(), task.getTaskType().name(), task.getExpectedValue(), null,
-                new Date(), CheckStatus.UNEXPECTED_ERROR, serviceCheckLog.getId());
+    private TaskCheckLog getUnexpectedErrorTaskCheckLog(Task task, ServiceCheckLog serviceCheckLog, Throwable e) {
+        String comment = null;
+        if (e != null) {
+            comment = e.getMessage();
+        }
+        return new TaskCheckLog(0, task.getName(), task.getTaskTypeId().name(), task.getExpectedValue(), null,
+                new Date(), CheckStatus.UNEXPECTED_ERROR, serviceCheckLog.getId(), comment);
     }
 
     private void logTaskCheckResult(TaskCheckLog taskCheckLog, Service service) {
@@ -106,7 +109,7 @@ public class CheckExecutor {
     }
 
     private TaskExecutorCreator getTaskExecutorCreator(Task task) throws UnsupportedOperationException {
-        switch (task.getTaskType()) {
+        switch (task.getTaskTypeId()) {
             case JSON:
                 return context.getBean(JsonTaskExecutorCreator.class);
             case StatusCode:
@@ -121,14 +124,14 @@ public class CheckExecutor {
 
     private void initCheckLog() {
         checkLog = new CheckLog(0, new Date());
-        long checkLogId = logService.insertCheckLog(checkLog);
+        long checkLogId = logService.addCheckLog(checkLog);
         checkLog.setId(checkLogId);
         checkLog.setServiceCheckLogs(new ArrayList<>());
     }
 
     private ServiceCheckLog initServiceCheckLog(Service service) {
         ServiceCheckLog serviceCheckLog = new ServiceCheckLog(0, checkLog.getId(), service.getName(), new Date());
-        serviceCheckLog.setId(logService.insertServiceCheckLog(serviceCheckLog));
+        serviceCheckLog.setId(logService.addServiceCheckLog(serviceCheckLog));
         serviceCheckLog.setTaskCheckLogs(new ArrayList<>());
         return serviceCheckLog;
     }

@@ -14,4 +14,10 @@ public interface SettingsDao {
     CheckSenderParameters getCheckSenderParameters();
 
     CheckScheduleParameters getCheckScheduleParameters();
+
+    void updateMailSettings(MailSettings mailSettings);
+
+    void updateScheduleParameters(CheckScheduleParameters checkScheduleParameters);
+
+    void updateCheckSenderParameters(CheckSenderParameters checkSenderParameters);
 }

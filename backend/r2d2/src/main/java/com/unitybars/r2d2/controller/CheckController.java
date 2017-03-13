@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/check")
 public class CheckController {
-
     @Autowired
     private CheckService checkService;
 
+    /**
+     * Start check for all services with status ACTIVE
+     *
+     * @return object with check results
+     */
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public CheckLog getAllServices() {
+    public CheckLog check() {
         return checkService.startCheck();
     }
 }

@@ -9,10 +9,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.mockito.Mockito.when;
 
@@ -20,6 +19,7 @@ import static org.mockito.Mockito.when;
  * Created by oleg.nestyuk
  * Date: 19-Dec-16.
  */
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class MailSenderTest extends AbstractTest {
 
     @Autowired
@@ -41,22 +41,24 @@ public class MailSenderTest extends AbstractTest {
     @Test
     public void send() throws Exception {
         when(settingsDao.getMailSettings()).thenReturn(getMailSettings());
-        mailSender.send("Subject", "Fake message text", new String[]{"r2d2.monitorbot@gmail.com"});
+        List<Recipient> recipients = Collections.singletonList(
+                new Recipient(1, null, "r2d2.monitorbot@gmail.com"));
+        mailSender.send("Subject", "Fake message text", recipients);
     }
 
     @Test
     public void sendToNoOne() throws Exception {
         when(settingsDao.getMailSettings()).thenReturn(getMailSettings());
-        mailSender.send("Subject", "Fake message text", new String[]{});
+        mailSender.send("Subject", "Fake message text", new ArrayList<>());
     }
 
     @Test
     public void transform() throws Exception {
         List<TaskCheckLog> taskCheckLogList = new ArrayList<>();
         taskCheckLogList.add(new TaskCheckLog(1, "Task 1", "WEB", "200",
-                "200", new Date(), CheckStatus.SUCCESS, 1));
+                "200", new Date(), CheckStatus.SUCCESS, 1, null));
         taskCheckLogList.add(new TaskCheckLog(2, "Task 2", "WEB", "200",
-                "404", new Date(), CheckStatus.ERROR, 1));
+                "404", new Date(), CheckStatus.ERROR, 1, null));
         ServiceCheckLog serviceCheckLog1 = new ServiceCheckLog(1, 1, "Service 1", new Date());
         serviceCheckLog1.setTaskCheckLogs(taskCheckLogList);
         ServiceCheckLog serviceCheckLog2 = new ServiceCheckLog(2, 1, "Service 2", new Date());

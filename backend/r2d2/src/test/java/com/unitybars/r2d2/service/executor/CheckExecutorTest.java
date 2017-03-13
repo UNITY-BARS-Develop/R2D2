@@ -2,9 +2,8 @@ package com.unitybars.r2d2.service.executor;
 
 import com.unitybars.r2d2.AbstractTest;
 import com.unitybars.r2d2.entity.Task;
-import com.unitybars.r2d2.entity.TaskType;
+import com.unitybars.r2d2.entity.TaskTypeId;
 import com.unitybars.r2d2.service.executor.task.JsonTaskExecutorCreator;
-import com.unitybars.r2d2.service.executor.task.StatusCodeTaskExecutor;
 import com.unitybars.r2d2.service.executor.task.StatusCodeTaskExecutorCreator;
 import com.unitybars.r2d2.service.executor.task.TaskExecutorCreator;
 import org.junit.Before;
@@ -46,7 +45,7 @@ public class CheckExecutorTest extends AbstractTest {
                 .getDeclaredMethod("getTaskExecutorCreator", Task.class);
         getTaskExecutorCreatorMethod.setAccessible(true);
 
-        Task taskJson = new Task(1, 1, TaskType.JSON, "1", "1");
+        Task taskJson = new Task("1", "1", TaskTypeId.JSON, "1", "1");
         TaskExecutorCreator taskExecutorCreator =
                 (TaskExecutorCreator) getTaskExecutorCreatorMethod.invoke(checkExecutor, taskJson);
         assertNotNull(taskExecutorCreator);
@@ -59,7 +58,7 @@ public class CheckExecutorTest extends AbstractTest {
                 .getDeclaredMethod("getTaskExecutorCreator", Task.class);
         getTaskExecutorCreatorMethod.setAccessible(true);
 
-        Task taskJson = new Task(1, 1, TaskType.StatusCode, "1", "1");
+        Task taskJson = new Task("1", "1", TaskTypeId.StatusCode, "1", "1");
         TaskExecutorCreator taskExecutorCreator =
                 (TaskExecutorCreator) getTaskExecutorCreatorMethod.invoke(checkExecutor, taskJson);
         assertNotNull(taskExecutorCreator);
@@ -72,7 +71,7 @@ public class CheckExecutorTest extends AbstractTest {
                 .getDeclaredMethod("getTaskExecutorCreator", Task.class);
         getTaskExecutorCreatorMethod.setAccessible(true);
 
-        Task taskJson = new Task(1, 1, TaskType.SQLRequest, "1", "1");
+        Task taskJson = new Task("1", "1", TaskTypeId.SQLRequest, "1", "1");
         TaskExecutorCreator taskExecutorCreator =
                 (TaskExecutorCreator) getTaskExecutorCreatorMethod.invoke(checkExecutor, taskJson);
     }

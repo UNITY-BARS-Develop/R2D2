@@ -36,8 +36,8 @@ public class SqliteTaskCheckLogDao implements TaskCheckLogDao {
     @Override
     public long insertTaskCheckLog(TaskCheckLog taskCheckLog) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        String sql = "INSERT INTO TASK_CHECK_LOG (task_name, date, task_type, expected_value, result_value , service_check_log_id, check_status_id) " +
-                "  VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO TASK_CHECK_LOG (task_name, date, task_type, expected_value, result_value , service_check_log_id, check_status_id, \"comment\") " +
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, taskCheckLog.getTaskName());
@@ -47,6 +47,7 @@ public class SqliteTaskCheckLogDao implements TaskCheckLogDao {
             ps.setString(5, taskCheckLog.getResultValue());
             ps.setLong(6, taskCheckLog.getServiceCheckLogId());
             ps.setString(7, taskCheckLog.getCheckStatus().name());
+            ps.setString(8, taskCheckLog.getComment());
             return ps;
         }, keyHolder);
         return keyHolder.getKey().longValue();
@@ -80,7 +81,8 @@ public class SqliteTaskCheckLogDao implements TaskCheckLogDao {
                     resultSet.getString("result_value"),
                     Formatter.convertDatabaseDateTime(resultSet.getString("date")),
                     CheckStatus.getCheckStatus(resultSet.getString("check_status_id")),
-                    resultSet.getLong("service_check_log_id"));
+                    resultSet.getLong("service_check_log_id"),
+                    resultSet.getString("comment"));
         }
     }
 }

@@ -28,8 +28,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class RequestService {
-
-    Logger logger = LoggerFactory.getLogger(RequestService.class);
+    private Logger logger = LoggerFactory.getLogger(RequestService.class);
 
     @Value("${request.connect_timeout}")
     protected int connectedTimeout;

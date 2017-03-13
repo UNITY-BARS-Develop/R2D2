@@ -71,33 +71,33 @@ public class CheckLogTest {
     private List<TaskCheckLog> getSuccessListTaskCheckLog() {
         List<TaskCheckLog> taskCheckLogs = new ArrayList<>();
         taskCheckLogs.add(new TaskCheckLog(1, "Task", "WEB", "1", "1",
-                new Date(), CheckStatus.SUCCESS, 1));
+                new Date(), CheckStatus.SUCCESS, 1, null));
         taskCheckLogs.add(new TaskCheckLog(2, "Task", "WEB", "1", "1",
-                new Date(), CheckStatus.SUCCESS, 1));
+                new Date(), CheckStatus.SUCCESS, 1, null));
         taskCheckLogs.add(new TaskCheckLog(3, "Task", "WEB", "1", "1",
-                new Date(), CheckStatus.SUCCESS, 1));
+                new Date(), CheckStatus.SUCCESS, 1, null));
         return taskCheckLogs;
     }
 
     private List<TaskCheckLog> geErrorsListTaskCheckLog() {
         List<TaskCheckLog> taskCheckLogs = new ArrayList<>();
         taskCheckLogs.add(new TaskCheckLog(1, "Task", "WEB", "1", "1",
-                new Date(), CheckStatus.SUCCESS, 1));
+                new Date(), CheckStatus.SUCCESS, 1, null));
         taskCheckLogs.add(new TaskCheckLog(2, "Task", "WEB", "1", "2",
-                new Date(), CheckStatus.ERROR, 1));
+                new Date(), CheckStatus.ERROR, 1, null));
         taskCheckLogs.add(new TaskCheckLog(3, "Task", "WEB", "1", "1",
-                new Date(), CheckStatus.SUCCESS, 1));
+                new Date(), CheckStatus.SUCCESS, 1, null));
         return taskCheckLogs;
     }
 
     private List<TaskCheckLog> geUnexpectedErrorsListTaskCheckLog() {
         List<TaskCheckLog> taskCheckLogs = new ArrayList<>();
         taskCheckLogs.add(new TaskCheckLog(1, "Task", "WEB", "1", "1",
-                new Date(), CheckStatus.SUCCESS, 1));
+                new Date(), CheckStatus.SUCCESS, 1, null));
         taskCheckLogs.add(new TaskCheckLog(2, "Task", "WEB", "1", null,
-                new Date(), CheckStatus.UNEXPECTED_ERROR, 1));
+                new Date(), CheckStatus.UNEXPECTED_ERROR, 1, null));
         taskCheckLogs.add(new TaskCheckLog(3, "Task", "WEB", "1", "1",
-                new Date(), CheckStatus.SUCCESS, 1));
+                new Date(), CheckStatus.SUCCESS, 1, null));
         return taskCheckLogs;
     }
 

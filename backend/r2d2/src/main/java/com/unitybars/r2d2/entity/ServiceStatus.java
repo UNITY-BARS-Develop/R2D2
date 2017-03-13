@@ -7,7 +7,7 @@ package com.unitybars.r2d2.entity;
 public enum ServiceStatus {
     ACTIVE, PAUSED, DELETED;
 
-    public static ServiceStatus getServiceType(String serviceStatus) {
+    public static ServiceStatus getServiceStatus(String serviceStatus) {
         for (ServiceStatus e : values()) {
             if (e.toString().equalsIgnoreCase(serviceStatus)) {
                 return e;

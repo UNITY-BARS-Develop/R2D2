@@ -6,7 +6,6 @@ package com.unitybars.r2d2.entity;
  */
 public class CheckSenderParameters {
     private String mailSubject;
-    private String[] mailRecipients;
     private boolean sendMessagesWhenSuccess;
 
     public String getMailSubject() {
@@ -15,14 +14,6 @@ public class CheckSenderParameters {
 
     public void setMailSubject(String mailSubject) {
         this.mailSubject = mailSubject;
-    }
-
-    public String[] getMailRecipients() {
-        return mailRecipients;
-    }
-
-    public void setMailRecipients(String[] mailRecipients) {
-        this.mailRecipients = mailRecipients;
     }
 
     public boolean isSendMessagesWhenSuccess() {

@@ -60,15 +60,15 @@ public class ServiceServiceTest extends AbstractTest {
     @Test
     public void getAllServicesWithParameters() {
         List<Service> services = new ArrayList<>();
-        services.add(new Service(1, "Service 1", ServiceType.WEB, ServiceStatus.ACTIVE));
-        services.add(new Service(2, "Service 2", ServiceType.SQL, ServiceStatus.ACTIVE));
-        services.add(new Service(3, "Service 3", ServiceType.WEB, ServiceStatus.ACTIVE));
-        services.add(new Service(4, "Service 4", ServiceType.SQL, ServiceStatus.ACTIVE));
+        services.add(new Service("1", "Service 1", ServiceType.WEB, ServiceStatus.ACTIVE));
+        services.add(new Service("2", "Service 2", ServiceType.SQL, ServiceStatus.ACTIVE));
+        services.add(new Service("3", "Service 3", ServiceType.WEB, ServiceStatus.ACTIVE));
+        services.add(new Service("4", "Service 4", ServiceType.SQL, ServiceStatus.ACTIVE));
         List<ServiceTypeParameterValue> parameters = new ArrayList<>();
-        parameters.add(new ServiceTypeParameterValue(1, 1, ServiceTypeParameter.URL, "http://test1.com"));
-        parameters.add(new ServiceTypeParameterValue(2, 2, ServiceTypeParameter.CONNECTION_STRING, "test connection string1"));
-        parameters.add(new ServiceTypeParameterValue(3, 3, ServiceTypeParameter.URL, "http://test2.com"));
-        parameters.add(new ServiceTypeParameterValue(4, 4, ServiceTypeParameter.CONNECTION_STRING, "test connection string2"));
+        parameters.add(new ServiceTypeParameterValue(1, "1", ServiceTypeParameter.URL, "http://test1.com"));
+        parameters.add(new ServiceTypeParameterValue(2, "2", ServiceTypeParameter.CONNECTION_STRING, "test connection string1"));
+        parameters.add(new ServiceTypeParameterValue(3, "3", ServiceTypeParameter.URL, "http://test2.com"));
+        parameters.add(new ServiceTypeParameterValue(4, "4", ServiceTypeParameter.CONNECTION_STRING, "test connection string2"));
         when(serviceDao.getAllServices()).thenReturn(services);
         when(serviceTypeParameterValueDao.getAllServiceTypeParameterValues()).thenReturn(parameters);
         List<Service> serviceList = service.getAllServicesWithParameters();
@@ -88,16 +88,16 @@ public class ServiceServiceTest extends AbstractTest {
 
     @Test
     public void testGetServiceExist() {
-        Service serviceItem = new Service(1, "Service 1", ServiceType.WEB, ServiceStatus.ACTIVE);
+        Service serviceItem = new Service("1", "Service 1", ServiceType.WEB, ServiceStatus.ACTIVE);
         List<ServiceTypeParameterValue> serviceTypeParameterValues = new ArrayList<>();
         serviceTypeParameterValues.add(
-                new ServiceTypeParameterValue(1, 1, ServiceTypeParameter.URL, "https://test.com"));
-        when(serviceDao.getServiceById(1)).thenReturn(serviceItem);
+                new ServiceTypeParameterValue(1, "1", ServiceTypeParameter.URL, "https://test.com"));
+        when(serviceDao.getServiceById("1")).thenReturn(serviceItem);
         when(serviceTypeParameterValueDao.getServiceTypeParameterValuesForService(serviceItem.getId()))
                 .thenReturn(serviceTypeParameterValues);
-        assertEquals(1, service.getServiceById(1).getId());
-        assertNotNull(service.getServiceById(1).getParameters());
-        assertEquals(1, service.getServiceById(1).getParameters().size());
-        assertEquals("https://test.com", service.getServiceById(1).getParameters().get(ServiceTypeParameter.URL));
+        assertEquals("1", service.getServiceById("1").getId());
+        assertNotNull(service.getServiceById("1").getParameters());
+        assertEquals(1, service.getServiceById("1").getParameters().size());
+        assertEquals("https://test.com", service.getServiceById("1").getParameters().get(ServiceTypeParameter.URL));
     }
 }

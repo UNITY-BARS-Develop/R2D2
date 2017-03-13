@@ -3,7 +3,7 @@ package com.unitybars.r2d2.dao.sqlite;
 import com.unitybars.r2d2.dao.AbstractDaoTest;
 import com.unitybars.r2d2.dao.TaskDao;
 import com.unitybars.r2d2.entity.Task;
-import com.unitybars.r2d2.entity.TaskType;
+import com.unitybars.r2d2.entity.TaskTypeId;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -34,10 +34,10 @@ public class SqliteTaskDaoTest extends AbstractDaoTest {
 
     @Test
     public void getTaskById() throws Exception {
-        Task task = taskDao.getTaskById(1);
+        Task task = taskDao.getTaskById("1");
         assertNotNull(task);
-        assertEquals(1, task.getId());
-        assertEquals(1, task.getServiceId());
+        assertEquals("1", task.getId());
+        assertEquals("1", task.getServiceId());
         assertEquals("Task 1", task.getName());
         assertEquals("200", task.getExpectedValue());
         assertNull(task.getFields());
@@ -45,25 +45,25 @@ public class SqliteTaskDaoTest extends AbstractDaoTest {
 
     @Test(expected = EmptyResultDataAccessException.class)
     public void getNonExistTaskById() throws Exception {
-        taskDao.getTaskById(0);
+        taskDao.getTaskById("0");
     }
 
     @Test
     public void getTasksForService() throws Exception {
-        List<Task> tasks = taskDao.getTasksForService(2);
+        List<Task> tasks = taskDao.getTasksForService("2");
         assertNotNull(tasks);
         assertEquals(2, tasks.size());
         assertEquals("Task Json", tasks.get(0).getName());
-        assertEquals(TaskType.JSON, tasks.get(0).getTaskType());
+        assertEquals(TaskTypeId.JSON, tasks.get(0).getTaskTypeId());
         assertEquals("404", tasks.get(0).getExpectedValue());
         assertEquals("Task StatusCode", tasks.get(1).getName());
-        assertEquals(TaskType.StatusCode, tasks.get(1).getTaskType());
+        assertEquals(TaskTypeId.StatusCode, tasks.get(1).getTaskTypeId());
         assertEquals("200", tasks.get(1).getExpectedValue());
     }
 
     @Test
     public void getNotExistTasksForService() throws Exception {
-        assertNotNull(taskDao.getTasksForService(0));
-        assertEquals(0, taskDao.getTasksForService(0).size());
+        assertNotNull(taskDao.getTasksForService("0"));
+        assertEquals(0, taskDao.getTasksForService("0").size());
     }
 }

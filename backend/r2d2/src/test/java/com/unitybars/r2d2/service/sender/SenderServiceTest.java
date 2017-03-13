@@ -7,6 +7,7 @@ import com.unitybars.r2d2.entity.ServiceCheckLog;
 import com.unitybars.r2d2.entity.TaskCheckLog;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.List;
  * Created by oleg.nestyuk
  * Date: 20-Dec-16.
  */
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class SenderServiceTest extends AbstractTest {
 
     @Autowired
@@ -29,9 +31,9 @@ public class SenderServiceTest extends AbstractTest {
     private CheckLog getCheckLog() {
         List<TaskCheckLog> taskCheckLogList = new ArrayList<>();
         taskCheckLogList.add(new TaskCheckLog(1, "Task 1", "WEB", "200",
-                "200", new Date(), CheckStatus.SUCCESS, 1));
+                "200", new Date(), CheckStatus.SUCCESS, 1, null));
         taskCheckLogList.add(new TaskCheckLog(2, "Task 2", "WEB", "200",
-                "404", new Date(), CheckStatus.ERROR, 1));
+                "404", new Date(), CheckStatus.ERROR, 1, null));
         ServiceCheckLog serviceCheckLog1 = new ServiceCheckLog(1, 1, "Service 1", new Date());
         serviceCheckLog1.setTaskCheckLogs(taskCheckLogList);
         ServiceCheckLog serviceCheckLog2 = new ServiceCheckLog(2, 1, "Service 2", new Date());

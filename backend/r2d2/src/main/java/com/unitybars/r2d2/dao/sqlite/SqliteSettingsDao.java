@@ -6,13 +6,16 @@ import com.unitybars.r2d2.entity.CheckSenderParameters;
 import com.unitybars.r2d2.entity.MailSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ParameterDisposer;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,6 +54,20 @@ public class SqliteSettingsDao implements SettingsDao {
     }
 
     @Override
+    public void updateMailSettings(MailSettings mailSettings) {
+        List<String[]> parameters = new ArrayList<String[]>() {
+            {
+                add(new String[]{"smtp.host", mailSettings.getHost()});
+                add(new String[]{"smtp.username", mailSettings.getUsername()});
+                add(new String[]{"smtp.password", mailSettings.getPassword()});
+                add(new String[]{"smtp.port", mailSettings.getPort()});
+                add(new String[]{"smtp.tlsenable", String.valueOf(mailSettings.isStartTlsEnable())});
+            }
+        };
+        updateSettings(parameters);
+    }
+
+    @Override
     public CheckSenderParameters getCheckSenderParameters() {
         String sql = "SELECT * " +
                 "FROM SETTINGS " +
@@ -66,8 +83,6 @@ public class SqliteSettingsDao implements SettingsDao {
             CheckSenderParameters checkSenderParameters = new CheckSenderParameters();
             ArrayList<String> subjects = parameters.get("sender.mail.subject");
             checkSenderParameters.setMailSubject(subjects != null && subjects.size() > 0 ? subjects.get(0) : null);
-            ArrayList<String> recipients = parameters.get("sender.mail.recipient");
-            checkSenderParameters.setMailRecipients(recipients != null ? recipients.toArray(new String[0]) : null);
             ArrayList<String> sendMessageIfSuccessList = parameters.get("sender.mail.send_if_success");
             if (sendMessageIfSuccessList != null && sendMessageIfSuccessList.size() > 0) {
                 String sendMessageIfSuccess = sendMessageIfSuccessList.get(0);
@@ -83,7 +98,7 @@ public class SqliteSettingsDao implements SettingsDao {
     @Override
     public CheckScheduleParameters getCheckScheduleParameters() {
         String sql = "SELECT * " +
-                "FROM SETTINGS\n" +
+                "FROM SETTINGS " +
                 "WHERE SETTINGS.\"key\" like \"schedule%\"";
         return jdbcTemplate.query(sql, resultSet -> {
             HashMap<String, String> settings = new HashMap<>();
@@ -104,4 +119,46 @@ public class SqliteSettingsDao implements SettingsDao {
             );
         });
     }
+
+    @Override
+    public void updateScheduleParameters(CheckScheduleParameters checkScheduleParameters) {
+        List<String[]> parameters = new ArrayList<String[]>() {
+            {
+                add(new String[]{"schedule.period", String.valueOf(checkScheduleParameters.getSchedulePeriod())});
+                add(new String[]{"schedule.enable", String.valueOf(checkScheduleParameters.isEnableScheduler())});
+            }
+        };
+        updateSettings(parameters);
+    }
+
+    @Override
+    public void updateCheckSenderParameters(CheckSenderParameters checkSenderParameters) {
+        List<String[]> parameters = new ArrayList<String[]>() {
+            {
+                add(new String[]{"sender.mail.subject", String.valueOf(checkSenderParameters.getMailSubject())});
+                add(new String[]{"sender.mail.send_if_success", String.valueOf(checkSenderParameters.isSendMessagesWhenSuccess())});
+            }
+        };
+        updateSettings(parameters);
+    }
+
+    private void updateSettings(List<String[]> parameters) {
+        String sql = "UPDATE SETTINGS " +
+                "SET value = ? " +
+                "WHERE key = ?";
+        jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement preparedStatement, int i) throws SQLException {
+                String[] property = parameters.get(i);
+                preparedStatement.setString(1, property[1]);
+                preparedStatement.setString(2, property[0]);
+            }
+
+            @Override
+            public int getBatchSize() {
+                return parameters.size();
+            }
+        });
+    }
+
 }

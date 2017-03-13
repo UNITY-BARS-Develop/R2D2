@@ -1,8 +1,8 @@
 package com.unitybars.r2d2.service.sender;
 
-import com.unitybars.r2d2.dao.SettingsDao;
 import com.unitybars.r2d2.entity.CheckLog;
 import com.unitybars.r2d2.entity.MailSettings;
+import com.unitybars.r2d2.entity.Recipient;
 import com.unitybars.r2d2.exception.ContentTransformationException;
 import com.unitybars.r2d2.service.SettingsService;
 import freemarker.template.Configuration;
@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
@@ -17,7 +18,9 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by oleg.nestyuk
@@ -25,36 +28,31 @@ import java.util.Map;
  */
 @Service
 public class MailSender implements Sender {
-
-    @Autowired
-    private JavaMailSender javaMailSender;
-
     @Autowired
     private SettingsService settingsService;
-
     @Autowired
     private Configuration freemarkerConfiguration;
 
     private Logger logger = LoggerFactory.getLogger(MailSender.class);
-    private MailSettings mailSettings;
 
     public void setSettingsService(SettingsService settingsService) {
         this.settingsService = settingsService;
     }
 
     @Override
-    public void send(String subject, String message, String[] recipients) {
-        if (recipients != null && recipients.length > 0) {
+    public void send(String subject, String message, List<Recipient> recipients) {
+        if (recipients != null && recipients.size() > 0) {
             try {
+                JavaMailSender javaMailSender = createJavaMailSender();
                 MimeMessage mimeMessage = javaMailSender.createMimeMessage();
                 MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
                 mimeMessage.setContent(message, "text/html; charset=UTF-8");
-                helper.setTo(recipients);
+                helper.setTo(recipients.stream().map(Recipient::getEmail).toArray(String[]::new));
                 helper.setSubject(subject);
-                helper.setFrom(getMailSettings().getUsername());
+                helper.setFrom(settingsService.getMailSettings().getUsername());
                 javaMailSender.send(mimeMessage);
             } catch (MessagingException e) {
-                logger.error("Error happened when trye to send message" + e);
+                logger.error("Error happened when try to send message" + e);
             }
         }
     }
@@ -76,10 +74,19 @@ public class MailSender implements Sender {
         }
     }
 
-    private MailSettings getMailSettings() {
-        if (mailSettings == null) {
-            mailSettings = settingsService.getMailSettings();
+    public JavaMailSender createJavaMailSender() {
+        MailSettings mailSettings = settingsService.getMailSettings();
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        Properties mailProperties = new Properties();
+        if (mailSettings.isStartTlsEnable()) {
+            mailProperties.put("mail.smtp.starttls.enable", true);
         }
-        return mailSettings;
+        mailSender.setJavaMailProperties(mailProperties);
+        mailSender.setHost(mailSettings.getHost());
+        mailSender.setPort(Integer.parseInt(mailSettings.getPort()));
+        mailSender.setProtocol("smtp");
+        mailSender.setUsername(mailSettings.getUsername());
+        mailSender.setPassword(mailSettings.getPassword());
+        return mailSender;
     }
 }

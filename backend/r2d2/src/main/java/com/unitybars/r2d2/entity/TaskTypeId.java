@@ -4,14 +4,14 @@ package com.unitybars.r2d2.entity;
  * Created by oleg.nestyuk
  * Date: 14-Dec-16.
  */
-public enum TaskType {
+public enum TaskTypeId {
     JSON(ServiceType.WEB),
     StatusCode(ServiceType.WEB),
     SQLRequest(ServiceType.SQL);
 
     private ServiceType serviceType;
 
-    TaskType(ServiceType serviceType) {
+    TaskTypeId(ServiceType serviceType) {
         this.serviceType = serviceType;
     }
 
@@ -19,8 +19,8 @@ public enum TaskType {
         return serviceType;
     }
 
-    public static TaskType getTaskType(String taskType) {
-        for (TaskType e : values()) {
+    public static TaskTypeId getTaskType(String taskType) {
+        for (TaskTypeId e : values()) {
             if (e.toString().equalsIgnoreCase(taskType)) {
                 return e;
             }

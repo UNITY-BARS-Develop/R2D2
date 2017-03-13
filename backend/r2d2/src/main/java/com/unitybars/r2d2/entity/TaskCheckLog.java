@@ -15,12 +15,13 @@ public class TaskCheckLog {
     private Date date;
     private CheckStatus checkStatus;
     private long serviceCheckLogId;
+    private String comment;
 
     public TaskCheckLog() {
     }
 
     public TaskCheckLog(long id, String taskName, String taskType, String expectedValue, String resultValue, Date date,
-                        CheckStatus checkStatus, long serviceCheckLogId) {
+                        CheckStatus checkStatus, long serviceCheckLogId, String comment) {
         this.id = id;
         this.taskName = taskName;
         this.taskType = taskType;
@@ -29,6 +30,15 @@ public class TaskCheckLog {
         this.date = date;
         this.checkStatus = checkStatus;
         this.serviceCheckLogId = serviceCheckLogId;
+        this.comment = comment;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTaskName() {
@@ -87,12 +97,12 @@ public class TaskCheckLog {
         this.serviceCheckLogId = serviceCheckLogId;
     }
 
-    public long getId() {
-        return id;
+    public String getComment() {
+        return comment;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     @Override

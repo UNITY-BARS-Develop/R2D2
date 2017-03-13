@@ -55,22 +55,22 @@ public class LogServiceTest extends AbstractTest {
     public void insertCheckLog() throws Exception {
         CheckLog checkLog = new CheckLog(0, new Date());
         when(checkLogDao.insertCheckLog(checkLog)).thenReturn(1L);
-        assertEquals(1, logService.insertCheckLog(checkLog));
+        assertEquals(1, logService.addCheckLog(checkLog));
     }
 
     @Test
     public void insertServiceCheckLog() throws Exception {
         ServiceCheckLog serviceCheckLog = new ServiceCheckLog(0, 1, "Service 1", new Date());
         when(serviceCheckLogDao.insertServiceCheckLog(serviceCheckLog)).thenReturn(1L);
-        assertEquals(1, logService.insertServiceCheckLog(serviceCheckLog));
+        assertEquals(1, logService.addServiceCheckLog(serviceCheckLog));
     }
 
     @Test
     public void insertTaskCheckLog() throws Exception {
         TaskCheckLog taskCheckLog = new TaskCheckLog(1, "Task 1", "JSON", "200",
-                "200", new Date(), CheckStatus.ERROR, 1);
+                "200", new Date(), CheckStatus.ERROR, 1, null);
         when(taskCheckLogDao.insertTaskCheckLog(taskCheckLog)).thenReturn(1L);
-        assertEquals(1, logService.insertTaskCheckLog(taskCheckLog));
+        assertEquals(1, logService.addTaskCheckLog(taskCheckLog));
     }
 
     @Test
@@ -93,9 +93,9 @@ public class LogServiceTest extends AbstractTest {
         List<TaskCheckLog> taskCheckLogs1 = new ArrayList<>();
         List<TaskCheckLog> taskCheckLogs2 = new ArrayList<>();
         taskCheckLogs1.add(new TaskCheckLog(1, "Task 1. S1", "JSON", "401",
-                "200", new Date(), CheckStatus.ERROR, 1));
+                "200", new Date(), CheckStatus.ERROR, 1, null));
         taskCheckLogs2.add(new TaskCheckLog(2, "Task 1. S2", "JSON", "200",
-                "200", new Date(), CheckStatus.SUCCESS, 2));
+                "200", new Date(), CheckStatus.SUCCESS, 2, null));
 
         when(taskCheckLogDao.getTaskCheckLogsForServiceCheckLog(1)).thenReturn(taskCheckLogs1);
         when(taskCheckLogDao.getTaskCheckLogsForServiceCheckLog(2)).thenReturn(taskCheckLogs2);

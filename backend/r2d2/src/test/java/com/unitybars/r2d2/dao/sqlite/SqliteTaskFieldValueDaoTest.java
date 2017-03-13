@@ -3,7 +3,7 @@ package com.unitybars.r2d2.dao.sqlite;
 import com.unitybars.r2d2.dao.AbstractDaoTest;
 import com.unitybars.r2d2.dao.TaskFieldValueDao;
 import com.unitybars.r2d2.entity.TaskFieldValue;
-import com.unitybars.r2d2.entity.TaskType;
+import com.unitybars.r2d2.entity.TaskTypeId;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,19 +35,19 @@ public class SqliteTaskFieldValueDaoTest extends AbstractDaoTest {
 
     @Test
     public void getTaskFieldValuesForTask() {
-        List<TaskFieldValue> taskFieldValues3 = taskFieldValueDao.getTaskFieldValuesForTask(3);
+        List<TaskFieldValue> taskFieldValues3 = taskFieldValueDao.getTaskFieldValuesForTask("3");
         assertNotNull(taskFieldValues3);
         assertEquals(2, taskFieldValues3.size());
         assertNotNull(taskFieldValues3.get(0).getTaskTypeField());
         assertEquals(1, taskFieldValues3.get(0).getId());
-        assertEquals(3, taskFieldValues3.get(0).getTaskId());
+        assertEquals("3", taskFieldValues3.get(0).getTaskId());
         assertEquals("SELECT * FROM tablename", taskFieldValues3.get(0).getValue());
         assertEquals(1, taskFieldValues3.get(0).getTaskTypeField().getId());
         assertEquals("Request", taskFieldValues3.get(0).getTaskTypeField().getName());
-        assertEquals(TaskType.SQLRequest, taskFieldValues3.get(0).getTaskTypeField().getTaskType());
+        assertEquals(TaskTypeId.SQLRequest, taskFieldValues3.get(0).getTaskTypeField().getTaskTypeId());
         assertEquals(1, taskFieldValues3.get(0).getTaskTypeField().getCount());
 
-        List<TaskFieldValue> taskFieldValues4 = taskFieldValueDao.getTaskFieldValuesForTask(4);
+        List<TaskFieldValue> taskFieldValues4 = taskFieldValueDao.getTaskFieldValuesForTask("4");
         assertNotNull(taskFieldValues4);
         assertEquals(1, taskFieldValues4.size());
         assertNotNull(taskFieldValues4.get(0).getTaskTypeField());
