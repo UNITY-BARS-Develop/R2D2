@@ -17,10 +17,9 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-
     @RequestMapping(value = "", method = RequestMethod.POST)
     public TaskIdJson addTask(@RequestBody Task task) throws InvalidRequestBodyException {
-        return new TaskIdJson(taskService.add(task));
+        return new TaskIdJson(taskService.addTask(task));
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
@@ -28,12 +27,10 @@ public class TaskController {
         return new TaskIdJson(taskService.updateTask(task));
     }
 
-
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public Task getTask(@PathVariable("id") String taskId) {
         return taskService.getTaskById(taskId);
     }
-
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void deleteTask(@PathVariable("id") String taskId) {

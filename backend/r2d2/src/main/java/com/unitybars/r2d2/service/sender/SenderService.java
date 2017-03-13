@@ -19,6 +19,7 @@ import java.util.List;
  */
 @Service
 public class SenderService {
+    private Logger logger = LoggerFactory.getLogger(SenderService.class);
 
     @Autowired
     private SettingsDao settingsDao;
@@ -26,8 +27,6 @@ public class SenderService {
     private RecipientDao recipientDao;
 
     private List<Sender> senders;
-
-    private Logger logger = LoggerFactory.getLogger(SenderService.class);
 
     @Autowired
     public void setSenders(List<Sender> senders) {

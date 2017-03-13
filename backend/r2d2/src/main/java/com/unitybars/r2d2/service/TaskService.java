@@ -65,8 +65,8 @@ public class TaskService {
     }
 
     @Transactional
-    public String add(Task task) throws InvalidRequestBodyException {
-        if (validateTaskToCreate(task)) {
+    public String addTask(Task task) throws InvalidRequestBodyException {
+        if (isTaskValidForCreate(task)) {
             String taskId = UUID.randomUUID().toString();
             task.setId(taskId);
             taskDao.create(task);
@@ -79,7 +79,7 @@ public class TaskService {
 
     @Transactional
     public String updateTask(Task task) throws InvalidRequestBodyException {
-        if (validateTaskToUpdate(task)) {
+        if (isTaskValidForUpdate(task)) {
             taskDao.update(task);
             taskFieldValueDao.update(task.getFields(), task.getId());
             return task.getId();
@@ -88,7 +88,11 @@ public class TaskService {
         }
     }
 
-    public boolean validateTaskToCreate(Task task) {
+    public void deleteTaskById(String taskId) {
+        taskDao.delete(taskId);
+    }
+
+    public boolean isTaskValidForCreate(Task task) {
         try {
             if (task.getServiceId() != null && task.getName() != null && task.getName().length() > 0
                     && task.getTaskTypeId() != null && task.getExpectedValue() != null) {
@@ -107,7 +111,7 @@ public class TaskService {
         }
     }
 
-    private boolean validateTaskToUpdate(Task task) {
+    private boolean isTaskValidForUpdate(Task task) {
         return task.getId() != null && task.getName() != null && task.getName().length() > 0
                 && task.getExpectedValue() != null;
     }
@@ -132,9 +136,5 @@ public class TaskService {
             }
         }
         return sentTaskFieldTypesCount.size() == 0;
-    }
-
-    public void deleteTaskById(String taskId) {
-        taskDao.delete(taskId);
     }
 }

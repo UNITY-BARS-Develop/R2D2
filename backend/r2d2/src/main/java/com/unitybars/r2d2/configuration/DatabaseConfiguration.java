@@ -31,5 +31,4 @@ public class DatabaseConfiguration {
         dataSource.setConnectionProperties(config.toProperties());
         return dataSource;
     }
-
 }

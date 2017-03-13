@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/recipients")
 public class RecipientController {
-
     @Autowired
     private RecipientService recipientService;
 

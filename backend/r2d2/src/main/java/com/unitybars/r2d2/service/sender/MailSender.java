@@ -28,10 +28,8 @@ import java.util.Properties;
  */
 @Service
 public class MailSender implements Sender {
-
     @Autowired
     private SettingsService settingsService;
-
     @Autowired
     private Configuration freemarkerConfiguration;
 

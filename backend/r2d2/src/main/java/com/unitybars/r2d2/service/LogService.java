@@ -20,15 +20,12 @@ import java.util.List;
  */
 @Service
 public class LogService {
-
     @Autowired
-    CheckLogDao checkLogDao;
-
+    private CheckLogDao checkLogDao;
     @Autowired
-    ServiceCheckLogDao serviceCheckLogDao;
-
+    private ServiceCheckLogDao serviceCheckLogDao;
     @Autowired
-    TaskCheckLogDao taskCheckLogDao;
+    private TaskCheckLogDao taskCheckLogDao;
 
     public void setCheckLogDao(CheckLogDao checkLogDao) {
         this.checkLogDao = checkLogDao;
@@ -42,15 +39,15 @@ public class LogService {
         this.taskCheckLogDao = taskCheckLogDao;
     }
 
-    public long insertCheckLog(@NotNull CheckLog checkLog) {
+    public long addCheckLog(@NotNull CheckLog checkLog) {
         return checkLogDao.insertCheckLog(checkLog);
     }
 
-    public long insertServiceCheckLog(@NotNull ServiceCheckLog serviceCheckLog) {
+    public long addServiceCheckLog(@NotNull ServiceCheckLog serviceCheckLog) {
         return serviceCheckLogDao.insertServiceCheckLog(serviceCheckLog);
     }
 
-    public long insertTaskCheckLog(@NotNull TaskCheckLog taskCheckLog) {
+    public long addTaskCheckLog(@NotNull TaskCheckLog taskCheckLog) {
         return taskCheckLogDao.insertTaskCheckLog(taskCheckLog);
     }
 

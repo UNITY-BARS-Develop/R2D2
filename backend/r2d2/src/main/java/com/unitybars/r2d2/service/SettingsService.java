@@ -41,7 +41,8 @@ public class SettingsService {
         }
     }
 
-    public void setCheckScheduleParameters(CheckScheduleParameters checkScheduleParameters) throws InvalidRequestBodyException {
+    public void setCheckScheduleParameters(CheckScheduleParameters checkScheduleParameters)
+            throws InvalidRequestBodyException {
         if (isCheckScheduleParametersValidForUpdate(checkScheduleParameters)) {
             settingsDao.updateScheduleParameters(checkScheduleParameters);
         } else {
@@ -49,7 +50,8 @@ public class SettingsService {
         }
     }
 
-    public void setCheckSenderParameters(CheckSenderParameters checkSenderParameters) throws InvalidRequestBodyException {
+    public void setCheckSenderParameters(CheckSenderParameters checkSenderParameters)
+            throws InvalidRequestBodyException {
         if (isSenderParametersValidForUpdate(checkSenderParameters)) {
             settingsDao.updateCheckSenderParameters(checkSenderParameters);
         } else {

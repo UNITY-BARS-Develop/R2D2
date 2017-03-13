@@ -16,7 +16,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/servicetypes")
 public class ServiceTypeController {
-
     @Autowired
     private ServiceTypeService serviceTypeService;
 
@@ -24,5 +23,4 @@ public class ServiceTypeController {
     public List<ServiceTypeWithParametersJson> getAllServiceTypes() {
         return serviceTypeService.getServiceTypesWithParameters();
     }
-
 }

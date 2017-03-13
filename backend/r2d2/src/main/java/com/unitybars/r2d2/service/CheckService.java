@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-
 /**
  * Created by oleg.nestyuk
  * Date: 16-Dec-16.
@@ -20,13 +19,10 @@ public class CheckService {
     private Logger logger = LoggerFactory.getLogger(CheckService.class);
 
     private ApplicationContext context;
-
     @Autowired
     private SenderService senderService;
-
     @Autowired
     private SettingsService settingsService;
-
     @Autowired
     public void setContext(ApplicationContext context) {
         this.context = context;

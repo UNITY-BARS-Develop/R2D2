@@ -17,7 +17,6 @@ import java.util.List;
  */
 @Service
 public class RecipientService {
-
     @Autowired
     private RecipientDao recipientDao;
 

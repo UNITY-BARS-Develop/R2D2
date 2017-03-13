@@ -21,7 +21,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/tasktypes")
 public class TaskTypeController {
-
     @Autowired
     private TaskTypeService taskTypeService;
 
@@ -31,7 +30,7 @@ public class TaskTypeController {
     }
 
     @RequestMapping(value = "{id}/fields", method = RequestMethod.GET)
-    public List<TaskTypeField> getTaskTypesForServiceType(@PathVariable("id") TaskTypeId taskTypeId) {
+    public List<TaskTypeField> getTaskTypeFieldsByTaskType(@PathVariable("id") TaskTypeId taskTypeId) {
         return taskTypeService.getAllTaskTypeFieldsByTaskTypeId(taskTypeId);
     }
 }

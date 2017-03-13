@@ -27,12 +27,12 @@ public class ServiceController {
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ServiceIdJson add(@RequestBody Service service) throws InvalidRequestBodyException {
-        return new ServiceIdJson(serviceService.add(service));
+        return new ServiceIdJson(serviceService.addService(service));
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ServiceIdJson update(@RequestBody Service service) throws InvalidRequestBodyException {
-        return new ServiceIdJson(serviceService.update(service));
+        return new ServiceIdJson(serviceService.updateService(service));
     }
 
     @RequestMapping(value = "/{id}/status", method = RequestMethod.PUT)
@@ -49,7 +49,6 @@ public class ServiceController {
     public Service getServiceById(@PathVariable("id") String id) {
         return serviceService.getServiceById(id);
     }
-
 
     @RequestMapping(value = "/{id}/tasks", method = RequestMethod.GET)
     public List<Task> getTasksForService(@PathVariable("id") String serviceId) {

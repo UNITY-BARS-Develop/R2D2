@@ -60,8 +60,8 @@ public class ServiceService {
     }
 
     @Transactional
-    public String add(Service service) throws InvalidRequestBodyException {
-        if (validateServiceToCreate(service)) {
+    public String addService(Service service) throws InvalidRequestBodyException {
+        if (isServiceValidForCreate(service)) {
             String serviceId = UUID.randomUUID().toString();
             service.setId(serviceId);
             serviceDao.create(service);
@@ -73,8 +73,8 @@ public class ServiceService {
     }
 
     @Transactional
-    public String update(Service service) throws InvalidRequestBodyException {
-        if (validateServiceToUpdate(service)) {
+    public String updateService(Service service) throws InvalidRequestBodyException {
+        if (isServiceValidForUpdate(service)) {
             serviceTypeParameterValueDao.update(service.getParameters(), service.getId());
             serviceDao.update(service);
             return service.getId();
@@ -83,7 +83,15 @@ public class ServiceService {
         }
     }
 
-    private boolean validateServiceToCreate(Service service) {
+    public List<ServiceTypeParameter> getAllServiceTypeParametersByServiceType(ServiceType serviceType) {
+        return serviceTypeParameterDao.getByServiceType(serviceType);
+    }
+
+    public void setServiceStatus(String id, ServiceStatus status) {
+        serviceDao.setServiceStatus(id, status);
+    }
+
+    private boolean isServiceValidForCreate(Service service) {
         if (service != null && service.getServiceStatus() != null && service.getServiceType() != null) {
             List<ServiceTypeParameter> serviceTypeParameters = getAllServiceTypeParametersByServiceType(service.getServiceType());
             for (ServiceTypeParameter serviceTypeParameter : serviceTypeParameters) {
@@ -96,16 +104,8 @@ public class ServiceService {
         return false;
     }
 
-    private boolean validateServiceToUpdate(Service service) {
+    private boolean isServiceValidForUpdate(Service service) {
         return service != null && service.getServiceStatus() != null && service.getId() != null
                 && service.getId().length() > 0;
-    }
-
-    public List<ServiceTypeParameter> getAllServiceTypeParametersByServiceType(ServiceType serviceType) {
-        return serviceTypeParameterDao.getByServiceType(serviceType);
-    }
-
-    public void setServiceStatus(String id, ServiceStatus status) {
-        serviceDao.setServiceStatus(id, status);
     }
 }
