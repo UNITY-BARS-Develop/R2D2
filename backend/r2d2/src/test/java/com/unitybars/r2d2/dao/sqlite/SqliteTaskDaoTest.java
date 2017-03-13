@@ -34,7 +34,7 @@ public class SqliteTaskDaoTest extends AbstractDaoTest {
 
     @Test
     public void getTaskById() throws Exception {
-        Task task = taskDao.getTaskById("");
+        Task task = taskDao.getTaskById("1");
         assertNotNull(task);
         assertEquals("1", task.getId());
         assertEquals("1", task.getServiceId());

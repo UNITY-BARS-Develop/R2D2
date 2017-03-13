@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.*;
 
@@ -18,6 +19,7 @@ import static org.mockito.Mockito.when;
  * Created by oleg.nestyuk
  * Date: 19-Dec-16.
  */
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class MailSenderTest extends AbstractTest {
 
     @Autowired

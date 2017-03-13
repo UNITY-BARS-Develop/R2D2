@@ -7,6 +7,7 @@ import com.unitybars.r2d2.entity.ServiceCheckLog;
 import com.unitybars.r2d2.entity.TaskCheckLog;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.List;
  * Created by oleg.nestyuk
  * Date: 20-Dec-16.
  */
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class SenderServiceTest extends AbstractTest {
 
     @Autowired

@@ -34,7 +34,6 @@ public class MailSender implements Sender {
     private Configuration freemarkerConfiguration;
 
     private Logger logger = LoggerFactory.getLogger(MailSender.class);
-    private MailSettings mailSettings;
 
     public void setSettingsService(SettingsService settingsService) {
         this.settingsService = settingsService;
@@ -50,7 +49,7 @@ public class MailSender implements Sender {
                 mimeMessage.setContent(message, "text/html; charset=UTF-8");
                 helper.setTo(recipients.stream().map(Recipient::getEmail).toArray(String[]::new));
                 helper.setSubject(subject);
-                helper.setFrom(getMailSettings().getUsername());
+                helper.setFrom(settingsService.getMailSettings().getUsername());
                 javaMailSender.send(mimeMessage);
             } catch (MessagingException e) {
                 logger.error("Error happened when try to send message" + e);
@@ -89,12 +88,5 @@ public class MailSender implements Sender {
         mailSender.setUsername(mailSettings.getUsername());
         mailSender.setPassword(mailSettings.getPassword());
         return mailSender;
-    }
-
-    private MailSettings getMailSettings() {
-        if (mailSettings == null) {
-            mailSettings = settingsService.getMailSettings();
-        }
-        return mailSettings;
     }
 }
